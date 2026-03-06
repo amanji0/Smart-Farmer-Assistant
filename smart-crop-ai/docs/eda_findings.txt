@@ -1,0 +1,27 @@
+
+=== Crop Dataset — EDA Findings Summary ===
+
+1. DATASET SHAPE:
+   - Rows: 2200
+   - Columns: 8
+
+2. FEATURES:
+   - N (Nitrogen):       min=0, max=140, mean=50.6
+   - P (Phosphorus):     min=5, max=145, mean=53.4
+   - K (Potassium):      min=5, max=205, mean=48.1
+   - Temperature:        min=8.8, max=43.7, mean=25.6
+   - Humidity:           min=14.3, max=100.0, mean=71.5
+   - pH:                 min=3.5, max=9.9, mean=6.5
+   - Rainfall:           min=20.2, max=298.6, mean=103.5
+
+3. MISSING VALUES: None ✅
+
+4. CLASS DISTRIBUTION:
+   - Total crops: 22
+   - Samples per crop: 100 (perfectly balanced) ✅
+
+5. KEY OBSERVATIONS:
+   - Dataset is clean with no nulls or duplicates
+   - All 22 crops have equal representation
+   - K (Potassium) has the widest range (0-205)
+   - Temperature ranges from 8 to 44 degrees

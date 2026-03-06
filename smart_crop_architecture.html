@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Crop Assistant — System Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0f1e;
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(34,197,94,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,197,94,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .title-block {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeDown 0.6s ease;
+  }
+
+  .title-block h1 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #22c55e;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .title-block p {
+    color: #4ade80;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  .diagram {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── LAYERS ── */
+  .layer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .layer:nth-child(1) { animation-delay: 0.1s; }
+  .layer:nth-child(3) { animation-delay: 0.2s; }
+  .layer:nth-child(5) { animation-delay: 0.3s; }
+  .layer:nth-child(7) { animation-delay: 0.4s; }
+  .layer:nth-child(9) { animation-delay: 0.5s; }
+
+  /* ── BOXES ── */
+  .box {
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .box:hover {
+    transform: translateY(-3px);
+  }
+
+  .box .icon { font-size: 28px; }
+  .box .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .box .sublabel {
+    font-size: 10px;
+    opacity: 0.65;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* FRONTEND */
+  .box.frontend {
+    background: linear-gradient(135deg, #1e3a5f, #1a2f50);
+    border: 1.5px solid #3b82f6;
+    color: #93c5fd;
+    box-shadow: 0 0 20px rgba(59,130,246,0.2);
+    min-width: 180px;
+  }
+  .box.frontend .label { color: #60a5fa; }
+
+  /* BACKEND */
+  .box.backend {
+    background: linear-gradient(135deg, #1a3a2a, #142d20);
+    border: 1.5px solid #22c55e;
+    color: #86efac;
+    box-shadow: 0 0 20px rgba(34,197,94,0.2);
+    min-width: 220px;
+  }
+  .box.backend .label { color: #4ade80; }
+
+  /* DATABASE */
+  .box.database {
+    background: linear-gradient(135deg, #2d1b4e, #231440);
+    border: 1.5px solid #a855f7;
+    color: #d8b4fe;
+    box-shadow: 0 0 20px rgba(168,85,247,0.2);
+    min-width: 180px;
+  }
+  .box.database .label { color: #c084fc; }
+
+  /* ML MODEL */
+  .box.ml {
+    background: linear-gradient(135deg, #3a2010, #2d1a0e);
+    border: 1.5px solid #f97316;
+    color: #fdba74;
+    box-shadow: 0 0 20px rgba(249,115,22,0.2);
+    min-width: 170px;
+  }
+  .box.ml .label { color: #fb923c; }
+
+  /* EXTERNAL API */
+  .box.api {
+    background: linear-gradient(135deg, #1e2a3a, #18222f);
+    border: 1.5px solid #06b6d4;
+    color: #67e8f9;
+    box-shadow: 0 0 20px rgba(6,182,212,0.15);
+    min-width: 150px;
+  }
+  .box.api .label { color: #22d3ee; }
+
+  /* USER */
+  .box.user {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 1.5px solid #818cf8;
+    color: #c7d2fe;
+    box-shadow: 0 0 20px rgba(129,140,248,0.2);
+    min-width: 160px;
+  }
+  .box.user .label { color: #a5b4fc; }
+
+  /* ── ARROWS ── */
+  .arrow-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    height: 44px;
+  }
+
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .arrow-line {
+    width: 2px;
+    height: 22px;
+    position: relative;
+  }
+
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+  }
+
+  .arrow-line.down { background: linear-gradient(to bottom, #4ade80, #22c55e); }
+  .arrow-line.down::after { border-top: 8px solid #22c55e; }
+
+  .arrow-line.both {
+    background: linear-gradient(to bottom, #60a5fa, #3b82f6);
+  }
+  .arrow-line.both::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #60a5fa;
+  }
+  .arrow-line.both::after { border-top: 8px solid #3b82f6; }
+
+  .arrow-label {
+    font-size: 9px;
+    color: #6b7280;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  /* horizontal connector between API boxes */
+  .h-connector {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 700px;
+    justify-content: center;
+  }
+
+  .h-line {
+    height: 2px;
+    flex: 1;
+    background: linear-gradient(to right, transparent, #06b6d4, transparent);
+    opacity: 0.4;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+    padding: 16px 28px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    animation: fadeUp 0.5s 0.6s ease both;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #9ca3af;
+    letter-spacing: 1px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Pulse glow on backend (core) */
+  .box.backend {
+    animation: pulse-green 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 20px rgba(34,197,94,0.2); }
+    50%       { box-shadow: 0 0 35px rgba(34,197,94,0.45); }
+  }
+
+  .layer-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #374151;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .layer-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <h1>🌱 Smart Crop Assistant</h1>
+  <p>System Architecture — Data Flow Diagram</p>
+</div>
+
+<div class="diagram">
+
+  <!-- USER -->
+  <div class="layer-wrap">
+    <div class="layer-label">User Layer</div>
+    <div class="layer">
+      <div class="box user">
+        <span class="icon">👨‍🌾</span>
+        <span class="label">Egyptian Farmer</span>
+        <span class="sublabel">Web Browser / Mobile</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow-row">
+    <div class="arrow">
+      <div class="arrow-line both"></div>
+      <span class="arrow-label">HTTP / HTTPS</span>
+    </div>
+  </div>
+
+  <!-- FRONTEND -->
+  <div class="layer-wrap">
+    <div class="layer-label">Frontend Layer</div>
+    <div class="layer">
+      <div class="box frontend">
+        <span class="icon">⚛️</span>
+        <span class="label">React.js</span>
+        <span class="sublabel">Arabic RTL UI<br>Tailwind CSS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow-row">
+    <div class="arrow">
+      <div class="arrow-line both"></div>
+      <span class="arrow-label">REST API Calls</span>
+    </div>
+  </div>
+
+  <!-- BACKEND -->
+  <div class="layer-wrap">
+    <div class="layer-label">Backend Layer</div>
+    <div class="layer">
+      <div class="box backend">
+        <span class="icon">⚡</span>
+        <span class="label">FastAPI</span>
+        <span class="sublabel">Python · Uvicorn<br>/weather · /soil · /recommend · /disease</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow row: DB + ML side by side -->
+  <div class="arrow-row" style="gap:120px;">
+    <div class="arrow">
+      <div class="arrow-line both"></div>
+      <span class="arrow-label">SQL Queries</span>
+    </div>
+    <div class="arrow">
+      <div class="arrow-line down"></div>
+      <span class="arrow-label">Inference</span>
+    </div>
+    <div class="arrow">
+      <div class="arrow-line down"></div>
+      <span class="arrow-label">Inference</span>
+    </div>
+  </div>
+
+  <!-- DB + ML Models -->
+  <div class="layer-wrap">
+    <div class="layer-label">Data & AI Layer</div>
+    <div class="layer">
+      <div class="box database">
+        <span class="icon">🗄️</span>
+        <span class="label">PostgreSQL</span>
+        <span class="sublabel">cities<br>crop_requests<br>disease_requests</span>
+      </div>
+      <div class="box ml">
+        <span class="icon">🌿</span>
+        <span class="label">Random Forest</span>
+        <span class="sublabel">Crop Recommendation<br>~99% Accuracy</span>
+      </div>
+      <div class="box ml">
+        <span class="icon">🔬</span>
+        <span class="label">MobileNetV2</span>
+        <span class="sublabel">Disease Detection<br>PlantVillage CNN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow-row" style="gap: 80px;">
+    <div class="arrow" style="opacity:0"></div>
+    <div class="arrow">
+      <div class="arrow-line both"></div>
+      <span class="arrow-label">External APIs</span>
+    </div>
+    <div class="arrow" style="opacity:0"></div>
+  </div>
+
+  <!-- EXTERNAL APIs -->
+  <div class="layer-wrap">
+    <div class="layer-label">External APIs Layer</div>
+    <div class="layer">
+      <div class="box api">
+        <span class="icon">🌤️</span>
+        <span class="label">Open-Meteo</span>
+        <span class="sublabel">Temperature<br>Humidity · Rainfall</span>
+      </div>
+      <div class="box api">
+        <span class="icon">🌍</span>
+        <span class="label">SoilGrids</span>
+        <span class="sublabel">N · P · K · pH<br>Soil Properties</span>
+      </div>
+      <div class="box api">
+        <span class="icon">🛰️</span>
+        <span class="label">NASA POWER</span>
+        <span class="sublabel">Solar Radiation<br>Climate Data</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Frontend (React)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Backend (FastAPI)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div> Database (PostgreSQL)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div> ML Models</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#06b6d4"></div> External APIs</div>
+</div>
+
+</body>
+</html>
