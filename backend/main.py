@@ -98,9 +98,9 @@ async def recommend(data: dict):
             "confidence": round(float(probs[prediction[0]]) * 100, 2),
             "alternatives": list(top_crops[1:]),
             "tips": [
-                f"إحصائيات {city}: درجة الحرارة {weather['temp']}°C والرطوبة {weather['humidity']}%",
-                f"المحصول المناسب لهذه الظروف هو {crop_name}.",
-                "تأكد من فحص جودة التربة قبل البدء في الزراعة."
+                f"Statistics for {city}: Temperature {weather['temp']}°C and Humidity {weather['humidity']}%",
+                f"The most suitable crop for these conditions is {crop_name}.",
+                "Make sure to test soil quality before starting cultivation."
             ]
         }
     except Exception as e:
@@ -109,23 +109,22 @@ async def recommend(data: dict):
 @app.post("/disease-predict")
 async def disease_predict(image: UploadFile = File(...), plant_type: str = Form(...)):
     # Since the .h5 model is missing, we implement a logical mock
-    # In a real scenario, we would load the TensorFlow model here
     
     diseases = {
-        "طماطم": "تبقع الأوراق السبتوري (Septoria Leaf Spot)",
-        "بطاطس": "اللفحة المتأخرة (Late Blight)",
-        "ذرة": "صدأ الذرة (Common Rust)",
-        "قمح": "صدأ الساق (Stem Rust)",
-        "أرز": "لفحة الأرز (Rice Blast)"
+        "Tomato": "Septoria Leaf Spot",
+        "Potato": "Late Blight",
+        "Corn": "Common Rust",
+        "Wheat": "Stem Rust",
+        "Rice": "Rice Blast"
     }
     
-    selected_disease = diseases.get(plant_type, "مرض غير معروف")
+    selected_disease = diseases.get(plant_type, "Unknown Disease")
     
     return {
         "disease": selected_disease,
         "confidence": 92.5,
-        "treatment": "استخدم مبيد فطري مناسب وقم بإزالة الأوراق المصابة.",
-        "prevention": "تجنب الري العلوي وحافظ على مسافات كافية بين النباتات للتهوية."
+        "treatment": "Use an appropriate fungicide and remove infected leaves.",
+        "prevention": "Avoid overhead watering and maintain enough spacing between plants for ventilation."
     }
 
 if __name__ == "__main__":

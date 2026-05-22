@@ -4,18 +4,18 @@ import { X } from 'lucide-react';
 export default function SmartCropAssistant() {
   const [activeModal, setActiveModal] = useState(null);
   const [cropCity, setCropCity] = useState('');
-  const [cropSeason, setCropSeason] = useState('شتاء');
+  const [cropSeason, setCropSeason] = useState('Winter');
   const [cropResult, setCropResult] = useState(null);
   const [loadingCrop, setLoadingCrop] = useState(false);
   
   const [diseaseImage, setDiseaseImage] = useState(null);
-  const [diseasePlant, setDiseasePlant] = useState('طماطم');
+  const [diseasePlant, setDiseasePlant] = useState('Tomato');
   const [diseaseResult, setDiseaseResult] = useState(null);
   const [loadingDisease, setLoadingDisease] = useState(false);
 
   const handleCropRecommendation = async () => {
     if (!cropCity.trim()) {
-      alert('اكتب اسم المدينة!');
+      alert('Enter city name!');
       return;
     }
     
@@ -41,40 +41,15 @@ export default function SmartCropAssistant() {
       
       // Map English crop names to Arabic if possible, or just use the data
       // For now, we'll use the data from the backend
-      const arabicCrops = {
-        'rice': 'الأرز',
-        'maize': 'الذرة',
-        'chickpea': 'الحمص',
-        'kidneybeans': 'الفاصوليا',
-        'pigeonpeas': 'البسلة الهندية',
-        'mothbeans': 'لوبيا الحصى',
-        'mungbean': 'الماش',
-        'blackgram': 'العدس الأسود',
-        'lentil': 'العدس',
-        'pomegranate': 'الرمان',
-        'banana': 'الموز',
-        'mango': 'المانجو',
-        'grapes': 'العنب',
-        'watermelon': 'البطيخ',
-        'muskmelon': 'الكنتالوب',
-        'apple': 'التفاح',
-        'orange': 'البرتقال',
-        'papaya': 'البابايا',
-        'coconut': 'جوز الهند',
-        'cotton': 'القطن',
-        'jute': 'الجوت',
-        'coffee': 'القهوة'
-      };
-
       setCropResult({
-        crop: arabicCrops[data.recommended_crop] || data.recommended_crop,
+        crop: data.recommended_crop,
         confidence: data.confidence,
-        alternatives: data.alternatives.map(alt => arabicCrops[alt] || alt),
+        alternatives: data.alternatives,
         tips: data.tips
       });
     } catch (error) {
       console.error('Error fetching recommendation:', error);
-      alert('حدث خطأ في الاتصال بالسيرفر!');
+      alert('Connection error with server!');
     } finally {
       setLoadingCrop(false);
     }
@@ -82,7 +57,7 @@ export default function SmartCropAssistant() {
 
   const handleDiseaseAnalysis = async () => {
     if (!diseaseImage) {
-      alert('اختر صورة أولاً!');
+      alert('Select an image first!');
       return;
     }
     
@@ -113,7 +88,7 @@ export default function SmartCropAssistant() {
       });
     } catch (error) {
       console.error('Error analyzing disease:', error);
-      alert('حدث خطأ أثناء تحليل الصورة!');
+      alert('Error analyzing the image!');
     } finally {
       setLoadingDisease(false);
     }
@@ -131,17 +106,17 @@ export default function SmartCropAssistant() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-emerald-50" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-emerald-50" dir="ltr">
       <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-emerald-100">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-full text-sm font-medium transition">
-            تحميل التطبيق
+            Download App
           </button>
           <div className="hidden md:flex gap-6 text-sm text-emerald-800">
-            <a href="#" className="hover:text-emerald-600">تواصل</a>
-            <a href="#" className="hover:text-emerald-600">التقنيات</a>
-            <a href="#" className="hover:text-emerald-600">عن التطبيق</a>
-            <a href="#" className="hover:text-emerald-600">الرئيسية</a>
+            <a href="#" className="hover:text-emerald-600">Contact</a>
+            <a href="#" className="hover:text-emerald-600">Technologies</a>
+            <a href="#" className="hover:text-emerald-600">About</a>
+            <a href="#" className="hover:text-emerald-600">Home</a>
           </div>
           <div className="flex items-center gap-2">
             <span className="font-bold text-emerald-900">Smart Crop Disease Detection System</span>
@@ -154,7 +129,7 @@ export default function SmartCropAssistant() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-block bg-emerald-600/10 rounded-full px-4 py-2 mb-6">
-              <span className="text-emerald-700 text-sm font-semibold">🤖 تقنية ذكاء اصطناعي متقدمة</span>
+              <span className="text-emerald-700 text-sm font-semibold">🤖 Advanced AI Technology</span>
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold text-emerald-900 mb-6 leading-tight">
@@ -162,7 +137,7 @@ export default function SmartCropAssistant() {
             </h1>
             
             <p className="text-lg text-emerald-700 mb-8 leading-relaxed">
-              احصل على توصيات زراعية دقيقة وتشخيص سريع لأمراض النبات باستخدام الذكاء الاصطناعي. مصمم خصيصاً للمزارعين المصريين.
+              Get accurate farming recommendations and fast detection of plant diseases using Artificial Intelligence. Designed for modern global agriculture.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -171,7 +146,7 @@ export default function SmartCropAssistant() {
                 className="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition transform hover:scale-105 shadow-lg"
               >
                 <span className="text-2xl">🌾</span>
-                توصيات المحاصيل
+                Crop Recommendations
               </button>
               
               <button
@@ -179,22 +154,22 @@ export default function SmartCropAssistant() {
                 className="flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-emerald-600 border-2 border-emerald-600 px-8 py-4 rounded-xl font-semibold text-lg transition transform hover:scale-105 shadow-lg"
               >
                 <span className="text-2xl">🔬</span>
-                تشخيص الأمراض
+                Disease Diagnosis
               </button>
             </div>
 
             <div className="mt-12 grid grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-emerald-600">99%</div>
-                <div className="text-xs text-emerald-700 mt-1">دقة التوصيات</div>
+                <div className="text-xs text-emerald-700 mt-1">Accuracy</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-emerald-600">54K</div>
-                <div className="text-xs text-emerald-700 mt-1">صور تدريب</div>
+                <div className="text-xs text-emerald-700 mt-1">Training Photos</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-emerald-600">38</div>
-                <div className="text-xs text-emerald-700 mt-1">نوع مرض</div>
+                <div className="text-xs text-emerald-700 mt-1">Disease Types</div>
               </div>
             </div>
           </div>
@@ -212,13 +187,13 @@ export default function SmartCropAssistant() {
 
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-emerald-900 text-center mb-12">كيف يعمل؟</h2>
+          <h2 className="text-4xl font-bold text-emerald-900 text-center mb-12">How it works?</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { num: '1', title: 'اختر المدينة', desc: 'أدخل اسم مدينتك أو موقعك الجغرافي' },
-              { num: '2', title: 'الذكاء الاصطناعي يحلل', desc: 'معالجة البيانات المناخية والتربة' },
-              { num: '3', title: 'احصل على التوصية', desc: 'نتيجة دقيقة في ثواني معدودة' }
+              { num: '1', title: 'Select City', desc: 'Enter your city or geographical location' },
+              { num: '2', title: 'AI Analysis', desc: 'Process climate and soil data' },
+              { num: '3', title: 'Get Recommendation', desc: 'Accurate result in seconds' }
             ].map((step, i) => (
               <div key={i} className="bg-gradient-to-br from-emerald-50 to-white p-8 rounded-2xl border border-emerald-100 hover:shadow-lg transition">
                 <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">
@@ -247,7 +222,7 @@ export default function SmartCropAssistant() {
                 <X size={24} />
               </button>
               <h2 className="text-2xl font-bold text-emerald-900 flex items-center gap-2">
-                <span>🌾</span> توصيات المحاصيل
+                <span>🌾</span> Crop Recommendations
               </h2>
             </div>
 
@@ -255,20 +230,20 @@ export default function SmartCropAssistant() {
               {!cropResult ? (
                 <>
                   <div>
-                    <label className="block text-sm font-semibold text-emerald-900 mb-2">المدينة</label>
+                    <label className="block text-sm font-semibold text-emerald-900 mb-2">City</label>
                     <input
                       type="text"
-                      placeholder="مثلاً: القاهرة"
+                      placeholder="e.g. Cairo"
                       value={cropCity}
                       onChange={(e) => setCropCity(e.target.value)}
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 text-right"
+                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-emerald-900 mb-2">الموسم</label>
+                    <label className="block text-sm font-semibold text-emerald-900 mb-2">Season</label>
                     <div className="flex gap-2">
-                      {['شتاء', 'ربيع', 'صيف', 'خريف'].map((season) => (
+                      {['Winter', 'Spring', 'Summer', 'Autumn'].map((season) => (
                         <button
                           key={season}
                           onClick={() => setCropSeason(season)}
@@ -289,7 +264,7 @@ export default function SmartCropAssistant() {
                     disabled={loadingCrop}
                     className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition"
                   >
-                    {loadingCrop ? '⏳ جاري البحث...' : 'احصل على التوصية'}
+                    {loadingCrop ? '⏳ Searching...' : 'Get Recommendation'}
                   </button>
                 </>
               ) : (
@@ -306,7 +281,7 @@ export default function SmartCropAssistant() {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-emerald-900 mb-2">🥕 محاصيل بديلة</h4>
+                    <h4 className="font-semibold text-emerald-900 mb-2">🥕 Alternative Crops</h4>
                     <div className="flex flex-wrap gap-2">
                       {cropResult.alternatives.map((alt) => (
                         <span key={alt} className="bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-sm font-medium">
@@ -317,7 +292,7 @@ export default function SmartCropAssistant() {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-emerald-900 mb-2">💡 نصائح الزراعة</h4>
+                    <h4 className="font-semibold text-emerald-900 mb-2">💡 Farming Tips</h4>
                     <ul className="space-y-1 text-sm text-emerald-700">
                       {cropResult.tips.map((tip, i) => (
                         <li key={i} className="flex items-start gap-2">
@@ -335,7 +310,7 @@ export default function SmartCropAssistant() {
                     }}
                     className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-3 rounded-lg transition"
                   >
-                    جرب مدينة أخرى
+                    Try another city
                   </button>
                 </div>
               )}
@@ -359,7 +334,7 @@ export default function SmartCropAssistant() {
                 <X size={24} />
               </button>
               <h2 className="text-2xl font-bold text-emerald-900 flex items-center gap-2">
-                <span>🔬</span> تشخيص الأمراض
+                <span>🔬</span> Disease Diagnosis
               </h2>
             </div>
 
@@ -371,14 +346,14 @@ export default function SmartCropAssistant() {
                       {diseaseImage ? (
                         <div className="space-y-3">
                           <img src={diseaseImage} alt="Leaf" className="w-32 h-32 object-cover rounded-lg mx-auto" />
-                          <p className="text-sm text-emerald-700 font-medium">صورة تم تحميلها ✓</p>
+                          <p className="text-sm text-emerald-700 font-medium">Uploaded Image ✓</p>
                         </div>
                       ) : (
                         <div className="space-y-3">
                           <div className="text-4xl">📤</div>
                           <div>
-                            <p className="font-semibold text-emerald-900">اسحب الصورة أو اضغط</p>
-                            <p className="text-sm text-emerald-600">لاختيار صورة من جهازك</p>
+                            <p className="font-semibold text-emerald-900">Drag image or click</p>
+                            <p className="text-sm text-emerald-600">to choose from your device</p>
                           </div>
                         </div>
                       )}
@@ -392,17 +367,17 @@ export default function SmartCropAssistant() {
                   </label>
 
                   <div>
-                    <label className="block text-sm font-semibold text-emerald-900 mb-2">نوع النبات</label>
+                    <label className="block text-sm font-semibold text-emerald-900 mb-2">Plant Type</label>
                     <select
                       value={diseasePlant}
                       onChange={(e) => setDiseasePlant(e.target.value)}
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 text-right"
+                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
                     >
-                      <option>طماطم</option>
-                      <option>بطاطس</option>
-                      <option>ذرة</option>
-                      <option>قمح</option>
-                      <option>أرز</option>
+                      <option>Tomato</option>
+                      <option>Potato</option>
+                      <option>Corn</option>
+                      <option>Wheat</option>
+                      <option>Rice</option>
                     </select>
                   </div>
 
@@ -411,7 +386,7 @@ export default function SmartCropAssistant() {
                     disabled={loadingDisease || !diseaseImage}
                     className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition"
                   >
-                    {loadingDisease ? '⏳ جاري التحليل...' : 'حلل الورقة'}
+                    {loadingDisease ? '⏳ Analyzing...' : 'Analyze Leaf'}
                   </button>
                 </>
               ) : (
@@ -429,14 +404,14 @@ export default function SmartCropAssistant() {
 
                   <div>
                     <h4 className="font-semibold text-emerald-900 mb-2 flex items-center gap-2">
-                      <span>💊</span> العلاج
+                      <span>💊</span> Treatment
                     </h4>
                     <p className="text-emerald-700 bg-green-50 p-3 rounded-lg">{diseaseResult.treatment}</p>
                   </div>
 
                   <div>
                     <h4 className="font-semibold text-emerald-900 mb-2 flex items-center gap-2">
-                      <span>🛡️</span> الوقاية
+                      <span>🛡️</span> Prevention
                     </h4>
                     <p className="text-emerald-700 bg-blue-50 p-3 rounded-lg">{diseaseResult.prevention}</p>
                   </div>
@@ -448,7 +423,7 @@ export default function SmartCropAssistant() {
                     }}
                     className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-3 rounded-lg transition"
                   >
-                    حلل صورة أخرى
+                    Analyze another image
                   </button>
                 </div>
               )}
