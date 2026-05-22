@@ -1,12 +1,10 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&pause=1000&color=22C55E&center=true&vCenter=true&width=600&lines=AI-Powered+Agricultural+Assistant+for+Egyptian+Farmers" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&pause=1000&color=22C55E&center=true&vCenter=true&width=600&lines=AI-Powered+Agricultural+Assistant+for+Farmers" alt="Typing SVG" />
 
 # 🌱 Smart Crop Disease Detection System
 
-**مساعد المحاصيل الذكي**
-
-*An intelligent web application empowering Egyptian farmers with AI-driven crop recommendations and plant disease detection*
+*An intelligent web application empowering farmers with AI-driven crop recommendations and plant disease detection*
 
 <br/>
 
@@ -14,15 +12,14 @@
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://tensorflow.org)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org)
 
 <br/>
 
-> 🎓 **Graduation Project** · Delta University · 2025–26
-> 
+> 🎓 **Graduation Project** · 2025–26
+>
 > 👩‍🏫 **Supervisor:** Dr. Eman Salah Salem Ahmed
-> 
-> 👑 **Team Leader:** Ashraf Al-Asil (ID: 4241391) · **Team Size:** 9 Members
+>
+> 👑 **Project Lead:** Aman Ji
 
 ---
 
@@ -38,15 +35,15 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
+- [Language Support](#-language-support)
 - [External APIs](#-external-apis)
-- [Team](#-team)
 - [Roadmap](#-roadmap)
 
 ---
 
 ## 🌍 Overview
 
-**Smart Crop Assistant** is a full-stack AI-powered web application built to address a critical challenge facing Egyptian agriculture: the lack of data-driven decision support tools accessible to everyday farmers.
+**Smart Crop Disease Detection System** is a full-stack AI-powered web application built to help farmers make data-driven agricultural decisions.
 
 The system combines **real-time environmental data** (weather + soil) with **machine learning models** to deliver two core services:
 
@@ -55,7 +52,7 @@ The system combines **real-time environmental data** (weather + soil) with **mac
 | 🌾 Crop Recommendation | Suggests the optimal crop based on soil & weather | Random Forest | **99.55%** |
 | 🔬 Disease Detection | Identifies plant diseases from leaf images | MobileNetV2 CNN | **95%+ target** |
 
-The entire interface is built with **full Arabic RTL support**, making it genuinely accessible to Egyptian farmers.
+The interface supports **English and Hindi** — making it accessible to farmers across India and beyond.
 
 ---
 
@@ -66,10 +63,9 @@ The entire interface is built with **full Arabic RTL support**, making it genuin
 │  🤖  AI Crop Recommendation     →  22 crop classes, 99.55% acc  │
 │  🔬  Plant Disease Detection    →  38 disease classes (CNN)     │
 │  🌤️  Real-time Weather Data     →  Open-Meteo API integration   │
-│  🌍  Soil Property Analysis     →  SoilGrids API (N,P,K,pH)    │
-│  🛰️  Climate Intelligence       →  NASA POWER API               │
-│  🌐  Full Arabic RTL UI         →  react-i18next + AR/EN toggle │
-│  📱  Progressive Web App        →  Installable on mobile        │
+│  🌍  Soil Property Analysis     →  N, P, K, pH inputs           │
+│  🌐  English & Hindi UI         →  Language toggle built-in     │
+│  📱  Mobile Responsive          →  Works on all devices         │
 │  ⚡  High-Performance Backend   →  FastAPI + async Python        │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -80,36 +76,33 @@ The entire interface is built with **full Arabic RTL support**, making it genuin
 
 ```
                     ┌─────────────────────┐
-                    │   👨‍🌾 Egyptian Farmer  │
+                    │      👨‍🌾 Farmer       │
                     │  (Browser / Mobile)  │
                     └──────────┬──────────┘
                                │ HTTPS
                     ┌──────────▼──────────┐
                     │   ⚛️  React.js        │
-                    │   Arabic RTL UI      │
+                    │  English / Hindi UI  │
                     │   Tailwind CSS       │
-                    │   PWA Ready          │
                     └──────────┬──────────┘
                                │ REST API
                     ┌──────────▼──────────┐
                     │   ⚡ FastAPI           │
                     │   Python Backend     │
-                    │   Uvicorn Server     │
-                    └────┬──────┬─────┬───┘
-                         │      │     │
-            ┌────────────▼┐  ┌──▼──┐ ┌▼──────────────┐
-            │ 🗄️ PostgreSQL│  │🌿 RF│ │ 🔬 MobileNetV2 │
-            │  cities      │  │ 99% │ │  PlantVillage  │
-            │  crop_req    │  │ acc │ │  38 classes    │
-            │  disease_req │  └──┬──┘ └───────┬────────┘
-            └─────────────┘     │             │
-                                └──────┬──────┘
-                         ┌────────────▼────────────┐
-                         │     External APIs        │
-                         │  🌤️ Open-Meteo           │
-                         │  🌍 SoilGrids            │
-                         │  🛰️ NASA POWER            │
-                         └─────────────────────────┘
+                    │   Gunicorn + Uvicorn │
+                    └────┬──────┬─────────┘
+                         │      │
+             ┌───────────▼─┐  ┌─▼──────────────┐
+             │ 🌿 Random    │  │ 🔬 MobileNetV2  │
+             │   Forest     │  │  PlantVillage   │
+             │  99.55% acc  │  │  38 classes     │
+             └─────────────┘  └────────┬────────┘
+                                       │
+                          ┌────────────▼────────────┐
+                          │     External APIs        │
+                          │  🌤️ Open-Meteo           │
+                          │  🌍 Geocoding API        │
+                          └─────────────────────────┘
 ```
 
 ---
@@ -124,8 +117,6 @@ The entire interface is built with **full Arabic RTL support**, making it genuin
 | **Dataset** | Kaggle — Crop Recommendation Dataset |
 | **Total Samples** | 2,200 (perfectly balanced — 100 per crop) |
 | **Train / Test Split** | 80% / 20% (stratified) |
-| **Training Samples** | 1,760 |
-| **Test Samples** | 440 |
 | **Accuracy** | 🏆 **99.55%** |
 | **F1 Score** | 🏆 **99.55%** |
 | **Output Classes** | 22 crops |
@@ -159,7 +150,7 @@ The entire interface is built with **full Arabic RTL support**, making it genuin
 | **Head Layers** | GlobalAveragePooling2D → Dense(128) → Dense(38, softmax) |
 | **Optimizer** | Adam + categorical_crossentropy |
 | **Target Accuracy** | 95%+ |
-| **Saved Model** | `ai-ml/models/disease_model.h5` *(Week 2)* |
+| **Saved Model** | `ai-ml/models/disease_model.h5` |
 
 **Data Augmentation:** `rotation_range=20` · `horizontal_flip=True` · `zoom_range=0.2` · `rescale=1./255`
 
@@ -175,47 +166,18 @@ Production:   https://smart-crop-api.onrender.com
 
 ### Endpoints
 
-#### 🌤️ GET `/weather`
+#### 🌾 POST `/recommend`
 ```json
 // Request
-GET /weather?city=Cairo
+POST /recommend
+Body: { "city": "Delhi", "N": 90, "P": 42, "K": 43, "ph": 6.5 }
 
 // Response
 {
-  "city": "Cairo",
-  "temperature": 28.5,
-  "humidity": 45.2,
-  "rainfall": 0.0
-}
-```
-
-#### 🌍 GET `/soil`
-```json
-// Request
-GET /soil?lat=30.0&lon=31.2
-
-// Response
-{
-  "N": 45,
-  "P": 38,
-  "K": 52,
-  "ph": 7.2
-}
-```
-
-#### 🌾 POST `/full-recommend`
-```json
-// Request
-POST /full-recommend?city=Cairo
-
-// Response
-{
-  "city": "Cairo",
-  "weather": { "temperature": 28.5, "humidity": 45.2, "rainfall": 0.0 },
-  "soil": { "N": 45, "P": 38, "K": 52, "ph": 7.2 },
-  "recommended_crop": "wheat",
-  "confidence": 0.94,
-  "top3_alternatives": ["maize", "cotton"]
+  "recommended_crop": "Rice",
+  "confidence": 87.5,
+  "alternatives": ["Maize", "Cotton"],
+  "tips": ["Live weather for Delhi: 32°C, 78% humidity", "..."]
 }
 ```
 
@@ -223,18 +185,20 @@ POST /full-recommend?city=Cairo
 ```json
 // Request — multipart/form-data
 POST /disease-predict
-Body: { image: <file>, plant_type: "tomato" }
+Body: { image: <file>, plant_type: "Tomato" }
 
 // Response
 {
-  "disease": "Tomato Early Blight",
-  "confidence": 0.92,
-  "cause": "Fungal infection (Alternaria solani)",
-  "symptoms": "Dark brown spots with yellow rings on leaves",
-  "treatment": "Apply copper-based fungicide",
-  "prevention": "Crop rotation, proper spacing",
-  "severity": "Moderate"
+  "disease": "Septoria Leaf Spot",
+  "confidence": 92.5,
+  "treatment": "Apply copper-based fungicide...",
+  "prevention": "Avoid overhead watering..."
 }
+```
+
+#### ❤️ GET `/health`
+```json
+{ "status": "ok", "models_loaded": true }
 ```
 
 ---
@@ -246,17 +210,15 @@ Body: { image: <file>, plant_type: "tomato" }
 |-----------|---------|
 | React.js 18 | UI framework |
 | Tailwind CSS | Styling |
-| react-i18next | Arabic/English i18n |
 | Vite | Build tool |
-| PWA | Mobile installability |
+| i18n (EN/HI) | Language support |
 
 ### Backend
 | Technology | Purpose |
 |-----------|---------|
 | FastAPI | REST API framework |
-| Uvicorn | ASGI server |
+| Gunicorn + Uvicorn | Production ASGI server |
 | Pydantic | Data validation |
-| python-dotenv | Environment config |
 | requests | External API calls |
 
 ### AI / ML
@@ -265,13 +227,11 @@ Body: { image: <file>, plant_type: "tomato" }
 | scikit-learn | Random Forest, preprocessing |
 | TensorFlow / Keras | CNN disease detection |
 | pandas | Data manipulation |
-| matplotlib / seaborn | Visualization |
 | pickle | Model serialization |
 
 ### Infrastructure
 | Technology | Purpose |
 |-----------|---------|
-| PostgreSQL | Primary database |
 | GitHub | Version control |
 | Vercel | Frontend deployment |
 | Render | Backend deployment |
@@ -283,51 +243,28 @@ Body: { image: <file>, plant_type: "tomato" }
 ```
 smart-crop-assistant/
 │
-├── 📁 frontend/                    # React.js Application
-│   ├── App.jsx                     # Main app component
+├── 📁 Frontend/                    # React.js Application
+│   ├── src/
+│   │   ├── App.jsx                 # Main app component (EN/HI support)
+│   │   ├── index.css               # Design system
+│   │   └── main.jsx                # React DOM render
 │   ├── index.html                  # HTML entry point
-│   ├── main.jsx                    # React DOM render
-│   ├── App.css                     # Global styles
 │   ├── package.json                # Dependencies
-│   ├── vite.config.js              # Vite configuration
-│   ├── tailwind.config.js          # Tailwind configuration
-│   └── eslint.config.js            # ESLint rules
+│   └── vite.config.js              # Vite configuration
 │
 ├── 📁 backend/                     # FastAPI Application
 │   ├── main.py                     # App entry point
-│   ├── config.py                   # Configuration
-│   ├── requirements.txt            # Python dependencies
-│   ├── 📁 routers/
-│   │   ├── weather.py              # GET /weather
-│   │   ├── soil.py                 # GET /soil
-│   │   ├── recommend.py            # POST /recommend
-│   │   └── disease.py              # POST /disease-predict
-│   ├── 📁 models/                  # SQLAlchemy models
-│   └── 📁 schemas/                 # Pydantic schemas
+│   └── requirements.txt            # Python dependencies
 │
 ├── 📁 ai-ml/                       # AI / ML Components
-│   ├── 📁 notebooks/               # Jupyter Notebooks
-│   │   └── crop_ai_week1.ipynb     # EDA + Training notebook
 │   ├── 📁 models/                  # Trained model artifacts
 │   │   ├── crop_model.pkl          # Random Forest (99.55% acc)
 │   │   ├── scaler.pkl              # StandardScaler
 │   │   └── label_encoder.pkl       # LabelEncoder (22 crops)
-│   ├── 📁 data/                    # Datasets
-│   │   └── Crop_recommendation.csv # 2,200 samples
-│   └── 📁 reports/                 # EDA outputs
-│       ├── confusion_matrix.png
-│       ├── feature_distributions.png
-│       ├── crop_distribution.png
-│       └── eda_findings.txt
+│   └── 📁 data/
+│       └── Crop_recommendation.csv # 2,200 samples
 │
-├── 📁 docs/                        # Documentation
-│   ├── architecture.png            # System architecture diagram
-│   ├── PROGRESS.md                 # Weekly progress log
-│   └── user-flow.html              # User flow diagram
-│
-├── 📁 tests/                       # Test Suite
-│   └── test_models.py              # Model unit tests (Week 5)
-│
+├── render.yaml                     # Render deployment config
 ├── .gitignore
 └── README.md
 ```
@@ -339,16 +276,14 @@ smart-crop-assistant/
 ### Prerequisites
 
 ```bash
-# Check versions
 python --version    # 3.10+
 node --version      # 18+
-psql --version      # PostgreSQL 14+
 ```
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/AshrafAlAsil/smart-crop-assistant.git
+git clone https://github.com/amanji0/Smart-Crop-Disease-Detection-System.git
 cd smart-crop-assistant
 ```
 
@@ -356,20 +291,11 @@ cd smart-crop-assistant
 
 ```bash
 cd backend
-
-# Create virtual environment
 python -m venv venv
 source venv/bin/activate      # Linux/Mac
 venv\Scripts\activate         # Windows
 
-# Install dependencies
 pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Edit .env with your database credentials
-
-# Start server
 uvicorn main:app --reload
 # API running at: http://localhost:8000
 # Docs at: http://localhost:8000/docs
@@ -378,8 +304,7 @@ uvicorn main:app --reload
 ### 3. Frontend Setup
 
 ```bash
-cd frontend
-
+cd Frontend
 npm install
 npm run dev
 # App running at: http://localhost:5173
@@ -388,65 +313,55 @@ npm run dev
 ### 4. Environment Variables
 
 ```env
-# backend/.env
-DATABASE_URL=postgresql://user:password@localhost/smart_crop_db
-SECRET_KEY=your-secret-key
-ALLOWED_ORIGINS=http://localhost:5173
+# Frontend/.env
+VITE_API_URL=https://your-backend.onrender.com
 ```
 
 ---
 
-## 🌐 External APIs
+## 🌐 Language Support
+
+The application supports **English** and **Hindi** — selectable directly in the interface.
+
+| Language | Code | Status |
+|----------|------|--------|
+| English | `en` | ✅ Default |
+| Hindi | `hi` | ✅ Supported |
+
+To switch language, use the **EN / HI** toggle button in the navigation bar.
+
+---
+
+## 🌍 External APIs
 
 | API | Used For | Auth Required | Cost |
 |-----|----------|---------------|------|
 | [Open-Meteo](https://open-meteo.com) | Temperature, humidity, rainfall | ❌ No | Free |
-| [SoilGrids](https://soilgrids.org) | N, P, K, pH data | ❌ No | Free |
-| [NASA POWER](https://power.larc.nasa.gov) | Solar radiation, climate | ❌ No | Free |
+| [Open-Meteo Geocoding](https://open-meteo.com/en/docs/geocoding-api) | City → coordinates | ❌ No | Free |
 
 All external APIs are **free and require no API keys**.
-
----
-
-## 👥 Team
-
-| # | Role | Responsibilities |
-|---|------|-----------------|
-| 1 | 👑 **Team Leader** | Architecture · Backend APIs · Project Management · GitHub |
-| 2–3 | 🎨 **Frontend (×2)** | React UI · Arabic RTL · PWA · Animations |
-| 4 | ✏️ **UI/UX Designer** | Figma · User Flow · Wireframes · Arabic Design |
-| 5–6 | 🤖 **AI/ML (×2)** | Model Training · Data Pipeline · API Integration |
-| 7 | 🔧 **Backend** | FastAPI · Database · Integrations |
-| 8–9 | 🧪 **Testing & Docs (×2)** | QA · Unit Tests · Documentation · Reports |
-
-> **Academic Year:** 2025–26 · **University:** Delta University
-> **Supervisor:** Dr. Eman Salah Salem Ahmed
 
 ---
 
 ## 🗓️ Roadmap
 
 ```
-Week 1  ████████████████████  ✅ Foundation (Repo, Architecture, AI Setup)
-Week 2  ██████████░░░░░░░░░░  🔄 Core AI + Backend
-Week 3  ░░░░░░░░░░░░░░░░░░░░  📋 Full Integration
-Week 4  ░░░░░░░░░░░░░░░░░░░░  📋 Frontend + Arabic RTL
-Week 5  ░░░░░░░░░░░░░░░░░░░░  📋 Testing
-Week 6  ░░░░░░░░░░░░░░░░░░░░  📋 Deployment
-Week 7  ░░░░░░░░░░░░░░░░░░░░  📋 Polish + Docs
-Week 8  ░░░░░░░░░░░░░░░░░░░░  📋 Final Submission
+Phase 1  ████████████████████  ✅ Foundation (Repo, Architecture, AI Setup)
+Phase 2  ████████████████████  ✅ Core AI + Backend APIs
+Phase 3  ████████████████████  ✅ Full Integration + UI Redesign
+Phase 4  ██████████░░░░░░░░░░  🔄 Hindi Language Support
+Phase 5  ░░░░░░░░░░░░░░░░░░░░  📋 Mobile PWA
+Phase 6  ░░░░░░░░░░░░░░░░░░░░  📋 Advanced Disease Model
 ```
 
 ---
 
 <div align="center">
 
----
+**🌱 Smart Crop Disease Detection System**
 
-**🌱 Smart Crop Assistant**
+*Empowering Farmers with Artificial Intelligence*
 
-*Empowering Egyptian Farmers with Artificial Intelligence*
-
-*Delta University · Faculty of Computer Science · 2025–26*
+*Built with Machine Learning & Open Weather Data · 2025–26*
 
 </div>

@@ -1,8 +1,212 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronRight, Leaf, Microscope, CloudSun, FlaskConical, CalendarDays, Droplets, Github, Twitter, Linkedin } from 'lucide-react';
+import { X, ChevronRight, Github, Twitter, Linkedin } from 'lucide-react';
 
 // ─── API URL ───
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+// ─── Translations (English / Hindi only) ───
+const T = {
+  en: {
+    // Navbar
+    navFeatures: 'Features',
+    navHow: 'How It Works',
+    navStats: 'Statistics',
+    navCta: 'Get Started',
+    brandSub: 'AI Agriculture Platform',
+    // Hero
+    heroBadge: 'AI-Powered Agriculture Technology',
+    heroTitle1: 'Smart Crop',
+    heroTitle2: 'Disease Detection',
+    heroTitle3: 'System',
+    heroDesc: 'Harness machine learning to get instant crop recommendations, detect plant diseases from leaf images, and access real-time agricultural intelligence.',
+    heroCta1: 'Crop Recommendations',
+    heroCta2: 'Detect Disease',
+    heroAccuracy: 'Accuracy',
+    heroCrops: 'Crops',
+    heroWeather: 'Weather',
+    heroStatus: 'AI Model Online — Ready for analysis',
+    // Stats
+    statsLabel: 'Platform Metrics',
+    statsHeadline: 'Trusted by farmers',
+    statsWorldwide: 'worldwide',
+    stat1: 'Model Accuracy', stat1sub: 'Validated on field data',
+    stat2: 'Training Images', stat2sub: 'Diverse crop dataset',
+    stat3: 'Crop Varieties', stat3sub: 'Major food crops',
+    stat4: 'Disease Types', stat4sub: 'Identified & classified',
+    // Features
+    featLabel: 'Powerful Tools',
+    featHeadline: 'Everything a Farmer',
+    featHeadline2: 'Needs',
+    featDesc: 'Six AI-powered tools designed to help farmers make data-driven decisions and maximize crop yield.',
+    openTool: 'Open Tool',
+    // Feature titles
+    f1title: 'Crop Recommendation', f1desc: 'AI suggests the best crop based on real-time weather & soil parameters for your region.',
+    f2title: 'Disease Detection', f2desc: 'Upload a leaf photo and get instant AI-powered diagnosis with treatment protocols.',
+    f3title: 'Weather Forecast', f3desc: 'Real-time weather conditions and 5-day precision forecast for any city worldwide.',
+    f4title: 'Fertilizer Guide', f4desc: 'Precise NPK recommendations and split-dose application schedules for your crop.',
+    f5title: 'Crop Calendar', f5desc: 'Seasonal planting guide with optimal crop schedules across all four growing seasons.',
+    f6title: 'Irrigation Guide', f6desc: 'Water management strategies and optimal irrigation methods to maximize yield.',
+    // How it works
+    howLabel: 'Simple Process',
+    howHeadline: 'How It',
+    howHeadline2: 'Works',
+    howDesc: 'Three steps to AI-powered agricultural intelligence.',
+    step1title: 'Input Your Data', step1desc: 'Enter your city, upload a leaf photo, or select your crop — our system handles the rest.',
+    step2title: 'AI Processing', step2desc: 'Our ML model analyzes real-time weather, soil conditions, and image patterns via trained neural networks.',
+    step3title: 'Get Instant Results', step3desc: 'Receive accurate recommendations, disease diagnosis, fertilizer plans, and actionable farming advice.',
+    // Modals — Crop
+    cropModalTitle: '🌾 Crop Recommendation',
+    cropModalSub: 'AI-powered analysis based on live weather & soil data',
+    cropCityLabel: 'Your City / Location',
+    cropCityPlaceholder: 'e.g. Delhi, Mumbai, Bangalore...',
+    cropHint: '💡 Our AI will fetch live weather data for your city and cross-reference it with soil parameters to recommend the optimal crop.',
+    cropBtn: 'Get AI Recommendation',
+    cropLoading: 'Analyzing Climate Data...',
+    cropResultLabel: 'Recommended Crop',
+    cropAltLabel: 'Alternative Crops',
+    cropTipsLabel: 'Farming Intelligence',
+    cropRetry: 'Analyze Another City',
+    // Modals — Disease
+    diseaseModalTitle: '🔬 Disease Detection',
+    diseaseModalSub: 'Upload a leaf image for instant AI-powered diagnosis',
+    diseaseUploadPrompt: 'Click to upload leaf photo',
+    diseaseUploadSub: 'JPG, PNG — Max 10MB',
+    diseaseImageReady: '✅ Image Ready for Analysis',
+    diseasePlantLabel: 'Plant Type',
+    diseaseBtn: 'Analyze Disease',
+    diseaseLoading: 'Analyzing Leaf...',
+    diseaseDetectedLabel: 'Detected Disease',
+    diseaseTreatLabel: '💊 Treatment Protocol',
+    diseasePrevLabel: '🛡️ Prevention Strategy',
+    diseaseRetry: 'Analyze Another Image',
+    // Modals — Weather
+    weatherModalTitle: '🌤️ Weather Forecast',
+    weatherModalSub: 'Real-time weather data and 5-day agricultural forecast',
+    weatherCityLabel: 'City Name',
+    weatherCityPlaceholder: 'e.g. Delhi, Mumbai, New York...',
+    weatherBtn: 'Get Weather Data',
+    weatherLoading: 'Fetching Weather...',
+    weatherForecastLabel: '5-Day Forecast',
+    weatherRetry: 'Check Another City',
+    // Modals — Fertilizer
+    fertModalTitle: '🧪 Fertilizer Guide',
+    fertModalSub: 'Precision NPK recommendations for maximum crop yield',
+    fertCropLabel: 'Select Crop',
+    fertBtn: 'Get NPK Recommendation',
+    fertPlanFor: 'Fertilizer Plan for',
+    fertTipLabel: '💡 Application Tip',
+    fertRetry: 'Check Another Crop',
+    // Modals — Calendar
+    calModalTitle: '📅 Crop Calendar',
+    calModalSub: 'Optimal planting guide for all four growing seasons',
+    // Modals — Irrigation
+    irrModalTitle: '💧 Irrigation Guide',
+    irrModalSub: 'Water management strategies for maximum crop yield',
+    irrWaterNeed: 'Water Need',
+    // Footer
+    footerTagline: '© 2025 — Built with ML & Open Weather Data',
+  },
+  hi: {
+    // Navbar
+    navFeatures: 'विशेषताएं',
+    navHow: 'यह कैसे काम करता है',
+    navStats: 'आंकड़े',
+    navCta: 'शुरू करें',
+    brandSub: 'AI कृषि प्लेटफॉर्म',
+    // Hero
+    heroBadge: 'AI-संचालित कृषि तकनीक',
+    heroTitle1: 'स्मार्ट फसल',
+    heroTitle2: 'रोग पहचान',
+    heroTitle3: 'प्रणाली',
+    heroDesc: 'मशीन लर्निंग का उपयोग करके तत्काल फसल अनुशंसाएं पाएं, पत्ती की छवियों से पौधों की बीमारियों का पता लगाएं, और वास्तविक समय की कृषि जानकारी प्राप्त करें।',
+    heroCta1: 'फसल अनुशंसाएं',
+    heroCta2: 'रोग पहचानें',
+    heroAccuracy: 'सटीकता',
+    heroCrops: 'फसलें',
+    heroWeather: 'मौसम',
+    heroStatus: 'AI मॉडल ऑनलाइन — विश्लेषण के लिए तैयार',
+    // Stats
+    statsLabel: 'प्लेटफॉर्म आंकड़े',
+    statsHeadline: 'किसानों द्वारा विश्वसनीय',
+    statsWorldwide: 'विश्वभर में',
+    stat1: 'मॉडल सटीकता', stat1sub: 'फील्ड डेटा पर सत्यापित',
+    stat2: 'प्रशिक्षण छवियां', stat2sub: 'विविध फसल डेटासेट',
+    stat3: 'फसल किस्में', stat3sub: 'प्रमुख खाद्य फसलें',
+    stat4: 'रोग प्रकार', stat4sub: 'पहचाने और वर्गीकृत',
+    // Features
+    featLabel: 'शक्तिशाली उपकरण',
+    featHeadline: 'किसान की हर',
+    featHeadline2: 'जरूरत',
+    featDesc: 'छह AI-संचालित उपकरण जो किसानों को डेटा-आधारित निर्णय लेने और फसल उत्पादन बढ़ाने में मदद करते हैं।',
+    openTool: 'उपकरण खोलें',
+    // Feature titles
+    f1title: 'फसल अनुशंसा', f1desc: 'AI आपके क्षेत्र के लिए वास्तविक समय के मौसम और मिट्टी के आधार पर सर्वश्रेष्ठ फसल का सुझाव देता है।',
+    f2title: 'रोग पहचान', f2desc: 'पत्ती की फोटो अपलोड करें और उपचार प्रोटोकॉल के साथ तत्काल AI निदान पाएं।',
+    f3title: 'मौसम पूर्वानुमान', f3desc: 'दुनिया के किसी भी शहर के लिए वास्तविक समय की मौसम स्थितियां और 5-दिन का पूर्वानुमान।',
+    f4title: 'उर्वरक गाइड', f4desc: 'आपकी फसल के लिए सटीक NPK अनुशंसाएं और विभाजित खुराक अनुसूची।',
+    f5title: 'फसल कैलेंडर', f5desc: 'चारों मौसमों में इष्टतम फसल अनुसूची के साथ मौसमी रोपण गाइड।',
+    f6title: 'सिंचाई गाइड', f6desc: 'अधिकतम उपज के लिए जल प्रबंधन रणनीतियां और इष्टतम सिंचाई विधियां।',
+    // How it works
+    howLabel: 'सरल प्रक्रिया',
+    howHeadline: 'यह कैसे',
+    howHeadline2: 'काम करता है',
+    howDesc: 'AI-संचालित कृषि बुद्धिमत्ता के लिए तीन चरण।',
+    step1title: 'अपना डेटा दर्ज करें', step1desc: 'अपना शहर दर्ज करें, पत्ती की फोटो अपलोड करें, या अपनी फसल चुनें — हमारा सिस्टम बाकी सब संभाल लेगा।',
+    step2title: 'AI प्रसंस्करण', step2desc: 'हमारा ML मॉडल प्रशिक्षित न्यूरल नेटवर्क के माध्यम से वास्तविक समय के मौसम, मिट्टी की स्थितियों और छवि पैटर्न का विश्लेषण करता है।',
+    step3title: 'तत्काल परिणाम पाएं', step3desc: 'सटीक अनुशंसाएं, रोग निदान, उर्वरक योजनाएं और कार्रवाई योग्य खेती सलाह प्राप्त करें।',
+    // Modals — Crop
+    cropModalTitle: '🌾 फसल अनुशंसा',
+    cropModalSub: 'लाइव मौसम और मिट्टी डेटा के आधार पर AI-संचालित विश्लेषण',
+    cropCityLabel: 'आपका शहर / स्थान',
+    cropCityPlaceholder: 'जैसे दिल्ली, मुंबई, बैंगलोर...',
+    cropHint: '💡 हमारा AI आपके शहर का लाइव मौसम डेटा प्राप्त करेगा और इष्टतम फसल की सिफारिश के लिए मिट्टी के मापदंडों से मिलान करेगा।',
+    cropBtn: 'AI अनुशंसा प्राप्त करें',
+    cropLoading: 'जलवायु डेटा विश्लेषण...',
+    cropResultLabel: 'अनुशंसित फसल',
+    cropAltLabel: 'वैकल्पिक फसलें',
+    cropTipsLabel: 'खेती की जानकारी',
+    cropRetry: 'दूसरे शहर का विश्लेषण करें',
+    // Modals — Disease
+    diseaseModalTitle: '🔬 रोग पहचान',
+    diseaseModalSub: 'तत्काल AI निदान के लिए पत्ती की छवि अपलोड करें',
+    diseaseUploadPrompt: 'पत्ती की फोटो अपलोड करने के लिए क्लिक करें',
+    diseaseUploadSub: 'JPG, PNG — अधिकतम 10MB',
+    diseaseImageReady: '✅ छवि विश्लेषण के लिए तैयार',
+    diseasePlantLabel: 'पौधे का प्रकार',
+    diseaseBtn: 'रोग का विश्लेषण करें',
+    diseaseLoading: 'पत्ती का विश्लेषण...',
+    diseaseDetectedLabel: 'पहचाना गया रोग',
+    diseaseTreatLabel: '💊 उपचार प्रोटोकॉल',
+    diseasePrevLabel: '🛡️ रोकथाम रणनीति',
+    diseaseRetry: 'दूसरी छवि का विश्लेषण करें',
+    // Modals — Weather
+    weatherModalTitle: '🌤️ मौसम पूर्वानुमान',
+    weatherModalSub: 'वास्तविक समय मौसम डेटा और 5-दिन का कृषि पूर्वानुमान',
+    weatherCityLabel: 'शहर का नाम',
+    weatherCityPlaceholder: 'जैसे दिल्ली, मुंबई, न्यू यॉर्क...',
+    weatherBtn: 'मौसम डेटा प्राप्त करें',
+    weatherLoading: 'मौसम प्राप्त किया जा रहा है...',
+    weatherForecastLabel: '5-दिन का पूर्वानुमान',
+    weatherRetry: 'दूसरे शहर की जांच करें',
+    // Modals — Fertilizer
+    fertModalTitle: '🧪 उर्वरक गाइड',
+    fertModalSub: 'अधिकतम फसल उत्पादन के लिए सटीक NPK अनुशंसाएं',
+    fertCropLabel: 'फसल चुनें',
+    fertBtn: 'NPK अनुशंसा प्राप्त करें',
+    fertPlanFor: 'के लिए उर्वरक योजना',
+    fertTipLabel: '💡 उपयोग टिप',
+    fertRetry: 'दूसरी फसल जांचें',
+    // Modals — Calendar
+    calModalTitle: '📅 फसल कैलेंडर',
+    calModalSub: 'चारों मौसमों के लिए इष्टतम रोपण गाइड',
+    // Modals — Irrigation
+    irrModalTitle: '💧 सिंचाई गाइड',
+    irrModalSub: 'अधिकतम फसल उत्पादन के लिए जल प्रबंधन रणनीतियां',
+    irrWaterNeed: 'पानी की जरूरत',
+    // Footer
+    footerTagline: '© 2025 — ML और ओपन वेदर डेटा के साथ निर्मित',
+  },
+};
 
 // ─── Utility: base64 → Blob (fixes "Error analyzing the image!") ───
 function base64ToBlob(dataUrl) {
@@ -27,6 +231,10 @@ function weatherIcon(code) {
 export default function SmartCropApp() {
   const [activeModal, setActiveModal] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState('en'); // 'en' | 'hi'
+
+  // Shorthand translation accessor
+  const t = T[lang];
 
   // Crop Recommendation
   const [cropCity, setCropCity] = useState('');
@@ -213,48 +421,42 @@ export default function SmartCropApp() {
 
   const features = [
     {
-      id: 'crop', icon: '🌾', title: 'Crop Recommendation',
-      desc: 'AI suggests the best crop based on real-time weather & soil parameters for your region.',
+      id: 'crop', icon: '🌾', title: t.f1title, desc: t.f1desc,
       gradient: 'linear-gradient(135deg, #059669, #047857)',
       glow: 'rgba(5, 150, 105, 0.3)',
     },
     {
-      id: 'disease', icon: '🔬', title: 'Disease Detection',
-      desc: 'Upload a leaf photo and get instant AI-powered diagnosis with treatment protocols.',
+      id: 'disease', icon: '🔬', title: t.f2title, desc: t.f2desc,
       gradient: 'linear-gradient(135deg, #ef4444, #dc2626)',
       glow: 'rgba(239, 68, 68, 0.3)',
     },
     {
-      id: 'weather', icon: '🌤️', title: 'Weather Forecast',
-      desc: 'Real-time weather conditions and 5-day precision forecast for any city worldwide.',
+      id: 'weather', icon: '🌤️', title: t.f3title, desc: t.f3desc,
       gradient: 'linear-gradient(135deg, #0ea5e9, #2563eb)',
       glow: 'rgba(14, 165, 233, 0.3)',
     },
     {
-      id: 'fertilizer', icon: '🧪', title: 'Fertilizer Guide',
-      desc: 'Precise NPK recommendations and split-dose application schedules for your crop.',
+      id: 'fertilizer', icon: '🧪', title: t.f4title, desc: t.f4desc,
       gradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
       glow: 'rgba(245, 158, 11, 0.3)',
     },
     {
-      id: 'calendar', icon: '📅', title: 'Crop Calendar',
-      desc: 'Seasonal planting guide with optimal crop schedules across all four growing seasons.',
+      id: 'calendar', icon: '📅', title: t.f5title, desc: t.f5desc,
       gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
       glow: 'rgba(139, 92, 246, 0.3)',
     },
     {
-      id: 'irrigation', icon: '💧', title: 'Irrigation Guide',
-      desc: 'Water management strategies and optimal irrigation methods to maximize yield.',
+      id: 'irrigation', icon: '💧', title: t.f6title, desc: t.f6desc,
       gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)',
       glow: 'rgba(6, 182, 212, 0.3)',
     },
   ];
 
   const stats = [
-    { val: '99%', label: 'Model Accuracy', icon: '🎯', sub: 'Validated on field data' },
-    { val: '54K+', label: 'Training Images', icon: '🖼️', sub: 'Diverse crop dataset' },
-    { val: '22', label: 'Crop Varieties', icon: '🌿', sub: 'Major food crops' },
-    { val: '38', label: 'Disease Types', icon: '🔬', sub: 'Identified & classified' },
+    { val: '99%', label: t.stat1, icon: '🎯', sub: t.stat1sub },
+    { val: '54K+', label: t.stat2, icon: '🖼️', sub: t.stat2sub },
+    { val: '22', label: t.stat3, icon: '🌿', sub: t.stat3sub },
+    { val: '38', label: t.stat4, icon: '🔬', sub: t.stat4sub },
   ];
 
   // ─── RENDER ───
@@ -275,39 +477,67 @@ export default function SmartCropApp() {
               }}>🌿</div>
               <div>
                 <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.1rem', color: '#ecfdf5', lineHeight: 1.2 }}>SmartCrop</div>
-                <div style={{ fontSize: '0.65rem', color: '#34d399', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>AI Agriculture Platform</div>
+                <div style={{ fontSize: '0.65rem', color: '#34d399', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t.brandSub}</div>
               </div>
             </div>
 
-            {/* Nav links */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }} className="hidden md:flex">
-              {['Features', 'How It Works', 'Statistics'].map((item, i) => (
-                <a
-                  key={item}
-                  href={`#${['features', 'how', 'stats'][i]}`}
-                  className="nav-link"
-                >
-                  {item}
-                </a>
-              ))}
+            {/* Nav links + Language Toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }} className="hidden md:flex">
+                {[t.navFeatures, t.navHow, t.navStats].map((item, i) => (
+                  <a
+                    key={i}
+                    href={`#${['features', 'how', 'stats'][i]}`}
+                    className="nav-link"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+
+              {/* ── Language Toggle: EN / HI only ── */}
+              <div style={{
+                display: 'flex', alignItems: 'center',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '10px',
+                padding: '3px',
+                gap: '2px',
+              }}>
+                {['en', 'hi'].map((code) => (
+                  <button
+                    key={code}
+                    onClick={() => setLang(code)}
+                    style={{
+                      padding: '0.3rem 0.75rem',
+                      borderRadius: '8px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontWeight: 700,
+                      fontSize: '0.75rem',
+                      letterSpacing: '0.04em',
+                      transition: 'all 0.2s ease',
+                      background: lang === code
+                        ? 'linear-gradient(135deg, #059669, #047857)'
+                        : 'transparent',
+                      color: lang === code ? '#ffffff' : 'rgba(167, 243, 208, 0.5)',
+                      boxShadow: lang === code ? '0 2px 8px rgba(5,150,105,0.4)' : 'none',
+                    }}
+                  >
+                    {code === 'en' ? 'EN' : 'HI'}
+                  </button>
+                ))}
+              </div>
+
               <button
                 onClick={() => setActiveModal('crop')}
-                className="btn-primary btn-shine"
+                className="btn-primary btn-shine hidden md:flex"
                 style={{ padding: '0.625rem 1.375rem', fontSize: '0.875rem', borderRadius: '10px' }}
               >
-                <span>Get Started</span>
+                <span>{t.navCta}</span>
                 <ChevronRight size={16} />
               </button>
             </div>
-
-            {/* Mobile */}
-            <button
-              onClick={() => setActiveModal('crop')}
-              className="btn-primary"
-              style={{ padding: '0.5rem 1.125rem', fontSize: '0.8rem', borderRadius: '10px' }}
-            >
-              Start Free
-            </button>
           </div>
         </div>
       </nav>
@@ -326,7 +556,7 @@ export default function SmartCropApp() {
             <div className="animate-slide-left">
               <div className="section-label" style={{ marginBottom: '1.5rem' }}>
                 <div className="pulse-dot" />
-                <span>AI-Powered Agriculture Technology</span>
+                <span>{t.heroBadge}</span>
               </div>
 
               <h1 style={{
@@ -338,13 +568,13 @@ export default function SmartCropApp() {
                 marginBottom: '1.5rem',
                 color: '#ecfdf5',
               }}>
-                Smart Crop<br />
-                <span className="gradient-text">Disease Detection</span><br />
-                System
+                {t.heroTitle1}<br />
+                <span className="gradient-text">{t.heroTitle2}</span><br />
+                {t.heroTitle3}
               </h1>
 
               <p style={{ fontSize: '1.125rem', color: 'rgba(167, 243, 208, 0.65)', lineHeight: 1.75, marginBottom: '2.5rem', maxWidth: '500px' }}>
-                Harness machine learning to get instant crop recommendations, detect plant diseases from leaf images, and access real-time agricultural intelligence.
+                {t.heroDesc}
               </p>
 
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -354,7 +584,7 @@ export default function SmartCropApp() {
                   style={{ padding: '1rem 2rem', fontSize: '1rem', borderRadius: '14px' }}
                 >
                   <span>🌾</span>
-                  <span>Crop Recommendations</span>
+                  <span>{t.heroCta1}</span>
                 </button>
                 <button
                   onClick={() => setActiveModal('disease')}
@@ -362,18 +592,18 @@ export default function SmartCropApp() {
                   style={{ padding: '1rem 2rem', fontSize: '1rem', borderRadius: '14px' }}
                 >
                   <span>🔬</span>
-                  <span>Detect Disease</span>
+                  <span>{t.heroCta2}</span>
                 </button>
               </div>
 
               {/* Trust indicators */}
               <div style={{ display: 'flex', gap: '2rem', marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 {[
-                  { val: '99%', label: 'Accuracy' },
-                  { val: '22+', label: 'Crops' },
-                  { val: 'Live', label: 'Weather' },
-                ].map((s) => (
-                  <div key={s.label}>
+                  { val: '99%', label: t.heroAccuracy },
+                  { val: '22+', label: t.heroCrops },
+                  { val: t.heroWeather, label: t.heroWeather },
+                ].map((s, i) => (
+                  <div key={i}>
                     <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#34d399' }}>{s.val}</div>
                     <div style={{ fontSize: '0.75rem', color: 'rgba(167, 243, 208, 0.5)', fontWeight: 500 }}>{s.label}</div>
                   </div>
@@ -416,10 +646,10 @@ export default function SmartCropApp() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
                   {[
-                    { val: '99%', label: 'Accuracy', color: '#34d399' },
-                    { val: '22+', label: 'Crops', color: '#6ee7b7' },
-                    { val: 'Live', label: 'Weather', color: '#a7f3d0' },
-                  ].map((s) => (
+                    { val: '99%', label: t.heroAccuracy, color: '#34d399' },
+                    { val: '22+', label: t.heroCrops, color: '#6ee7b7' },
+                    { val: t.heroWeather, label: t.heroWeather, color: '#a7f3d0' },
+                  ].map((s, i) => (
                     <div key={s.label} style={{
                       background: 'rgba(16, 185, 129, 0.06)',
                       border: '1px solid rgba(16, 185, 129, 0.12)',
@@ -445,7 +675,7 @@ export default function SmartCropApp() {
                   gap: '10px',
                 }}>
                   <div className="pulse-dot" />
-                  <span style={{ fontSize: '0.8rem', color: '#6ee7b7', fontWeight: 500 }}>AI Model Online — Ready for analysis</span>
+                  <span style={{ fontSize: '0.8rem', color: '#6ee7b7', fontWeight: 500 }}>{t.heroStatus}</span>
                 </div>
               </div>
             </div>
@@ -457,9 +687,9 @@ export default function SmartCropApp() {
       <section id="stats" style={{ background: '#020b06', padding: '5rem 1.5rem' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div className="section-label" style={{ justifyContent: 'center' }}>Platform Metrics</div>
+            <div className="section-label" style={{ justifyContent: 'center' }}>{t.statsLabel}</div>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', fontWeight: 800, color: '#ecfdf5' }}>
-              Trusted by farmers <span className="gradient-text">worldwide</span>
+              {t.statsHeadline} <span className="gradient-text">{t.statsWorldwide}</span>
             </h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
@@ -483,12 +713,12 @@ export default function SmartCropApp() {
       <section id="features" style={{ padding: '6rem 1.5rem', background: '#030d07' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <div className="section-label" style={{ justifyContent: 'center' }}>Powerful Tools</div>
+            <div className="section-label" style={{ justifyContent: 'center' }}>{t.featLabel}</div>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 900, color: '#ecfdf5', letterSpacing: '-0.02em', marginBottom: '1rem' }}>
-              Everything a Farmer <span className="gradient-text">Needs</span>
+              {t.featHeadline} <span className="gradient-text">{t.featHeadline2}</span>
             </h2>
             <p style={{ color: 'rgba(167, 243, 208, 0.5)', fontSize: '1.1rem', maxWidth: '520px', margin: '0 auto' }}>
-              Six AI-powered tools designed to help farmers make data-driven decisions and maximize crop yield.
+              {t.featDesc}
             </p>
           </div>
 
@@ -513,7 +743,7 @@ export default function SmartCropApp() {
                   {f.desc}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#34d399', fontSize: '0.85rem', fontWeight: 600 }}>
-                  Open Tool <ChevronRight size={14} />
+                  {t.openTool} <ChevronRight size={14} />
                 </div>
               </button>
             ))}
@@ -525,11 +755,11 @@ export default function SmartCropApp() {
       <section id="how" style={{ background: '#020b06', padding: '6rem 1.5rem' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <div className="section-label" style={{ justifyContent: 'center' }}>Simple Process</div>
+            <div className="section-label" style={{ justifyContent: 'center' }}>{t.howLabel}</div>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(2rem, 3.5vw, 3rem)', fontWeight: 900, color: '#ecfdf5', letterSpacing: '-0.02em', marginBottom: '1rem' }}>
-              How It <span className="gradient-text">Works</span>
+              {t.howHeadline} <span className="gradient-text">{t.howHeadline2}</span>
             </h2>
-            <p style={{ color: 'rgba(167, 243, 208, 0.5)', fontSize: '1.1rem' }}>Three steps to AI-powered agricultural intelligence.</p>
+            <p style={{ color: 'rgba(167, 243, 208, 0.5)', fontSize: '1.1rem' }}>{t.howDesc}</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', position: 'relative' }}>
@@ -541,9 +771,9 @@ export default function SmartCropApp() {
             }} />
 
             {[
-              { step: '01', title: 'Input Your Data', desc: 'Enter your city, upload a leaf photo, or select your crop — our system handles the rest.', icon: '📝' },
-              { step: '02', title: 'AI Processing', desc: 'Our ML model analyzes real-time weather, soil conditions, and image patterns via trained neural networks.', icon: '🤖' },
-              { step: '03', title: 'Get Instant Results', desc: 'Receive accurate recommendations, disease diagnosis, fertilizer plans, and actionable farming advice.', icon: '✅' },
+              { step: '01', title: t.step1title, desc: t.step1desc, icon: '📝' },
+              { step: '02', title: t.step2title, desc: t.step2desc, icon: '🤖' },
+              { step: '03', title: t.step3title, desc: t.step3desc, icon: '✅' },
             ].map((s, i) => (
               <div key={i} className="step-card">
                 <div className="step-number">{s.step}</div>
@@ -575,7 +805,7 @@ export default function SmartCropApp() {
               }}>🌿</div>
               <div>
                 <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, color: '#ecfdf5', fontSize: '0.95rem' }}>SmartCrop AI</div>
-                <div style={{ fontSize: '0.7rem', color: 'rgba(167, 243, 208, 0.4)' }}>© 2025 — Built with ML & Open Weather Data</div>
+                <div style={{ fontSize: '0.7rem', color: 'rgba(167, 243, 208, 0.4)' }}>{t.footerTagline}</div>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '1.5rem' }}>
@@ -605,19 +835,19 @@ export default function SmartCropApp() {
       {/* ─── CROP RECOMMENDATION ─── */}
       {activeModal === 'crop' && (
         <Modal
-          title="🌾 Crop Recommendation"
-          subtitle="AI-powered analysis based on live weather & soil data"
+          title={t.cropModalTitle}
+          subtitle={t.cropModalSub}
           onClose={() => { setActiveModal(null); setCropResult(null); setCropCity(''); }}
         >
           {!cropResult ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'rgba(167, 243, 208, 0.6)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                  Your City / Location
+                  {t.cropCityLabel}
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Cairo, Delhi, London..."
+                  placeholder={t.cropCityPlaceholder}
                   value={cropCity}
                   onChange={(e) => setCropCity(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleCropRecommendation()}
@@ -626,7 +856,7 @@ export default function SmartCropApp() {
               </div>
               <div className="result-card" style={{ background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)', padding: '1rem 1.25rem' }}>
                 <p style={{ fontSize: '0.8rem', color: 'rgba(167, 243, 208, 0.5)', lineHeight: 1.6 }}>
-                  💡 Our AI will fetch live weather data for your city and cross-reference it with soil parameters to recommend the optimal crop.
+                  {t.cropHint}
                 </p>
               </div>
               <button
@@ -636,14 +866,14 @@ export default function SmartCropApp() {
                 style={{ width: '100%', padding: '1rem', fontSize: '0.95rem', borderRadius: '12px', opacity: loadingCrop || !cropCity.trim() ? 0.5 : 1 }}
               >
                 <span>{loadingCrop ? '⏳' : '🔍'}</span>
-                <span>{loadingCrop ? 'Analyzing Climate Data...' : 'Get AI Recommendation'}</span>
+                <span>{loadingCrop ? t.cropLoading : t.cropBtn}</span>
               </button>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div className="result-card result-card-success">
                 <p style={{ fontSize: '0.75rem', color: 'rgba(167, 243, 208, 0.5)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem' }}>
-                  Recommended Crop
+                  {t.cropResultLabel}
                 </p>
                 <h3 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2rem', color: '#34d399', marginBottom: '1rem' }}>
                   {cropResult.crop}
