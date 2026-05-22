@@ -1,13 +1,9 @@
 fastapi
+uvicorn[standard]
 gunicorn
-uvicorn
 python-multipart
 pydantic
-pickle5; python_version < '3.8'
 numpy
 scikit-learn
 pandas
 requests
-python-dotenv
-slowapi
-cors
