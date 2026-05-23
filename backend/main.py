@@ -5,11 +5,20 @@ import numpy as np
 import os
 import requests
 
+from database import engine
+import db_models
+from routers import auth, marketplace
+
+db_models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI(
     title="Smart Crop Disease Detection System API",
     description="AI-powered agriculture API for crop recommendations and disease detection",
     version="1.0.0",
 )
+
+app.include_router(auth.router)
+app.include_router(marketplace.router)
 
 # ─── CORS ───
 app.add_middleware(

@@ -7,3 +7,8 @@ numpy
 scikit-learn
 pandas
 requests
+sqlalchemy
+razorpay
+google-auth
+PyJWT
+pydantic-settings

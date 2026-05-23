@@ -1,213 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, ChevronRight, Github, Twitter, Linkedin } from 'lucide-react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { useGoogleLogin, googleLogout } from '@react-oauth/google';
+import axios from 'axios';
+import Marketplace from './pages/Marketplace';
+import Schemes from './pages/Schemes';
+import { getTranslation, supportedLanguages } from './i18n';
 
 // ─── API URL ───
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 // ─── Translations (English / Hindi only) ───
-const T = {
-  en: {
-    // Navbar
-    navFeatures: 'Features',
-    navHow: 'How It Works',
-    navStats: 'Statistics',
-    navCta: 'Get Started',
-    brandSub: 'AI Agriculture Platform',
-    // Hero
-    heroBadge: 'AI-Powered Agriculture Technology',
-    heroTitle1: 'Smart Crop',
-    heroTitle2: 'Disease Detection',
-    heroTitle3: 'System',
-    heroDesc: 'Harness machine learning to get instant crop recommendations, detect plant diseases from leaf images, and access real-time agricultural intelligence.',
-    heroCta1: 'Crop Recommendations',
-    heroCta2: 'Detect Disease',
-    heroAccuracy: 'Accuracy',
-    heroCrops: 'Crops',
-    heroWeather: 'Weather',
-    heroStatus: 'AI Model Online — Ready for analysis',
-    // Stats
-    statsLabel: 'Platform Metrics',
-    statsHeadline: 'Trusted by farmers',
-    statsWorldwide: 'worldwide',
-    stat1: 'Model Accuracy', stat1sub: 'Validated on field data',
-    stat2: 'Training Images', stat2sub: 'Diverse crop dataset',
-    stat3: 'Crop Varieties', stat3sub: 'Major food crops',
-    stat4: 'Disease Types', stat4sub: 'Identified & classified',
-    // Features
-    featLabel: 'Powerful Tools',
-    featHeadline: 'Everything a Farmer',
-    featHeadline2: 'Needs',
-    featDesc: 'Six AI-powered tools designed to help farmers make data-driven decisions and maximize crop yield.',
-    openTool: 'Open Tool',
-    // Feature titles
-    f1title: 'Crop Recommendation', f1desc: 'AI suggests the best crop based on real-time weather & soil parameters for your region.',
-    f2title: 'Disease Detection', f2desc: 'Upload a leaf photo and get instant AI-powered diagnosis with treatment protocols.',
-    f3title: 'Weather Forecast', f3desc: 'Real-time weather conditions and 5-day precision forecast for any city worldwide.',
-    f4title: 'Fertilizer Guide', f4desc: 'Precise NPK recommendations and split-dose application schedules for your crop.',
-    f5title: 'Crop Calendar', f5desc: 'Seasonal planting guide with optimal crop schedules across all four growing seasons.',
-    f6title: 'Irrigation Guide', f6desc: 'Water management strategies and optimal irrigation methods to maximize yield.',
-    // How it works
-    howLabel: 'Simple Process',
-    howHeadline: 'How It',
-    howHeadline2: 'Works',
-    howDesc: 'Three steps to AI-powered agricultural intelligence.',
-    step1title: 'Input Your Data', step1desc: 'Enter your city, upload a leaf photo, or select your crop — our system handles the rest.',
-    step2title: 'AI Processing', step2desc: 'Our ML model analyzes real-time weather, soil conditions, and image patterns via trained neural networks.',
-    step3title: 'Get Instant Results', step3desc: 'Receive accurate recommendations, disease diagnosis, fertilizer plans, and actionable farming advice.',
-    // Modals — Crop
-    cropModalTitle: '🌾 Crop Recommendation',
-    cropModalSub: 'AI-powered analysis based on live weather & soil data',
-    cropCityLabel: 'Your City / Location',
-    cropCityPlaceholder: 'e.g. Delhi, Mumbai, Bangalore...',
-    cropHint: '💡 Our AI will fetch live weather data for your city and cross-reference it with soil parameters to recommend the optimal crop.',
-    cropBtn: 'Get AI Recommendation',
-    cropLoading: 'Analyzing Climate Data...',
-    cropResultLabel: 'Recommended Crop',
-    cropAltLabel: 'Alternative Crops',
-    cropTipsLabel: 'Farming Intelligence',
-    cropRetry: 'Analyze Another City',
-    // Modals — Disease
-    diseaseModalTitle: '🔬 Disease Detection',
-    diseaseModalSub: 'Upload a leaf image for instant AI-powered diagnosis',
-    diseaseUploadPrompt: 'Click to upload leaf photo',
-    diseaseUploadSub: 'JPG, PNG — Max 10MB',
-    diseaseImageReady: '✅ Image Ready for Analysis',
-    diseasePlantLabel: 'Plant Type',
-    diseaseBtn: 'Analyze Disease',
-    diseaseLoading: 'Analyzing Leaf...',
-    diseaseDetectedLabel: 'Detected Disease',
-    diseaseTreatLabel: '💊 Treatment Protocol',
-    diseasePrevLabel: '🛡️ Prevention Strategy',
-    diseaseRetry: 'Analyze Another Image',
-    // Modals — Weather
-    weatherModalTitle: '🌤️ Weather Forecast',
-    weatherModalSub: 'Real-time weather data and 5-day agricultural forecast',
-    weatherCityLabel: 'City Name',
-    weatherCityPlaceholder: 'e.g. Delhi, Mumbai, New York...',
-    weatherBtn: 'Get Weather Data',
-    weatherLoading: 'Fetching Weather...',
-    weatherForecastLabel: '5-Day Forecast',
-    weatherRetry: 'Check Another City',
-    // Modals — Fertilizer
-    fertModalTitle: '🧪 Fertilizer Guide',
-    fertModalSub: 'Precision NPK recommendations for maximum crop yield',
-    fertCropLabel: 'Select Crop',
-    fertBtn: 'Get NPK Recommendation',
-    fertPlanFor: 'Fertilizer Plan for',
-    fertTipLabel: '💡 Application Tip',
-    fertRetry: 'Check Another Crop',
-    // Modals — Calendar
-    calModalTitle: '📅 Crop Calendar',
-    calModalSub: 'Optimal planting guide for all four growing seasons',
-    // Modals — Irrigation
-    irrModalTitle: '💧 Irrigation Guide',
-    irrModalSub: 'Water management strategies for maximum crop yield',
-    irrWaterNeed: 'Water Need',
-    // Footer
-    footerTagline: '© 2025 — Built with ML & Open Weather Data',
-  },
-  hi: {
-    // Navbar
-    navFeatures: 'विशेषताएं',
-    navHow: 'यह कैसे काम करता है',
-    navStats: 'आंकड़े',
-    navCta: 'शुरू करें',
-    brandSub: 'AI कृषि प्लेटफॉर्म',
-    // Hero
-    heroBadge: 'AI-संचालित कृषि तकनीक',
-    heroTitle1: 'स्मार्ट फसल',
-    heroTitle2: 'रोग पहचान',
-    heroTitle3: 'प्रणाली',
-    heroDesc: 'मशीन लर्निंग का उपयोग करके तत्काल फसल अनुशंसाएं पाएं, पत्ती की छवियों से पौधों की बीमारियों का पता लगाएं, और वास्तविक समय की कृषि जानकारी प्राप्त करें।',
-    heroCta1: 'फसल अनुशंसाएं',
-    heroCta2: 'रोग पहचानें',
-    heroAccuracy: 'सटीकता',
-    heroCrops: 'फसलें',
-    heroWeather: 'मौसम',
-    heroStatus: 'AI मॉडल ऑनलाइन — विश्लेषण के लिए तैयार',
-    // Stats
-    statsLabel: 'प्लेटफॉर्म आंकड़े',
-    statsHeadline: 'किसानों द्वारा विश्वसनीय',
-    statsWorldwide: 'विश्वभर में',
-    stat1: 'मॉडल सटीकता', stat1sub: 'फील्ड डेटा पर सत्यापित',
-    stat2: 'प्रशिक्षण छवियां', stat2sub: 'विविध फसल डेटासेट',
-    stat3: 'फसल किस्में', stat3sub: 'प्रमुख खाद्य फसलें',
-    stat4: 'रोग प्रकार', stat4sub: 'पहचाने और वर्गीकृत',
-    // Features
-    featLabel: 'शक्तिशाली उपकरण',
-    featHeadline: 'किसान की हर',
-    featHeadline2: 'जरूरत',
-    featDesc: 'छह AI-संचालित उपकरण जो किसानों को डेटा-आधारित निर्णय लेने और फसल उत्पादन बढ़ाने में मदद करते हैं।',
-    openTool: 'उपकरण खोलें',
-    // Feature titles
-    f1title: 'फसल अनुशंसा', f1desc: 'AI आपके क्षेत्र के लिए वास्तविक समय के मौसम और मिट्टी के आधार पर सर्वश्रेष्ठ फसल का सुझाव देता है।',
-    f2title: 'रोग पहचान', f2desc: 'पत्ती की फोटो अपलोड करें और उपचार प्रोटोकॉल के साथ तत्काल AI निदान पाएं।',
-    f3title: 'मौसम पूर्वानुमान', f3desc: 'दुनिया के किसी भी शहर के लिए वास्तविक समय की मौसम स्थितियां और 5-दिन का पूर्वानुमान।',
-    f4title: 'उर्वरक गाइड', f4desc: 'आपकी फसल के लिए सटीक NPK अनुशंसाएं और विभाजित खुराक अनुसूची।',
-    f5title: 'फसल कैलेंडर', f5desc: 'चारों मौसमों में इष्टतम फसल अनुसूची के साथ मौसमी रोपण गाइड।',
-    f6title: 'सिंचाई गाइड', f6desc: 'अधिकतम उपज के लिए जल प्रबंधन रणनीतियां और इष्टतम सिंचाई विधियां।',
-    // How it works
-    howLabel: 'सरल प्रक्रिया',
-    howHeadline: 'यह कैसे',
-    howHeadline2: 'काम करता है',
-    howDesc: 'AI-संचालित कृषि बुद्धिमत्ता के लिए तीन चरण।',
-    step1title: 'अपना डेटा दर्ज करें', step1desc: 'अपना शहर दर्ज करें, पत्ती की फोटो अपलोड करें, या अपनी फसल चुनें — हमारा सिस्टम बाकी सब संभाल लेगा।',
-    step2title: 'AI प्रसंस्करण', step2desc: 'हमारा ML मॉडल प्रशिक्षित न्यूरल नेटवर्क के माध्यम से वास्तविक समय के मौसम, मिट्टी की स्थितियों और छवि पैटर्न का विश्लेषण करता है।',
-    step3title: 'तत्काल परिणाम पाएं', step3desc: 'सटीक अनुशंसाएं, रोग निदान, उर्वरक योजनाएं और कार्रवाई योग्य खेती सलाह प्राप्त करें।',
-    // Modals — Crop
-    cropModalTitle: '🌾 फसल अनुशंसा',
-    cropModalSub: 'लाइव मौसम और मिट्टी डेटा के आधार पर AI-संचालित विश्लेषण',
-    cropCityLabel: 'आपका शहर / स्थान',
-    cropCityPlaceholder: 'जैसे दिल्ली, मुंबई, बैंगलोर...',
-    cropHint: '💡 हमारा AI आपके शहर का लाइव मौसम डेटा प्राप्त करेगा और इष्टतम फसल की सिफारिश के लिए मिट्टी के मापदंडों से मिलान करेगा।',
-    cropBtn: 'AI अनुशंसा प्राप्त करें',
-    cropLoading: 'जलवायु डेटा विश्लेषण...',
-    cropResultLabel: 'अनुशंसित फसल',
-    cropAltLabel: 'वैकल्पिक फसलें',
-    cropTipsLabel: 'खेती की जानकारी',
-    cropRetry: 'दूसरे शहर का विश्लेषण करें',
-    // Modals — Disease
-    diseaseModalTitle: '🔬 रोग पहचान',
-    diseaseModalSub: 'तत्काल AI निदान के लिए पत्ती की छवि अपलोड करें',
-    diseaseUploadPrompt: 'पत्ती की फोटो अपलोड करने के लिए क्लिक करें',
-    diseaseUploadSub: 'JPG, PNG — अधिकतम 10MB',
-    diseaseImageReady: '✅ छवि विश्लेषण के लिए तैयार',
-    diseasePlantLabel: 'पौधे का प्रकार',
-    diseaseBtn: 'रोग का विश्लेषण करें',
-    diseaseLoading: 'पत्ती का विश्लेषण...',
-    diseaseDetectedLabel: 'पहचाना गया रोग',
-    diseaseTreatLabel: '💊 उपचार प्रोटोकॉल',
-    diseasePrevLabel: '🛡️ रोकथाम रणनीति',
-    diseaseRetry: 'दूसरी छवि का विश्लेषण करें',
-    // Modals — Weather
-    weatherModalTitle: '🌤️ मौसम पूर्वानुमान',
-    weatherModalSub: 'वास्तविक समय मौसम डेटा और 5-दिन का कृषि पूर्वानुमान',
-    weatherCityLabel: 'शहर का नाम',
-    weatherCityPlaceholder: 'जैसे दिल्ली, मुंबई, न्यू यॉर्क...',
-    weatherBtn: 'मौसम डेटा प्राप्त करें',
-    weatherLoading: 'मौसम प्राप्त किया जा रहा है...',
-    weatherForecastLabel: '5-दिन का पूर्वानुमान',
-    weatherRetry: 'दूसरे शहर की जांच करें',
-    // Modals — Fertilizer
-    fertModalTitle: '🧪 उर्वरक गाइड',
-    fertModalSub: 'अधिकतम फसल उत्पादन के लिए सटीक NPK अनुशंसाएं',
-    fertCropLabel: 'फसल चुनें',
-    fertBtn: 'NPK अनुशंसा प्राप्त करें',
-    fertPlanFor: 'के लिए उर्वरक योजना',
-    fertTipLabel: '💡 उपयोग टिप',
-    fertRetry: 'दूसरी फसल जांचें',
-    // Modals — Calendar
-    calModalTitle: '📅 फसल कैलेंडर',
-    calModalSub: 'चारों मौसमों के लिए इष्टतम रोपण गाइड',
-    // Modals — Irrigation
-    irrModalTitle: '💧 सिंचाई गाइड',
-    irrModalSub: 'अधिकतम फसल उत्पादन के लिए जल प्रबंधन रणनीतियां',
-    irrWaterNeed: 'पानी की जरूरत',
-    // Footer
-    footerTagline: '© 2025 — ML और ओपन वेदर डेटा के साथ निर्मित',
-  },
-};
-
+// Proxy so we don't have to rewrite t = T[lang] logic everywhere since it's now an async func or proxy
+const T = new Proxy({}, {
+  get: function(target, lang) {
+    return new Proxy({}, {
+      get: function(target2, key) {
+        return getTranslation(lang, key);
+      }
+    });
+  }
+});
 // ─── Utility: base64 → Blob (fixes "Error analyzing the image!") ───
 function base64ToBlob(dataUrl) {
   const [header, base64Data] = dataUrl.split(',');
@@ -229,6 +42,40 @@ function weatherIcon(code) {
 }
 
 export default function SmartCropApp() {
+  // --- AUTH STATE ---
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [showRoleSelect, setShowRoleSelect] = useState(false);
+  const [tempGoogleToken, setTempGoogleToken] = useState(null);
+  const navigate = useNavigate();
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      setTempGoogleToken(tokenResponse.access_token);
+      setShowRoleSelect(true); // Ask for role before completing login
+    },
+    onError: () => alert('Google Login Failed')
+  });
+
+  const handleRoleSelect = async (role) => {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/auth/google?token=${tempGoogleToken}&role=${role}`);
+      setUser(res.data.user);
+      setToken(res.data.access_token);
+      setShowRoleSelect(false);
+      setTempGoogleToken(null);
+    } catch (err) {
+      alert('Authentication error via Backend');
+    }
+  };
+
+  const handleLogout = () => {
+    googleLogout();
+    setUser(null);
+    setToken(null);
+    navigate('/');
+  };
+
   const [activeModal, setActiveModal] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState('en'); // 'en' | 'hi'
@@ -530,66 +377,36 @@ export default function SmartCropApp() {
             </div>
 
             {/* Nav links + Language Toggle */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }} className="hidden md:flex">
-                {[t.navFeatures, t.navHow, t.navStats].map((item, i) => (
-                  <a
-                    key={i}
-                    href={`#${['features', 'how', 'stats'][i]}`}
-                    className="nav-link"
-                  >
-                    {item}
-                  </a>
-                ))}
-              </div>
+            <div className="hidden md:flex items-center gap-8">
+              <Link to="/" className="text-sm font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">Home</Link>
+              <Link to="/marketplace" className="text-sm font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">{t.tryMarket || 'Marketplace'}</Link>
+              <Link to="/schemes" className="text-sm font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">{t.trySchemes || 'Schemes'}</Link>
+              
+              <select value={lang} onChange={(e) => setLang(e.target.value)} className="bg-[var(--bg-section-alt)] border border-[var(--border-light)] text-[var(--text-primary)] text-xs font-bold rounded px-2 py-1.5 cursor-pointer outline-none">
+                {supportedLanguages.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
+              </select>
 
-              {/* ── Language Toggle: EN / HI only ── */}
-              <div style={{
-                display: 'flex', alignItems: 'center',
-                background: 'var(--border-light)',
-                border: '1px solid var(--border-light)',
-                borderRadius: '10px',
-                padding: '3px',
-                gap: '2px',
-              }}>
-                {['en', 'hi'].map((code) => (
-                  <button
-                    key={code}
-                    onClick={() => setLang(code)}
-                    style={{
-                      padding: '0.3rem 0.75rem',
-                      borderRadius: '8px',
-                      border: 'none',
-                      cursor: 'pointer',
-                      fontWeight: 700,
-                      fontSize: '0.75rem',
-                      letterSpacing: '0.04em',
-                      transition: 'all 0.2s ease',
-                      background: lang === code
-                        ? 'linear-gradient(135deg, #059669, #047857)'
-                        : 'transparent',
-                      color: lang === code ? '#ffffff' : 'var(--text-muted)',
-                      boxShadow: lang === code ? '0 2px 8px rgba(5,150,105,0.3)' : 'none',
-                    }}
-                  >
-                    {code === 'en' ? 'EN' : 'HI'}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                onClick={() => setActiveModal('crop')}
-                className="btn-primary btn-shine hidden md:flex"
-                style={{ padding: '0.625rem 1.375rem', fontSize: '0.875rem', borderRadius: '10px' }}
-              >
-                <span>{t.navCta}</span>
-                <ChevronRight size={16} />
-              </button>
+              {user ? (
+                <div className="flex items-center gap-4 ml-4">
+                  <div className="text-right hidden sm:block">
+                    <p className="text-sm font-bold text-[var(--text-primary)] leading-tight">{user.name}</p>
+                    <p className="text-xs text-[var(--text-muted)] uppercase">{user.role}</p>
+                  </div>
+                  <button onClick={handleLogout} className="btn bg-red-50 text-red-600 border border-red-200 hover:bg-red-100">{t.logout || 'Logout'}</button>
+                </div>
+              ) : (
+                <button onClick={() => loginWithGoogle()} className="btn btn-primary ml-2 flex items-center gap-2">
+                  Google Login
+                </button>
+              )}
             </div>
           </div>
         </div>
       </nav>
 
+      <Routes>
+        <Route path="/" element={
+          <main>
       {/* ═══ HERO ═══ */}
       <section className="hero-section">
         <div className="hero-orb hero-orb-1" />
@@ -1295,6 +1112,31 @@ export default function SmartCropApp() {
         </Modal>
       )}
 
+      {/* ROLE SELECTION MODAL */}
+      {showRoleSelect && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+            <h2 className="text-2xl font-bold mb-2 text-[var(--text-primary)]">Select Your Role</h2>
+            <p className="text-[var(--text-muted)] mb-6">Are you a farmer looking to sell crops, or a vendor looking to buy?</p>
+            <div className="grid grid-cols-2 gap-4">
+              <button onClick={() => handleRoleSelect('farmer')} className="p-4 border-2 border-[var(--border-light)] rounded-xl hover:border-[var(--color-primary)] hover:bg-emerald-50 transition-all flex flex-col items-center">
+                <div className="text-3xl mb-2">👨‍🌾</div>
+                <div className="font-bold text-[var(--text-primary)]">Farmer</div>
+              </button>
+              <button onClick={() => handleRoleSelect('vendor')} className="p-4 border-2 border-[var(--border-light)] rounded-xl hover:border-[var(--color-primary)] hover:bg-emerald-50 transition-all flex flex-col items-center">
+                <div className="text-3xl mb-2">🏪</div>
+                <div className="font-bold text-[var(--text-primary)]">Vendor</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+          </main>
+        } />
+        <Route path="/marketplace" element={<Marketplace user={user} token={token} />} />
+        <Route path="/schemes" element={<Schemes />} />
+      </Routes>
     </div>
   );
 }
