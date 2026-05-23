@@ -17,7 +17,7 @@
 
 > 🎓 **Graduation Project** · 2025–26
 >
-> 👩‍🏫 **Supervisor:** Dr. Eman Salah Salem Ahmed
+> 👩‍🏫 **Supervisor:** Ruhi Raj
 >
 > 👑 **Project Lead:** Aman Ji
 
