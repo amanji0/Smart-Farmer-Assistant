@@ -371,7 +371,7 @@ export default function SmartCropApp() {
                 style={{ width: '42px', height: '42px', borderRadius: '12px', objectFit: 'cover' }}
               />
               <div>
-                <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.1rem', color: 'var(--text-primary)', lineHeight: 1.2 }}>SmartCrop</div>
+                <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '0.9rem', color: 'var(--text-primary)', lineHeight: 1.2 }}>Smart Crop Disease Detection System</div>
                 <div style={{ fontSize: '0.65rem', color: 'var(--color-primary)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{t.brandSub}</div>
               </div>
             </div>
@@ -395,8 +395,8 @@ export default function SmartCropApp() {
                   <button onClick={handleLogout} className="btn bg-red-50 text-red-600 border border-red-200 hover:bg-red-100">{t.logout || 'Logout'}</button>
                 </div>
               ) : (
-                <button onClick={() => loginWithGoogle()} className="btn btn-primary ml-2 flex items-center gap-2">
-                  Google Login
+                <button onClick={() => loginWithGoogle()} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} title="Login">
+                  <img src="/login-icon.png" alt="Login" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
                 </button>
               )}
             </div>
@@ -669,7 +669,7 @@ export default function SmartCropApp() {
                 fontSize: '1.1rem',
               }}>🌿</div>
               <div>
-                <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem' }}>SmartCrop AI</div>
+                <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem' }}>Smart Crop Disease Detection System</div>
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{t.footerTagline}</div>
               </div>
             </div>
