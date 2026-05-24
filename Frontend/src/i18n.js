@@ -1,6 +1,8 @@
 const translations = {
   en: {
-    heroTitle: "Smart Crop & Disease Detection System",
+    heroTitle1: "Smart Crop",
+    heroTitle2: "Disease Detection",
+    heroTitle3: "System",
     heroSubtitle: "Empowering farmers with AI-driven crop recommendations, disease diagnosis, and a direct marketplace to sell produce.",
     tryCrop: "Crop Recommendation",
     tryDisease: "Disease Detection",
@@ -24,10 +26,13 @@ const translations = {
     loading: "Analyzing...",
     vendorLogin: "Vendor Login",
     farmerLogin: "Farmer Login",
+    navAdmin: "Admin Dashboard",
     logout: "Logout",
   },
   hi: {
-    heroTitle: "स्मार्ट फसल और रोग पहचान प्रणाली",
+    heroTitle1: "स्मार्ट फसल",
+    heroTitle2: "रोग पहचान",
+    heroTitle3: "प्रणाली",
     heroSubtitle: "किसानों को एआई-संचालित फसल सिफारिशें, रोग निदान और उपज बेचने के लिए एक सीधा बाज़ार प्रदान करना।",
     tryCrop: "फसल की सिफारिश",
     tryDisease: "रोग की पहचान",
@@ -51,6 +56,7 @@ const translations = {
     loading: "विश्लेषण कर रहा है...",
     vendorLogin: "विक्रेता लॉगिन",
     farmerLogin: "किसान लॉगिन",
+    navAdmin: "एडमिन डैशबोर्ड",
     logout: "लॉग आउट",
   },
   // We'll add simplified placeholder structures for the other 10 languages

@@ -5,6 +5,7 @@ import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 import Marketplace from './pages/Marketplace';
 import Schemes from './pages/Schemes';
+import AdminDashboard from './pages/AdminDashboard';
 import { getTranslation, supportedLanguages } from './i18n';
 
 // ─── API URL ───
@@ -76,6 +77,7 @@ export default function SmartCropApp() {
     navigate('/');
   };
 
+  const [showAuthMenu, setShowAuthMenu] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState('en'); // 'en' | 'hi'
@@ -386,19 +388,47 @@ export default function SmartCropApp() {
                 {supportedLanguages.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
               </select>
 
-              {user ? (
-                <div className="flex items-center gap-4 ml-4">
-                  <div className="text-right hidden sm:block">
-                    <p className="text-sm font-bold text-[var(--text-primary)] leading-tight">{user.name}</p>
-                    <p className="text-xs text-[var(--text-muted)] uppercase">{user.role}</p>
-                  </div>
-                  <button onClick={handleLogout} className="btn bg-red-50 text-red-600 border border-red-200 hover:bg-red-100">{t.logout || 'Logout'}</button>
-                </div>
-              ) : (
-                <button onClick={() => loginWithGoogle()} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} title="Login">
-                  <img src="/login-icon.png" alt="Login" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
+              {/* Auth Menu */}
+              <div style={{ position: 'relative' }}>
+                <button 
+                  onClick={() => setShowAuthMenu(!showAuthMenu)} 
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} 
+                  title="Profile Menu"
+                >
+                  <img src="/login-icon.png" alt="Menu" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
                 </button>
-              )}
+                {showAuthMenu && (
+                  <div style={{
+                    position: 'absolute', top: '100%', right: 0, marginTop: '0.5rem',
+                    background: 'white', border: '1px solid var(--border-light)', borderRadius: '12px',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)', padding: '1rem', minWidth: '200px', zIndex: 50
+                  }}>
+                    {user ? (
+                      <div className="flex flex-col gap-3">
+                        <div>
+                          <p className="text-sm font-bold text-[var(--text-primary)] leading-tight">{user.name}</p>
+                          <p className="text-xs text-[var(--text-muted)] uppercase">{user.role}</p>
+                        </div>
+                        {user.role === 'admin' || user.role === 'farmer' || user.role === 'vendor' ? (
+                          <Link to="/admin" onClick={() => setShowAuthMenu(false)} className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold text-left">
+                            {t.navAdmin || 'Admin Dashboard'}
+                          </Link>
+                        ) : null}
+                        <button onClick={() => { handleLogout(); setShowAuthMenu(false); }} className="btn bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 w-full justify-center">
+                          {t.logout || 'Logout'}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-3">
+                        <p className="text-xs text-[var(--text-muted)] text-center">Sign in to list crops or buy</p>
+                        <button onClick={() => { loginWithGoogle(); setShowAuthMenu(false); }} className="btn btn-primary w-full justify-center flex items-center gap-2">
+                          Login with Google
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -1136,6 +1166,7 @@ export default function SmartCropApp() {
         } />
         <Route path="/marketplace" element={<Marketplace user={user} token={token} />} />
         <Route path="/schemes" element={<Schemes />} />
+        <Route path="/admin" element={<AdminDashboard user={user} />} />
       </Routes>
     </div>
   );
