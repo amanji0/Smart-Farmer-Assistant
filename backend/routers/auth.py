@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from google.oauth2 import id_token
-from google.auth.transport import requests
+import requests
 from database import get_db
 import db_models
 from schemas import api_schemas
@@ -24,8 +23,13 @@ def create_access_token(data: dict):
 @router.post("/google", response_model=dict)
 async def google_auth(token: str, role: str, db: Session = Depends(get_db)):
     try:
-        # Verify Google token
-        idinfo = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
+        # Verify Google Access Token by calling UserInfo endpoint
+        user_info_url = "https://www.googleapis.com/oauth2/v3/userinfo"
+        resp = requests.get(user_info_url, headers={"Authorization": f"Bearer {token}"})
+        if resp.status_code != 200:
+            raise ValueError(f"Invalid access token: {resp.text}")
+            
+        idinfo = resp.json()
         email = idinfo['email']
         name = idinfo.get('name', '')
         google_id = idinfo['sub']
