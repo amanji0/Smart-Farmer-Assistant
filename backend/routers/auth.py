@@ -107,3 +107,13 @@ def get_current_user(token: str, db: Session):
         return user
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
+
+# Secure Admin Endpoint to view the database
+@router.get("/admin/users")
+async def secure_get_users(secret: str, db: Session = Depends(get_db)):
+    admin_secret = os.getenv("ADMIN_SECRET", "super-secret-admin-key")
+    if secret != admin_secret:
+        raise HTTPException(status_code=403, detail="Forbidden: Incorrect admin secret")
+    
+    users = db.query(db_models.User).all()
+    return [{"id": u.id, "email": u.email, "name": u.name, "role": u.role, "created_at": str(u.created_at)} for u in users]
