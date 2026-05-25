@@ -5,8 +5,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import './index.css'
 import App from './App.jsx'
 
-// Ideally this should be in .env, using a placeholder for demo
-const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID_HERE";
+// Get the Client ID from the environment variable or use a fallback for development
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID_HERE";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
