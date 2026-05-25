@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronRight, Github, Twitter, Linkedin } from 'lucide-react';
+import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle } from 'lucide-react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 import Marketplace from './pages/Marketplace';
 import Schemes from './pages/Schemes';
-import AdminDashboard from './pages/AdminDashboard';
 import { getTranslation, supportedLanguages } from './i18n';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID_HERE";
 
 // ─── API URL ───
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -409,8 +410,9 @@ export default function SmartCropApp() {
                   onClick={() => setShowAuthMenu(!showAuthMenu)} 
                   style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} 
                   title="Profile Menu"
+                  className="hover:opacity-80 transition-opacity"
                 >
-                  <img src="/login-icon.png" alt="Menu" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                  <UserCircle className="w-9 h-9 text-[var(--color-primary)]" />
                 </button>
                 {showAuthMenu && (
                   <div style={{
@@ -424,11 +426,6 @@ export default function SmartCropApp() {
                           <p className="text-sm font-bold text-[var(--text-primary)] leading-tight">{user.name}</p>
                           <p className="text-xs text-[var(--text-muted)] uppercase">{user.role}</p>
                         </div>
-                        {user.role === 'admin' || user.role === 'farmer' || user.role === 'vendor' ? (
-                          <Link to="/admin" onClick={() => setShowAuthMenu(false)} className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold text-left">
-                            {t.navAdmin || 'Admin Dashboard'}
-                          </Link>
-                        ) : null}
                         <button onClick={() => { handleLogout(); setShowAuthMenu(false); }} className="btn bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 w-full justify-center">
                           {t.logout || 'Logout'}
                         </button>
@@ -1183,7 +1180,6 @@ export default function SmartCropApp() {
         } />
         <Route path="/marketplace" element={<Marketplace user={user} token={token} />} />
         <Route path="/schemes" element={<Schemes />} />
-        <Route path="/admin" element={<AdminDashboard user={user} />} />
       </Routes>
     </div>
   );

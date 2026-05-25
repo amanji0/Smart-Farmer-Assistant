@@ -107,8 +107,3 @@ def get_current_user(token: str, db: Session):
         return user
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
-
-@router.get("/users")
-async def get_all_users(db: Session = Depends(get_db)):
-    users = db.query(db_models.User).all()
-    return [{"id": u.id, "email": u.email, "name": u.name, "role": u.role, "created_at": str(u.created_at)} for u in users]
