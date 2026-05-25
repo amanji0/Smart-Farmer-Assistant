@@ -59,6 +59,37 @@ async def google_auth(token: str, role: str, db: Session = Depends(get_db)):
     except ValueError:
         raise HTTPException(status_code=401, detail="Invalid Google token")
 
+@router.post("/demo", response_model=dict)
+async def demo_auth(role: str, db: Session = Depends(get_db)):
+    # Demo bypass for local development testing
+    demo_email = f"demo_{role}@example.com"
+    demo_name = f"Demo {role.capitalize()}"
+    google_id = f"demo_id_{role}"
+
+    user = db.query(db_models.User).filter(db_models.User.email == demo_email).first()
+    if not user:
+        user = db_models.User(
+            google_id=google_id,
+            email=demo_email,
+            name=demo_name,
+            role=role
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    access_token = create_access_token(data={"sub": user.email, "role": user.role, "id": user.id})
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "id": user.id,
+            "email": user.email,
+            "name": user.name,
+            "role": user.role
+        }
+    }
+
 def get_current_user(token: str, db: Session):
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[ALGORITHM])

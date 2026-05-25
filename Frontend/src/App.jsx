@@ -70,6 +70,17 @@ export default function SmartCropApp() {
     }
   };
 
+  const handleDemoLogin = async (role) => {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/auth/demo?role=${role}`);
+      setUser(res.data.user);
+      setToken(res.data.access_token);
+      setShowAuthMenu(false);
+    } catch (err) {
+      alert('Demo authentication error');
+    }
+  };
+
   const handleLogout = () => {
     googleLogout();
     setUser(null);
@@ -424,6 +435,14 @@ export default function SmartCropApp() {
                         <button onClick={() => { loginWithGoogle(); setShowAuthMenu(false); }} className="btn btn-primary w-full justify-center flex items-center gap-2">
                           Login with Google
                         </button>
+                        <div className="flex gap-2">
+                          <button onClick={() => handleDemoLogin('farmer')} className="btn bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 w-full justify-center text-xs px-2 py-2">
+                            Demo Farmer
+                          </button>
+                          <button onClick={() => handleDemoLogin('vendor')} className="btn bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 w-full justify-center text-xs px-2 py-2">
+                            Demo Vendor
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
