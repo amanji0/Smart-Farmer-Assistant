@@ -56,8 +56,9 @@ async def google_auth(token: str, role: str, db: Session = Depends(get_db)):
                 "role": user.role
             }
         }
-    except ValueError:
-        raise HTTPException(status_code=401, detail="Invalid Google token")
+    except ValueError as e:
+        print(f"Google Auth Error: {e}")
+        raise HTTPException(status_code=401, detail=f"Invalid Google token: {str(e)}")
 
 @router.post("/demo", response_model=dict)
 async def demo_auth(role: str, db: Session = Depends(get_db)):
