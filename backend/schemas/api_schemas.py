@@ -23,6 +23,7 @@ class ListingBase(BaseModel):
     price_per_kg: float
     description: Optional[str] = None
     image_url: Optional[str] = None
+    contact_number: Optional[str] = None
 
 class ListingCreate(ListingBase):
     pass

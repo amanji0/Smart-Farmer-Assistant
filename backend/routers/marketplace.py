@@ -52,7 +52,7 @@ def get_listings(db = Depends(get_db)):
     return results
 
 @router.post("/buy/{listing_id}")
-def buy_listing(listing_id: str, amount_kg: float, db = Depends(get_db), current_user = Depends(get_user_from_token)):
+def buy_listing(listing_id: str, amount_kg: float, contact_number: str = None, db = Depends(get_db), current_user = Depends(get_user_from_token)):
     if current_user.get("role") != "vendor":
         raise HTTPException(status_code=403, detail="Only vendors can buy")
 
@@ -82,6 +82,7 @@ def buy_listing(listing_id: str, amount_kg: float, db = Depends(get_db), current
     transaction_doc = {
         "listing_id": listing_id,
         "vendor_id": current_user["id"],
+        "vendor_contact_number": contact_number,
         "amount": total_price,
         "razorpay_order_id": razorpay_order['id'],
         "status": "pending",

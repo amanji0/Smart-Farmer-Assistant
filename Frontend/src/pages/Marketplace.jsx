@@ -8,7 +8,7 @@ const Marketplace = ({ user, token }) => {
   const [loading, setLoading] = useState(true);
 
   // Farmer form state
-  const [newCrop, setNewCrop] = useState({ name: '', qty: '', price: '' });
+  const [newCrop, setNewCrop] = useState({ name: '', qty: '', price: '', contact: '' });
 
   useEffect(() => {
     fetchListings();
@@ -32,10 +32,11 @@ const Marketplace = ({ user, token }) => {
       await axios.post(`${API_URL}/marketplace/listings`, {
         crop_name: newCrop.name,
         quantity_kg: parseFloat(newCrop.qty),
-        price_per_kg: parseFloat(newCrop.price)
+        price_per_kg: parseFloat(newCrop.price),
+        contact_number: newCrop.contact
       }, { headers: { Authorization: `Bearer ${token}` } });
       alert('Crop listed successfully!');
-      setNewCrop({ name: '', qty: '', price: '' });
+      setNewCrop({ name: '', qty: '', price: '', contact: '' });
       fetchListings();
     } catch (err) {
       alert('Error posting crop');
@@ -48,9 +49,11 @@ const Marketplace = ({ user, token }) => {
     const qtyToBuy = prompt(`Enter quantity to buy (Max: ${listing.quantity_kg} kg):`, listing.quantity_kg);
     if (!qtyToBuy) return;
 
+    const vendorMobile = prompt("Enter your mobile number so the farmer can contact you:");
+
     try {
       // 1. Create order on backend
-      const res = await axios.post(`${API_URL}/marketplace/buy/${listing.id}?amount_kg=${qtyToBuy}`, {}, {
+      const res = await axios.post(`${API_URL}/marketplace/buy/${listing.id}?amount_kg=${qtyToBuy}${vendorMobile ? `&contact_number=${vendorMobile}` : ''}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const orderData = res.data;
@@ -189,6 +192,17 @@ const Marketplace = ({ user, token }) => {
                   style={{ width: '100%' }}
                 />
               </div>
+              <div>
+                <label className="form-label">Mobile Number</label>
+                <input
+                  type="text" required
+                  value={newCrop.contact}
+                  onChange={e => setNewCrop({ ...newCrop, contact: e.target.value })}
+                  className="form-input"
+                  placeholder="e.g. 9876543210"
+                  style={{ width: '100%' }}
+                />
+              </div>
               <button type="submit" className="btn-primary" style={{
                 height: 50, width: '100%', fontSize: '0.95rem'
               }}>List Crop</button>
@@ -280,8 +294,15 @@ const Marketplace = ({ user, token }) => {
                     }}>{item.crop_name}</h3>
                     <p style={{
                       color: 'var(--text-muted)', fontSize: '0.8rem',
-                      marginBottom: '1.25rem'
+                      marginBottom: '0.25rem'
                     }}>Farmer ID: {item.farmer_id}</p>
+                    {item.contact_number && (
+                      <p style={{
+                        color: 'var(--text-accent)', fontSize: '0.8rem',
+                        marginBottom: '1.25rem', fontWeight: 600
+                      }}>📞 {item.contact_number}</p>
+                    )}
+                    {!item.contact_number && <div style={{ marginBottom: '1.25rem' }}></div>}
 
                     {/* Stock section */}
                     <div style={{
