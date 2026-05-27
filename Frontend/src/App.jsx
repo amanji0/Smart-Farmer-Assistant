@@ -962,7 +962,15 @@ export default function SmartCropApp() {
         </Modal>
       )}
 
-      {/* Role Selection Modal */}
+
+
+          </main>
+        } />
+        <Route path="/marketplace" element={<Marketplace user={user} token={token} />} />
+        <Route path="/schemes" element={<Schemes />} />
+      </Routes>
+
+      {/* Role Selection Modal (Global) */}
       {showRoleSelect && (
         <div className="modal-backdrop" style={{ zIndex: 100 }}>
           <div style={{
@@ -1010,11 +1018,6 @@ export default function SmartCropApp() {
         </div>
       )}
 
-          </main>
-        } />
-        <Route path="/marketplace" element={<Marketplace user={user} token={token} />} />
-        <Route path="/schemes" element={<Schemes />} />
-      </Routes>
     </div>
   );
 }
