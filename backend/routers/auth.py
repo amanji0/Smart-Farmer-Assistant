@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
 import requests
 from database import get_db
-import db_models
 from schemas import api_schemas
 import os
 import jwt
@@ -21,7 +19,7 @@ def create_access_token(data: dict):
     return jwt.encode(to_encode, JWT_SECRET, algorithm=ALGORITHM)
 
 @router.post("/google", response_model=dict)
-async def google_auth(token: str, role: str, db: Session = Depends(get_db)):
+async def google_auth(token: str, role: str, db = Depends(get_db)):
     try:
         # Verify Google Access Token by calling UserInfo endpoint
         user_info_url = "https://www.googleapis.com/oauth2/v3/userinfo"
@@ -35,29 +33,30 @@ async def google_auth(token: str, role: str, db: Session = Depends(get_db)):
         google_id = idinfo['sub']
 
         # Check if user exists
-        user = db.query(db_models.User).filter(db_models.User.email == email).first()
+        user = db.users.find_one({"email": email})
         if not user:
-            user = db_models.User(
-                google_id=google_id,
-                email=email,
-                name=name,
-                role=role
-            )
-            db.add(user)
-            db.commit()
-            db.refresh(user)
+            user_doc = {
+                "google_id": google_id,
+                "email": email,
+                "name": name,
+                "role": role,
+                "created_at": datetime.utcnow()
+            }
+            result = db.users.insert_one(user_doc)
+            user = db.users.find_one({"_id": result.inserted_id})
 
         # Generate JWT token
-        access_token = create_access_token(data={"sub": user.email, "role": user.role, "id": user.id})
+        user_id_str = str(user["_id"])
+        access_token = create_access_token(data={"sub": user["email"], "role": user["role"], "id": user_id_str})
         
         return {
             "access_token": access_token,
             "token_type": "bearer",
             "user": {
-                "id": user.id,
-                "email": user.email,
-                "name": user.name,
-                "role": user.role
+                "id": user_id_str,
+                "email": user["email"],
+                "name": user["name"],
+                "role": user["role"]
             }
         }
     except ValueError as e:
@@ -65,55 +64,58 @@ async def google_auth(token: str, role: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail=f"Invalid Google token: {str(e)}")
 
 @router.post("/demo", response_model=dict)
-async def demo_auth(role: str, db: Session = Depends(get_db)):
+async def demo_auth(role: str, db = Depends(get_db)):
     # Demo bypass for local development testing
     demo_email = f"demo_{role}@example.com"
     demo_name = f"Demo {role.capitalize()}"
     google_id = f"demo_id_{role}"
 
-    user = db.query(db_models.User).filter(db_models.User.email == demo_email).first()
+    user = db.users.find_one({"email": demo_email})
     if not user:
-        user = db_models.User(
-            google_id=google_id,
-            email=demo_email,
-            name=demo_name,
-            role=role
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
+        user_doc = {
+            "google_id": google_id,
+            "email": demo_email,
+            "name": demo_name,
+            "role": role,
+            "created_at": datetime.utcnow()
+        }
+        result = db.users.insert_one(user_doc)
+        user = db.users.find_one({"_id": result.inserted_id})
 
-    access_token = create_access_token(data={"sub": user.email, "role": user.role, "id": user.id})
+    user_id_str = str(user["_id"])
+    access_token = create_access_token(data={"sub": user["email"], "role": user["role"], "id": user_id_str})
     return {
         "access_token": access_token,
         "token_type": "bearer",
         "user": {
-            "id": user.id,
-            "email": user.email,
-            "name": user.name,
-            "role": user.role
+            "id": user_id_str,
+            "email": user["email"],
+            "name": user["name"],
+            "role": user["role"]
         }
     }
 
-def get_current_user(token: str, db: Session):
+def get_current_user(token: str, db):
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
         if email is None:
             raise HTTPException(status_code=401, detail="Invalid token")
-        user = db.query(db_models.User).filter(db_models.User.email == email).first()
+        user = db.users.find_one({"email": email})
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
+        # Ensure we return ID as string for compatibility
+        user["id"] = str(user["_id"])
         return user
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
 
 # Secure Admin Endpoint to view the database
 @router.get("/admin/users")
-async def secure_get_users(secret: str, db: Session = Depends(get_db)):
+async def secure_get_users(secret: str, db = Depends(get_db)):
     admin_secret = os.getenv("ADMIN_SECRET", "super-secret-admin-key")
     if secret != admin_secret:
         raise HTTPException(status_code=403, detail="Forbidden: Incorrect admin secret")
     
-    users = db.query(db_models.User).all()
-    return [{"id": u.id, "email": u.email, "name": u.name, "role": u.role, "created_at": str(u.created_at)} for u in users]
+    users = list(db.users.find())
+    return [{"id": str(u["_id"]), "email": u["email"], "name": u.get("name", ""), "role": u.get("role", ""), "created_at": str(u.get("created_at", ""))} for u in users]

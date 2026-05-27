@@ -7,7 +7,9 @@ numpy
 scikit-learn
 pandas
 requests
-sqlalchemy
+pymongo
+dnspython
+certifi
 razorpay
 google-auth
 PyJWT

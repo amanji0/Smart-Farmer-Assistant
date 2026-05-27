@@ -11,7 +11,7 @@ class UserCreate(UserBase):
     role: str
 
 class UserResponse(UserBase):
-    id: int
+    id: str
     role: str
 
     class Config:
@@ -28,8 +28,8 @@ class ListingCreate(ListingBase):
     pass
 
 class ListingResponse(ListingBase):
-    id: int
-    farmer_id: int
+    id: str
+    farmer_id: str
     status: str
     created_at: datetime
     farmer: Optional[UserResponse] = None
@@ -38,13 +38,13 @@ class ListingResponse(ListingBase):
         from_attributes = True
 
 class TransactionCreate(BaseModel):
-    listing_id: int
+    listing_id: str
     amount: float
 
 class TransactionResponse(BaseModel):
-    id: int
-    listing_id: int
-    vendor_id: int
+    id: str
+    listing_id: str
+    vendor_id: str
     amount: float
     razorpay_order_id: str
     status: str

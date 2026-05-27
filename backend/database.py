@@ -1,20 +1,13 @@
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from pymongo import MongoClient
+import certifi
 
-# SQLite database file path
-SQLALCHEMY_DATABASE_URL = "sqlite:///./smartcrop.db"
+# MongoDB connection string
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
+# Initialize MongoDB Client
+client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
+db = client.smartcrop
 
 def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+    return db

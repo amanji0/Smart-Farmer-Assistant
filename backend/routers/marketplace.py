@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, Header
-from sqlalchemy.orm import Session
 from database import get_db
-import db_models
 from schemas import api_schemas
 from routers.auth import get_current_user
 import razorpay
 import os
+from datetime import datetime
+from bson.objectid import ObjectId
+from bson.errors import InvalidId
 
 router = APIRouter(prefix="/marketplace", tags=["marketplace"])
 
@@ -14,41 +15,61 @@ RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "your_secret")
 
 client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
-def get_user_from_token(authorization: str = Header(None), db: Session = Depends(get_db)):
+def get_user_from_token(authorization: str = Header(None), db = Depends(get_db)):
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Unauthorized")
     token = authorization.split(" ")[1]
     return get_current_user(token, db)
 
 @router.post("/listings", response_model=api_schemas.ListingResponse)
-def create_listing(listing: api_schemas.ListingCreate, db: Session = Depends(get_db), current_user: db_models.User = Depends(get_user_from_token)):
-    if current_user.role != "farmer":
+def create_listing(listing: api_schemas.ListingCreate, db = Depends(get_db), current_user = Depends(get_user_from_token)):
+    if current_user.get("role") != "farmer":
         raise HTTPException(status_code=403, detail="Only farmers can create listings")
     
-    db_listing = db_models.Listing(**listing.dict(), farmer_id=current_user.id)
-    db.add(db_listing)
-    db.commit()
-    db.refresh(db_listing)
-    return db_listing
+    listing_doc = listing.dict()
+    listing_doc["farmer_id"] = current_user["id"]
+    listing_doc["status"] = "available"
+    listing_doc["created_at"] = datetime.utcnow()
+
+    result = db.listings.insert_one(listing_doc)
+    
+    # Format for response
+    listing_doc["id"] = str(result.inserted_id)
+    return listing_doc
 
 @router.get("/listings", response_model=list[api_schemas.ListingResponse])
-def get_listings(db: Session = Depends(get_db)):
-    return db.query(db_models.Listing).filter(db_models.Listing.status == "available").all()
+def get_listings(db = Depends(get_db)):
+    listings_cursor = db.listings.find({"status": "available"})
+    results = []
+    for listing in listings_cursor:
+        listing["id"] = str(listing["_id"])
+        # Fetch the farmer info
+        farmer = db.users.find_one({"_id": ObjectId(listing["farmer_id"])})
+        if farmer:
+            farmer["id"] = str(farmer["_id"])
+            listing["farmer"] = farmer
+        results.append(listing)
+    return results
 
 @router.post("/buy/{listing_id}")
-def buy_listing(listing_id: int, amount_kg: float, db: Session = Depends(get_db), current_user: db_models.User = Depends(get_user_from_token)):
-    if current_user.role != "vendor":
+def buy_listing(listing_id: str, amount_kg: float, db = Depends(get_db), current_user = Depends(get_user_from_token)):
+    if current_user.get("role") != "vendor":
         raise HTTPException(status_code=403, detail="Only vendors can buy")
 
-    listing = db.query(db_models.Listing).filter(db_models.Listing.id == listing_id).first()
-    if not listing or listing.status != "available":
+    try:
+        obj_id = ObjectId(listing_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid listing ID format")
+
+    listing = db.listings.find_one({"_id": obj_id})
+    if not listing or listing.get("status") != "available":
         raise HTTPException(status_code=404, detail="Listing not available")
     
-    if amount_kg > listing.quantity_kg:
+    if amount_kg > listing.get("quantity_kg", 0):
         raise HTTPException(status_code=400, detail="Not enough quantity available")
 
     # Create Razorpay Order
-    total_price = amount_kg * listing.price_per_kg
+    total_price = amount_kg * listing.get("price_per_kg", 0)
     order_amount = int(total_price * 100) # Razorpay expects amount in paise
     order_currency = "INR"
 
@@ -58,20 +79,20 @@ def buy_listing(listing_id: int, amount_kg: float, db: Session = Depends(get_db)
         raise HTTPException(status_code=500, detail=str(e))
 
     # Create Transaction Record
-    transaction = db_models.Transaction(
-        listing_id=listing.id,
-        vendor_id=current_user.id,
-        amount=total_price,
-        razorpay_order_id=razorpay_order['id'],
-        status="pending"
-    )
-    db.add(transaction)
-    db.commit()
+    transaction_doc = {
+        "listing_id": listing_id,
+        "vendor_id": current_user["id"],
+        "amount": total_price,
+        "razorpay_order_id": razorpay_order['id'],
+        "status": "pending",
+        "created_at": datetime.utcnow()
+    }
+    db.transactions.insert_one(transaction_doc)
 
     return {"order_id": razorpay_order['id'], "amount": order_amount, "currency": order_currency}
 
 @router.post("/verify")
-def verify_payment(razorpay_order_id: str, razorpay_payment_id: str, razorpay_signature: str, db: Session = Depends(get_db)):
+def verify_payment(razorpay_order_id: str, razorpay_payment_id: str, razorpay_signature: str, db = Depends(get_db)):
     try:
         client.utility.verify_payment_signature({
             'razorpay_order_id': razorpay_order_id,
@@ -81,17 +102,24 @@ def verify_payment(razorpay_order_id: str, razorpay_payment_id: str, razorpay_si
     except razorpay.errors.SignatureVerificationError:
         raise HTTPException(status_code=400, detail="Signature Verification Failed")
 
-    transaction = db.query(db_models.Transaction).filter(db_models.Transaction.razorpay_order_id == razorpay_order_id).first()
+    transaction = db.transactions.find_one({"razorpay_order_id": razorpay_order_id})
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
 
-    transaction.status = "successful"
-    transaction.razorpay_payment_id = razorpay_payment_id
+    db.transactions.update_one(
+        {"_id": transaction["_id"]},
+        {"$set": {"status": "successful", "razorpay_payment_id": razorpay_payment_id}}
+    )
 
     # Update Listing Quantity
-    listing = db.query(db_models.Listing).filter(db_models.Listing.id == transaction.listing_id).first()
-    # Assuming the transaction bought all for now, to be complex later
-    listing.status = "sold_out"
-    
-    db.commit()
+    try:
+        listing_obj_id = ObjectId(transaction["listing_id"])
+        # Assuming the transaction bought all for now, to be complex later
+        db.listings.update_one(
+            {"_id": listing_obj_id},
+            {"$set": {"status": "sold_out"}}
+        )
+    except InvalidId:
+        pass # Ignored for safety
+
     return {"status": "Payment Successful"}
