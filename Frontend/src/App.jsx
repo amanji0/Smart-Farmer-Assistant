@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon } from 'lucide-react';
+import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon, Sun, Moon } from 'lucide-react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
@@ -97,6 +97,18 @@ export default function SmartCropApp() {
   const [lang, setLang] = useState('en');
   const [loadingRole, setLoadingRole] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const t = T[lang];
 
@@ -370,6 +382,15 @@ export default function SmartCropApp() {
 
           {/* Right: Lang + Auth */}
           <div className="hidden md:flex items-center gap-4">
+            <button 
+              onClick={toggleTheme} 
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              className="hover:opacity-80 transition-opacity flex items-center justify-center"
+              title="Toggle Theme"
+            >
+              {theme === 'dark' ? <Sun size={20} color="var(--text-secondary)" /> : <Moon size={20} color="var(--text-secondary)" />}
+            </button>
+
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value)}
@@ -445,9 +466,14 @@ export default function SmartCropApp() {
             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="nav-link" style={{ display: 'block' }}>Home</Link>
             <Link to="/marketplace" onClick={() => setMobileMenuOpen(false)} className="nav-link" style={{ display: 'block' }}>{t.tryMarket || 'Marketplace'}</Link>
             <Link to="/schemes" onClick={() => setMobileMenuOpen(false)} className="nav-link" style={{ display: 'block' }}>{t.trySchemes || 'Govt Schemes'}</Link>
-            <select value={lang} onChange={(e) => setLang(e.target.value)} className="lang-select" style={{ marginTop: '8px' }}>
-              {supportedLanguages.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
-            </select>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px' }}>
+              <select value={lang} onChange={(e) => setLang(e.target.value)} className="lang-select">
+                {supportedLanguages.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
+              </select>
+              <button onClick={toggleTheme} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}>
+                {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+              </button>
+            </div>
           </div>
         )}
       </nav>
