@@ -459,7 +459,7 @@ export default function SmartCropApp() {
           <div style={{
             padding: '16px 24px 24px',
             borderTop: '1px solid var(--border-subtle)',
-            background: 'rgba(0,0,0,0.95)',
+            background: 'var(--bg-tertiary)',
             backdropFilter: 'blur(24px)',
             display: 'flex', flexDirection: 'column', gap: '8px',
           }}>
