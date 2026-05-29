@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon, Sun, Moon } from 'lucide-react';
+import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon, Sun, Moon, Leaf, ScanEye, Sprout, CloudSun, Smartphone, ShoppingBag, Award, HeartHandshake, MapPin, Calendar } from 'lucide-react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
@@ -310,12 +310,12 @@ export default function SmartCropApp() {
   ];
 
   const features = [
-    { id: 'crop', icon: '🌾', title: t.f1title || 'Crop Recommendation', desc: t.f1desc || 'AI-powered crop suggestions based on your location, soil, and real-time weather data.', gradient: 'linear-gradient(135deg, #059669, #34d399)', glow: 'rgba(52, 211, 153, 0.15)' },
-    { id: 'disease', icon: '🔬', title: t.f2title || 'Disease Detection', desc: t.f2desc || 'Upload a leaf photo and get instant AI diagnosis with treatment recommendations.', gradient: 'linear-gradient(135deg, #ef4444, #f87171)', glow: 'rgba(239, 68, 68, 0.15)' },
-    { id: 'weather', icon: '🌤️', title: t.f3title || 'Weather Forecast', desc: t.f3desc || 'Real-time weather data and 5-day agricultural forecast for your region.', gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8)', glow: 'rgba(14, 165, 233, 0.15)' },
-    { id: 'fertilizer', icon: '🧪', title: t.f4title || 'Fertilizer Guide', desc: t.f4desc || 'Precision NPK recommendations tailored for maximum crop yield.', gradient: 'linear-gradient(135deg, #f59e0b, #fbbf24)', glow: 'rgba(245, 158, 11, 0.15)' },
-    { id: 'calendar', icon: '📅', title: t.f5title || 'Crop Calendar', desc: t.f5desc || 'Season-by-season planting guide to optimize your farming cycle.', gradient: 'linear-gradient(135deg, #8b5cf6, #a78bfa)', glow: 'rgba(139, 92, 246, 0.15)' },
-    { id: 'irrigation', icon: '💧', title: t.f6title || 'Irrigation Guide', desc: t.f6desc || 'Smart water management strategies for every crop type.', gradient: 'linear-gradient(135deg, #06b6d4, #22d3ee)', glow: 'rgba(6, 182, 212, 0.15)' },
+    { id: 'crop', icon: <Sprout size={24} strokeWidth={1.5} />, title: t.f1title || 'Crop Recommendation', desc: t.f1desc || 'AI-powered crop suggestions based on your location, soil, and real-time weather data.', gradient: 'linear-gradient(135deg, #059669, #34d399)', glow: 'rgba(52, 211, 153, 0.15)' },
+    { id: 'disease', icon: <ScanEye size={24} strokeWidth={1.5} />, title: t.f2title || 'Disease Detection', desc: t.f2desc || 'Instantly diagnose plant diseases by uploading a photo of the affected leaf.', gradient: 'linear-gradient(135deg, #2563eb, #60a5fa)', glow: 'rgba(96, 165, 250, 0.15)' },
+    { id: 'weather', icon: <CloudSun size={24} strokeWidth={1.5} />, title: t.f3title || 'Weather Alerts', desc: t.f3desc || 'Get hyperlocal weather forecasts and extreme weather warnings for your farm.', gradient: 'linear-gradient(135deg, #ea580c, #fb923c)', glow: 'rgba(251, 146, 60, 0.15)' },
+    { id: 'market', icon: <ShoppingBag size={24} strokeWidth={1.5} />, title: t.f4title || 'B2B Marketplace', desc: t.f4desc || 'Connect directly with verified buyers to sell your crops at the best market prices.', gradient: 'linear-gradient(135deg, #7c3aed, #a78bfa)', glow: 'rgba(167, 139, 250, 0.15)' },
+    { id: 'fertilizer', icon: <MapPin size={24} strokeWidth={1.5} />, title: t.f5title || 'Fertilizer Guide', desc: t.f5desc || 'Precision NPK recommendations tailored for maximum crop yield.', gradient: 'linear-gradient(135deg, #f59e0b, #fbbf24)', glow: 'rgba(245, 158, 11, 0.15)' },
+    { id: 'calendar', icon: <Calendar size={24} strokeWidth={1.5} />, title: t.f6title || 'Crop Calendar', desc: t.f6desc || 'Season-by-season planting guide to optimize your farming cycle.', gradient: 'linear-gradient(135deg, #8b5cf6, #a78bfa)', glow: 'rgba(139, 92, 246, 0.15)' },
   ];
 
   const stats = [
@@ -574,13 +574,13 @@ export default function SmartCropApp() {
             </p>
 
             <div className="animate-fade-in-up stagger-3" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button onClick={() => setActiveModal('crop')} className="btn-primary">
-                <span>🌾</span>
+              <button onClick={() => setActiveModal('crop')} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sprout size={18} strokeWidth={2} />
                 <span>{t.heroCta1 || 'Get Crop Advice'}</span>
                 <ArrowRight size={16} />
               </button>
-              <button onClick={() => setActiveModal('disease')} className="btn-outline">
-                <span>🔬</span>
+              <button onClick={() => setActiveModal('disease')} className="btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ScanEye size={18} strokeWidth={2} />
                 <span>{t.heroCta2 || 'Scan Disease'}</span>
               </button>
             </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FileText, Wallet, Users, Map } from 'lucide-react';
 
 /* ═══════════════════════════════════════════════════════════════
    CENTRAL GOVERNMENT SCHEMES
@@ -753,18 +754,39 @@ const Schemes = () => {
               gap: 16, marginBottom: 40,
             }}>
               {[
-                { val: '12+', label: 'Active Schemes', icon: '📋' },
-                { val: '₹1.5L Cr+', label: 'Total Budget', icon: '💰' },
-                { val: '15+ Cr', label: 'Farmers Covered', icon: '👨‍🌾' },
-                { val: '100%', label: 'States Covered', icon: '🇮🇳' },
+                { val: '12+', label: 'Active Schemes', icon: <FileText size={28} strokeWidth={1.5} /> },
+                { val: '₹1.5L Cr+', label: 'Total Budget', icon: <Wallet size={28} strokeWidth={1.5} /> },
+                { val: '15+ Cr', label: 'Farmers Covered', icon: <Users size={28} strokeWidth={1.5} /> },
+                { val: '100%', label: 'States Covered', icon: <Map size={28} strokeWidth={1.5} /> },
               ].map((s, i) => (
-                <div key={i} style={{
-                  textAlign: 'center', padding: '20px 16px', borderRadius: 'var(--radius-xl)',
+                <div key={i} className="stat-card" style={{
+                  textAlign: 'center', padding: '24px 16px', borderRadius: 'var(--radius-xl)',
                   background: 'var(--bg-card)', border: '1px solid var(--border-subtle)',
+                  transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+                  cursor: 'default'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.borderColor = 'var(--color-primary)';
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(52, 211, 153, 0.1)';
+                  e.currentTarget.querySelector('.icon-wrapper').style.transform = 'scale(1.1) rotate(5deg)';
+                  e.currentTarget.querySelector('.icon-wrapper').style.color = 'var(--color-primary)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.querySelector('.icon-wrapper').style.transform = 'scale(1) rotate(0deg)';
+                  e.currentTarget.querySelector('.icon-wrapper').style.color = 'var(--text-secondary)';
                 }}>
-                  <div style={{ fontSize: '1.5rem', marginBottom: 6 }}>{s.icon}</div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.4rem', color: 'var(--color-primary)' }}>{s.val}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 500, marginTop: 2 }}>{s.label}</div>
+                  <div className="icon-wrapper" style={{ 
+                    marginBottom: 12, color: 'var(--text-secondary)', 
+                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)' 
+                  }}>
+                    {s.icon}
+                  </div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: 4 }}>{s.val}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.02em' }}>{s.label}</div>
                 </div>
               ))}
             </div>
