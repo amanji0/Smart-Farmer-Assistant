@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-const Marketplace = ({ user, token }) => {
+const Marketplace = ({ user, token, loginWithGoogle }) => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -115,9 +115,16 @@ const Marketplace = ({ user, token }) => {
               fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)',
               marginBottom: '0.75rem', letterSpacing: '-0.025em'
             }}>Marketplace Access</h2>
-            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Please login via the Google Login button in the top right to access the Marketplace.
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2rem' }}>
+              Please login to access the B2B Marketplace and start trading directly.
             </p>
+            <button
+              onClick={loginWithGoogle}
+              className="btn-primary"
+              style={{ width: '100%', justifyContent: 'center' }}
+            >
+              Login with Google
+            </button>
           </div>
         </div>
       </section>

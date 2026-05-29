@@ -1047,7 +1047,7 @@ export default function SmartCropApp() {
 
           </main>
         } />
-        <Route path="/marketplace" element={<Marketplace user={user} token={token} />} />
+        <Route path="/marketplace" element={<Marketplace user={user} token={token} loginWithGoogle={loginWithGoogle} />} />
         <Route path="/schemes" element={<Schemes />} />
       </Routes>
 
