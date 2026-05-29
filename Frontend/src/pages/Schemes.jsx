@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Wallet, Users, Map } from 'lucide-react';
+import { FileText, Wallet, Users, Map, ShieldCheck, CreditCard, FlaskConical, UserCheck, Droplet, Store, Leaf, Tractor, Rocket, MapPin, Landmark, Building, Trees, Mountain, Sunrise, Factory, Palmtree, Flower2, Waves, Train, Castle, Sprout, Nut, Droplets, HardHat } from 'lucide-react';
 
 /* ═══════════════════════════════════════════════════════════════
    CENTRAL GOVERNMENT SCHEMES
@@ -8,7 +8,7 @@ const centralSchemes = [
   {
     id: 'c1',
     title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
-    icon: '🌾',
+    icon: <Sprout size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: 'February 2019',
     applyBy: 'Open Year-Round',
@@ -24,7 +24,7 @@ const centralSchemes = [
   {
     id: 'c2',
     title: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
-    icon: '🛡️',
+    icon: <ShieldCheck size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: 'April 2016',
     applyBy: 'Kharif: Jul 31 | Rabi: Dec 31',
@@ -41,7 +41,7 @@ const centralSchemes = [
   {
     id: 'c3',
     title: 'Kisan Credit Card (KCC) Scheme',
-    icon: '💳',
+    icon: <CreditCard size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Finance / NABARD',
     launchDate: 'August 1998 (Revised 2019)',
     applyBy: 'Open Year-Round',
@@ -59,7 +59,7 @@ const centralSchemes = [
   {
     id: 'c4',
     title: 'Soil Health Card Scheme',
-    icon: '🧪',
+    icon: <FlaskConical size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: 'February 2015',
     applyBy: 'Open Year-Round',
@@ -76,7 +76,7 @@ const centralSchemes = [
   {
     id: 'c5',
     title: 'PM Kisan MaanDhan Yojana (Pension)',
-    icon: '👴',
+    icon: <UserCheck size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: 'September 2019',
     applyBy: 'Open Year-Round (Age 18-40)',
@@ -93,7 +93,7 @@ const centralSchemes = [
   {
     id: 'c6',
     title: 'Pradhan Mantri Krishi Sinchayee Yojana (PMKSY)',
-    icon: '💧',
+    icon: <Droplet size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture / Jal Shakti',
     launchDate: 'July 2015',
     applyBy: 'Through State Agriculture Dept',
@@ -110,7 +110,7 @@ const centralSchemes = [
   {
     id: 'c7',
     title: 'e-NAM (National Agriculture Market)',
-    icon: '🏪',
+    icon: <Store size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: 'April 2016',
     applyBy: 'Open Year-Round',
@@ -128,7 +128,7 @@ const centralSchemes = [
   {
     id: 'c8',
     title: 'Paramparagat Krishi Vikas Yojana (PKVY)',
-    icon: '🌿',
+    icon: <Leaf size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: '2015-16',
     applyBy: 'Through District Agriculture Office',
@@ -145,7 +145,7 @@ const centralSchemes = [
   {
     id: 'c9',
     title: 'Agriculture Infrastructure Fund (AIF)',
-    icon: '🏗️',
+    icon: <HardHat size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: 'August 2020',
     applyBy: 'Open till 2032-33',
@@ -162,7 +162,7 @@ const centralSchemes = [
   {
     id: 'c10',
     title: 'Sub-Mission on Agricultural Mechanization (SMAM)',
-    icon: '🚜',
+    icon: <Tractor size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: '2014-15',
     applyBy: 'Open Year-Round via State Depts',
@@ -179,7 +179,7 @@ const centralSchemes = [
   {
     id: 'c11',
     title: 'National Mission on Oilseeds & Oil Palm (NMOOP)',
-    icon: '🫒',
+    icon: <Nut size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: '2014-15 (Revised 2021 as NMEO-OP)',
     applyBy: 'Through State Horticulture Dept',
@@ -196,7 +196,7 @@ const centralSchemes = [
   {
     id: 'c12',
     title: 'Rashtriya Krishi Vikas Yojana (RKVY-RAFTAAR)',
-    icon: '🚀',
+    icon: <Rocket size={28} strokeWidth={1.5} />,
     ministry: 'Ministry of Agriculture & Farmers Welfare',
     launchDate: '2007 (Revamped 2017)',
     applyBy: 'Through State Government',
@@ -218,7 +218,7 @@ const centralSchemes = [
 const stateSchemes = [
   {
     state: 'Uttar Pradesh',
-    flag: '🏛️',
+    flag: <Landmark size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'UP Kisan Kalyan Mission',
@@ -242,7 +242,7 @@ const stateSchemes = [
   },
   {
     state: 'Madhya Pradesh',
-    flag: '🐅',
+    flag: <Trees size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Mukhyamantri Kisan Kalyan Yojana',
@@ -260,7 +260,7 @@ const stateSchemes = [
   },
   {
     state: 'Maharashtra',
-    flag: '🦁',
+    flag: <Mountain size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Mahatma Jyotirao Phule Shetkari Karj Mukti Yojana',
@@ -284,7 +284,7 @@ const stateSchemes = [
   },
   {
     state: 'Rajasthan',
-    flag: '🏜️',
+    flag: <Sunrise size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Mukhyamantri Krishak Sathi Yojana',
@@ -302,7 +302,7 @@ const stateSchemes = [
   },
   {
     state: 'Tamil Nadu',
-    flag: '🛕',
+    flag: <Landmark size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'TN Chief Minister\'s Solar Powered Pump Set Scheme',
@@ -326,7 +326,7 @@ const stateSchemes = [
   },
   {
     state: 'Punjab',
-    flag: '🌾',
+    flag: <Sprout size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Punjab Kisan Smart Phone Scheme',
@@ -344,7 +344,7 @@ const stateSchemes = [
   },
   {
     state: 'Karnataka',
-    flag: '🐘',
+    flag: <Building size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Raitha Siri Yojana',
@@ -362,7 +362,7 @@ const stateSchemes = [
   },
   {
     state: 'Gujarat',
-    flag: '🏭',
+    flag: <Factory size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Kisan Suryodaya Yojana',
@@ -380,7 +380,7 @@ const stateSchemes = [
   },
   {
     state: 'West Bengal',
-    flag: '🌸',
+    flag: <Flower2 size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Krishak Bandhu Scheme',
@@ -398,7 +398,7 @@ const stateSchemes = [
   },
   {
     state: 'Andhra Pradesh',
-    flag: '🌊',
+    flag: <Waves size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'YSR Rythu Bharosa',
@@ -416,7 +416,7 @@ const stateSchemes = [
   },
   {
     state: 'Telangana',
-    flag: '🏰',
+    flag: <Castle size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Rythu Bandhu Scheme',
@@ -434,7 +434,7 @@ const stateSchemes = [
   },
   {
     state: 'Kerala',
-    flag: '🥥',
+    flag: <Palmtree size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Kerala Coconut Palm Insurance',
@@ -452,7 +452,7 @@ const stateSchemes = [
   },
   {
     state: 'Bihar',
-    flag: '📿',
+    flag: <MapPin size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Bihar Rajya Fasal Sahayata Yojana',
@@ -470,7 +470,7 @@ const stateSchemes = [
   },
   {
     state: 'Odisha',
-    flag: '🛤️',
+    flag: <Train size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'KALIA (Krushak Assistance for Livelihood & Income Augmentation)',
@@ -488,7 +488,7 @@ const stateSchemes = [
   },
   {
     state: 'Haryana',
-    flag: '🏏',
+    flag: <Leaf size={24} strokeWidth={1.5} />,
     schemes: [
       {
         title: 'Meri Fasal Mera Byora',

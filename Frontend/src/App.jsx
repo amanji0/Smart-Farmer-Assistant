@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon, Sun, Moon, Leaf, ScanEye, Sprout, CloudSun, Smartphone, ShoppingBag, Award, HeartHandshake, MapPin, Calendar } from 'lucide-react';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon, Sun, Moon, Leaf, ScanEye, Sprout, CloudSun, Smartphone, ShoppingBag, Award, HeartHandshake, MapPin, Calendar, Target, Image, Microscope, Wheat, Carrot, Apple, Grape, SunMedium, CloudRain, Droplets, Flower2, Snowflake, Pill, ShieldCheck, Hourglass, Wind, Lightbulb, FlaskConical } from 'lucide-react';
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 import Marketplace from './pages/Marketplace';
@@ -294,10 +292,10 @@ export default function SmartCropApp() {
 
   // ─── Static Data ───
   const calendarData = [
-    { season: 'Spring (Mar–May)', crops: ['Tomato', 'Corn', 'Watermelon', 'Cotton'], icon: '🌸', color: 'rgba(244, 114, 182, 0.08)', border: 'rgba(244, 114, 182, 0.15)' },
-    { season: 'Summer (Jun–Aug)', crops: ['Rice', 'Mango', 'Okra', 'Sugarcane'], icon: '☀️', color: 'rgba(251, 191, 36, 0.08)', border: 'rgba(251, 191, 36, 0.15)' },
-    { season: 'Autumn (Sep–Nov)', crops: ['Potato', 'Onion', 'Carrot', 'Lentil'], icon: '🍂', color: 'rgba(249, 115, 22, 0.08)', border: 'rgba(249, 115, 22, 0.15)' },
-    { season: 'Winter (Dec–Feb)', crops: ['Wheat', 'Mustard', 'Peas', 'Spinach'], icon: '❄️', color: 'rgba(147, 197, 253, 0.08)', border: 'rgba(147, 197, 253, 0.15)' },
+    { season: 'Spring (Mar–May)', crops: ['Tomato', 'Corn', 'Watermelon', 'Cotton'], icon: <Flower2 size={24} strokeWidth={1.5} />, color: 'rgba(244, 114, 182, 0.08)', border: 'rgba(244, 114, 182, 0.15)' },
+    { season: 'Summer (Jun–Aug)', crops: ['Rice', 'Mango', 'Okra', 'Sugarcane'], icon: <Sun size={24} strokeWidth={1.5} />, color: 'rgba(251, 191, 36, 0.08)', border: 'rgba(251, 191, 36, 0.15)' },
+    { season: 'Autumn (Sep–Nov)', crops: ['Potato', 'Onion', 'Carrot', 'Lentil'], icon: <Leaf size={24} strokeWidth={1.5} />, color: 'rgba(249, 115, 22, 0.08)', border: 'rgba(249, 115, 22, 0.15)' },
+    { season: 'Winter (Dec–Feb)', crops: ['Wheat', 'Mustard', 'Peas', 'Spinach'], icon: <Snowflake size={24} strokeWidth={1.5} />, color: 'rgba(147, 197, 253, 0.08)', border: 'rgba(147, 197, 253, 0.15)' },
   ];
 
   const irrigationTips = [
@@ -319,35 +317,35 @@ export default function SmartCropApp() {
   ];
 
   const stats = [
-    { val: '99%', label: t.stat1 || 'Accuracy', icon: '🎯', sub: t.stat1sub || 'AI Model Precision' },
-    { val: '54K+', label: t.stat2 || 'Images', icon: '🖼️', sub: t.stat2sub || 'Training Dataset' },
-    { val: '22', label: t.stat3 || 'Crops', icon: '🌿', sub: t.stat3sub || 'Supported Varieties' },
-    { val: '38', label: t.stat4 || 'Diseases', icon: '🔬', sub: t.stat4sub || 'Detectable Conditions' },
+    { val: '99%', label: t.stat1 || 'Accuracy', icon: <Target size={28} strokeWidth={1.5} />, sub: t.stat1sub || 'AI Model Precision' },
+    { val: '54K+', label: t.stat2 || 'Images', icon: <Image size={28} strokeWidth={1.5} />, sub: t.stat2sub || 'Training Dataset' },
+    { val: '22', label: t.stat3 || 'Crops', icon: <Leaf size={28} strokeWidth={1.5} />, sub: t.stat3sub || 'Supported Varieties' },
+    { val: '38', label: t.stat4 || 'Diseases', icon: <Microscope size={28} strokeWidth={1.5} />, sub: t.stat4sub || 'Detectable Conditions' },
   ];
 
   const crops22 = [
-    { name: 'Rice', emoji: '🌾', season: 'Kharif', desc: 'Staple food crop, thrives in warm, humid conditions.' },
-    { name: 'Wheat', emoji: '🌾', season: 'Rabi', desc: 'Major cereal crop grown in cooler climates.' },
-    { name: 'Maize', emoji: '🌽', season: 'Kharif/Rabi', desc: 'Versatile grain used for food and animal feed.' },
-    { name: 'Cotton', emoji: '🧶', season: 'Kharif', desc: 'Important cash crop for textile industry.' },
-    { name: 'Sugarcane', emoji: '🎋', season: 'Annual', desc: 'Tropical crop used for sugar production.' },
-    { name: 'Tomato', emoji: '🍅', season: 'Year-round', desc: 'Popular vegetable rich in vitamins A and C.' },
-    { name: 'Potato', emoji: '🥔', season: 'Rabi', desc: 'Widely consumed root vegetable, adaptable crop.' },
-    { name: 'Onion', emoji: '🧅', season: 'Rabi/Kharif', desc: 'Essential kitchen staple, stores well.' },
-    { name: 'Carrot', emoji: '🥕', season: 'Rabi', desc: 'Root vegetable rich in beta-carotene.' },
-    { name: 'Lentil', emoji: '🫘', season: 'Rabi', desc: 'Protein-rich pulse, improves soil nitrogen.' },
-    { name: 'Mustard', emoji: '🌻', season: 'Rabi', desc: 'Oilseed crop with medicinal properties.' },
-    { name: 'Peas', emoji: '🫛', season: 'Rabi', desc: 'Cool-season legume, fixes atmospheric nitrogen.' },
-    { name: 'Spinach', emoji: '🥬', season: 'Rabi', desc: 'Leafy green packed with iron and nutrients.' },
-    { name: 'Mango', emoji: '🥭', season: 'Summer', desc: 'King of fruits, India\'s national fruit.' },
-    { name: 'Okra', emoji: '🌿', season: 'Kharif', desc: 'Warm-season crop, also known as ladyfinger.' },
-    { name: 'Watermelon', emoji: '🍉', season: 'Summer', desc: 'Refreshing fruit grown in hot climates.' },
-    { name: 'Barley', emoji: '🌾', season: 'Rabi', desc: 'Hardy grain used in food and beverages.' },
-    { name: 'Chickpea', emoji: '🫘', season: 'Rabi', desc: 'Major pulse crop, rich in protein and fiber.' },
-    { name: 'Sorghum', emoji: '🌾', season: 'Kharif/Rabi', desc: 'Drought-tolerant cereal for arid regions.' },
-    { name: 'Millet', emoji: '🌾', season: 'Kharif', desc: 'Nutritious ancient grain, grows in poor soil.' },
-    { name: 'Apple', emoji: '🍎', season: 'Temperate', desc: 'Premium fruit grown in hilly regions.' },
-    { name: 'Grapes', emoji: '🍇', season: 'Year-round', desc: 'Versatile fruit for eating and winemaking.' },
+    { name: 'Rice', emoji: <Wheat size={32} strokeWidth={1.5} />, season: 'Kharif', desc: 'Staple food crop, thrives in warm, humid conditions.' },
+    { name: 'Wheat', emoji: <Wheat size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Major cereal crop grown in cooler climates.' },
+    { name: 'Maize', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Kharif/Rabi', desc: 'Versatile grain used for food and animal feed.' },
+    { name: 'Cotton', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Kharif', desc: 'Important cash crop for textile industry.' },
+    { name: 'Sugarcane', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Annual', desc: 'Tropical crop used for sugar production.' },
+    { name: 'Tomato', emoji: <Apple size={32} strokeWidth={1.5} />, season: 'Year-round', desc: 'Popular vegetable rich in vitamins A and C.' },
+    { name: 'Potato', emoji: <Carrot size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Widely consumed root vegetable, adaptable crop.' },
+    { name: 'Onion', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Rabi/Kharif', desc: 'Essential kitchen staple, stores well.' },
+    { name: 'Carrot', emoji: <Carrot size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Root vegetable rich in beta-carotene.' },
+    { name: 'Lentil', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Protein-rich pulse, improves soil nitrogen.' },
+    { name: 'Mustard', emoji: <Leaf size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Oilseed crop with medicinal properties.' },
+    { name: 'Peas', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Cool-season legume, fixes atmospheric nitrogen.' },
+    { name: 'Spinach', emoji: <Leaf size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Leafy green packed with iron and nutrients.' },
+    { name: 'Mango', emoji: <Apple size={32} strokeWidth={1.5} />, season: 'Summer', desc: 'King of fruits, India\'s national fruit.' },
+    { name: 'Okra', emoji: <Leaf size={32} strokeWidth={1.5} />, season: 'Kharif', desc: 'Warm-season crop, also known as ladyfinger.' },
+    { name: 'Watermelon', emoji: <Apple size={32} strokeWidth={1.5} />, season: 'Summer', desc: 'Refreshing fruit grown in hot climates.' },
+    { name: 'Barley', emoji: <Wheat size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Hardy grain used in food and beverages.' },
+    { name: 'Chickpea', emoji: <Sprout size={32} strokeWidth={1.5} />, season: 'Rabi', desc: 'Major pulse crop, rich in protein and fiber.' },
+    { name: 'Sorghum', emoji: <Wheat size={32} strokeWidth={1.5} />, season: 'Kharif/Rabi', desc: 'Drought-tolerant cereal for arid regions.' },
+    { name: 'Millet', emoji: <Wheat size={32} strokeWidth={1.5} />, season: 'Kharif', desc: 'Nutritious ancient grain, grows in poor soil.' },
+    { name: 'Apple', emoji: <Apple size={32} strokeWidth={1.5} />, season: 'Temperate', desc: 'Premium fruit grown in hilly regions.' },
+    { name: 'Grapes', emoji: <Grape size={32} strokeWidth={1.5} />, season: 'Year-round', desc: 'Versatile fruit for eating and winemaking.' },
   ];
 
   // ─── RENDER ───
@@ -363,8 +361,9 @@ export default function SmartCropApp() {
               width: '36px', height: '36px', borderRadius: '10px',
               background: 'linear-gradient(135deg, #059669, #34d399)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.1rem',
-            }}>🌿</div>
+            }}>
+              <Leaf size={20} color="white" />
+            </div>
             <span style={{
               fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem',
               color: 'var(--text-primary)', letterSpacing: '-0.01em',
@@ -764,7 +763,7 @@ export default function SmartCropApp() {
                 className={`crop-card animate-fade-in-up stagger-${(i % 6) + 1}`}
                 style={{ opacity: 0 }}
               >
-                <div style={{ fontSize: '2rem', marginBottom: '6px' }}>{c.emoji}</div>
+                <div style={{ marginBottom: '10px', color: 'var(--color-primary)', transition: 'transform 0.3s ease' }} className="crop-icon-wrapper">{c.emoji}</div>
                 <h4 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '3px' }}>{c.name}</h4>
                 <span className="badge badge-emerald" style={{ fontSize: '0.6rem' }}>{c.season}</span>
               </div>
@@ -819,7 +818,11 @@ export default function SmartCropApp() {
 
       {/* Crop Recommendation */}
       {activeModal === 'crop' && (
-        <Modal title={t.cropModalTitle || '🌾 Crop Recommendation'} subtitle={t.cropModalSub || 'AI-powered crop suggestions based on your location'} onClose={() => { setActiveModal(null); setCropResult(null); setCropCity(''); }}>
+        <Modal title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Sprout size={20} /> {t.cropModalTitle || 'Crop Recommendation'}
+          </div>
+        } subtitle={t.cropModalSub || 'AI-powered crop suggestions based on your location'} onClose={() => { setActiveModal(null); setCropResult(null); setCropCity(''); }}>
           {!cropResult ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
@@ -913,11 +916,11 @@ export default function SmartCropApp() {
                 </div>
               </div>
               <div className="result-card success">
-                <p style={{ fontWeight: 600, color: 'var(--color-primary)', marginBottom: '6px', fontSize: '0.875rem' }}>💊 Treatment</p>
+                <p style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, color: 'var(--color-primary)', marginBottom: '6px', fontSize: '0.875rem' }}><Pill size={16} /> Treatment</p>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{diseaseResult.treatment}</p>
               </div>
               <div className="result-card info">
-                <p style={{ fontWeight: 600, color: '#60a5fa', marginBottom: '6px', fontSize: '0.875rem' }}>🛡️ Prevention</p>
+                <p style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, color: '#60a5fa', marginBottom: '6px', fontSize: '0.875rem' }}><ShieldCheck size={16} /> Prevention</p>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{diseaseResult.prevention}</p>
               </div>
               <button onClick={() => { setDiseaseResult(null); setDiseaseImage(null); }} className="btn-outline" style={{ width: '100%', justifyContent: 'center' }}>Analyze Another Image</button>
@@ -928,23 +931,23 @@ export default function SmartCropApp() {
 
       {/* Weather */}
       {activeModal === 'weather' && (
-        <Modal title="🌤️ Weather Forecast" subtitle="Real-time weather and 5-day agricultural forecast" onClose={() => { setActiveModal(null); setWeatherData(null); setWeatherCity(''); }} wide>
+        <Modal title={<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><CloudSun size={20} /> Weather Forecast</div>} subtitle="Real-time weather and 5-day agricultural forecast" onClose={() => { setActiveModal(null); setWeatherData(null); setWeatherCity(''); }} wide>
           {!weatherData ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div><label className="form-label">City Name</label><input type="text" placeholder="e.g. Mumbai, Delhi..." value={weatherCity} onChange={(e) => setWeatherCity(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleWeather()} className="form-input" /></div>
               <button onClick={handleWeather} disabled={loadingWeather || !weatherCity.trim()} className="btn-primary" style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, #0ea5e9, #2563eb)', opacity: (loadingWeather || !weatherCity.trim()) ? 0.5 : 1 }}>
-                <span>{loadingWeather ? '⏳' : '🌤️'}</span><span>{loadingWeather ? 'Fetching...' : 'Get Weather Data'}</span>
+                <span>{loadingWeather ? <Hourglass size={18} className="animate-spin" /> : <CloudSun size={18} />}</span><span>{loadingWeather ? 'Fetching...' : 'Get Weather Data'}</span>
               </button>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="weather-card">
-                <p style={{ fontSize: '0.85rem', color: '#60a5fa', marginBottom: '12px' }}>📍 {weatherData.city}, {weatherData.country}</p>
+                <p style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.85rem', color: '#60a5fa', marginBottom: '12px' }}><MapPin size={14} /> {weatherData.city}, {weatherData.country}</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                   <span style={{ fontSize: '4rem', lineHeight: 1 }}>{weatherIcon(weatherData.code)}</span>
                   <div>
                     <div style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: '3rem', color: 'var(--text-primary)', lineHeight: 1 }}>{weatherData.temp}°C</div>
-                    <div style={{ fontSize: '0.85rem', color: '#60a5fa', marginTop: '4px' }}>💧 {weatherData.humidity}% · 💨 {weatherData.wind} km/h</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#60a5fa', marginTop: '4px' }}><Droplets size={14} /> {weatherData.humidity}% · <Wind size={14} /> {weatherData.wind} km/h</div>
                   </div>
                 </div>
               </div>
@@ -956,7 +959,7 @@ export default function SmartCropApp() {
                       <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600 }}>{new Date(d.date).toLocaleDateString('en', { weekday: 'short' })}</p>
                       <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.2rem', color: 'var(--text-primary)', margin: '6px 0' }}>{Math.round(d.high)}°</p>
                       <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{Math.round(d.low)}°</p>
-                      {d.rain > 0 && <p style={{ fontSize: '0.65rem', color: '#7dd3fc', marginTop: '4px' }}>💧{d.rain}mm</p>}
+                      {d.rain > 0 && <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px', fontSize: '0.65rem', color: '#7dd3fc', marginTop: '4px' }}><Droplets size={12} />{d.rain}mm</p>}
                     </div>
                   ))}
                 </div>
@@ -969,12 +972,12 @@ export default function SmartCropApp() {
 
       {/* Fertilizer */}
       {activeModal === 'fertilizer' && (
-        <Modal title="🧪 Fertilizer Guide" subtitle="Precision NPK recommendations for maximum yield" onClose={() => { setActiveModal(null); setFertResult(null); }}>
+        <Modal title={<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><FlaskConical size={20} /> Fertilizer Guide</div>} subtitle="Precision NPK recommendations for maximum yield" onClose={() => { setActiveModal(null); setFertResult(null); }}>
           {!fertResult ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div><label className="form-label">Select Crop</label><select value={fertCrop} onChange={(e) => setFertCrop(e.target.value)} className="form-select">{['Rice','Wheat','Maize','Cotton','Tomato','Potato'].map(c => (<option key={c} value={c}>{c}</option>))}</select></div>
               <button onClick={getFertilizer} className="btn-primary" style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
-                <span>🧪</span><span>Get NPK Recommendation</span>
+                <span><FlaskConical size={18} /></span><span>Get NPK Recommendation</span>
               </button>
             </div>
           ) : (
@@ -997,7 +1000,7 @@ export default function SmartCropApp() {
                 ))}
               </div>
               <div className="result-card warning">
-                <p style={{ fontWeight: 600, color: '#fbbf24', marginBottom: '6px', fontSize: '0.875rem' }}>💡 Application Tip</p>
+                <p style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600, color: '#fbbf24', marginBottom: '6px', fontSize: '0.875rem' }}><Lightbulb size={16} /> Application Tip</p>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>{fertResult.tips}</p>
               </div>
               <button onClick={() => setFertResult(null)} className="btn-outline" style={{ width: '100%', justifyContent: 'center' }}>Check Another Crop</button>
@@ -1008,12 +1011,12 @@ export default function SmartCropApp() {
 
       {/* Crop Calendar */}
       {activeModal === 'calendar' && (
-        <Modal title="📅 Crop Calendar" subtitle="Optimal planting guide for all growing seasons" onClose={() => setActiveModal(null)} wide>
+        <Modal title={<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Calendar size={20} /> Crop Calendar</div>} subtitle="Optimal planting guide for all growing seasons" onClose={() => setActiveModal(null)} wide>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {calendarData.map((s, i) => (
               <div key={i} style={{ background: s.color, border: `1px solid ${s.border}`, borderRadius: '16px', padding: '20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '1.5rem' }}>{s.icon}</span>
+                  <span style={{ fontSize: '1.5rem', color: 'var(--color-primary)' }}>{s.icon}</span>
                   <h4 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{s.season}</h4>
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -1027,7 +1030,7 @@ export default function SmartCropApp() {
 
       {/* Irrigation */}
       {activeModal === 'irrigation' && (
-        <Modal title="💧 Irrigation Guide" subtitle="Water management strategies for maximum yield" onClose={() => setActiveModal(null)} wide>
+        <Modal title={<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Droplets size={20} /> Irrigation Guide</div>} subtitle="Water management strategies for maximum yield" onClose={() => setActiveModal(null)} wide>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {irrigationTips.map((tip, i) => (
               <div key={i} className="result-card" style={{ padding: '20px' }}>
@@ -1075,7 +1078,7 @@ export default function SmartCropApp() {
                   color: 'var(--text-primary)',
                 }}
               >
-                <span style={{ fontSize: '2rem' }}>🧑‍🌾</span>
+                <div style={{ color: 'var(--color-primary)' }}><UserCircle size={48} strokeWidth={1.5} /></div>
                 <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{loadingRole ? '...' : 'Farmer'}</span>
               </button>
               <button
