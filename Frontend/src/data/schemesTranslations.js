@@ -98,7 +98,13 @@ export const schemeTranslations = {
     "Learn More & Apply": "Learn More & Apply",
     "Open Year-Round": "Open Year-Round",
     "Ministry of Agriculture & Farmers Welfare": "Ministry of Agriculture & Farmers Welfare",
-    "Ministry of Finance / NABARD": "Ministry of Finance / NABARD"
+    "Ministry of Finance / NABARD": "Ministry of Finance / NABARD",
+    "Active Schemes": "Active Schemes",
+    "Total Budget": "Total Budget",
+    "Farmers Covered": "Farmers Covered",
+    "States Covered": "States Covered",
+    "₹1.5L Cr+": "₹1.5L Cr+",
+    "15+ Cr": "15+ Cr"
   },
   "hi": {
     "Crop insurance at very low premium — 2% for Kharif, 1.5% for Rabi, 5% for horticulture": "बहुत कम प्रीमियम पर फसल बीमा - खरीफ के लिए 2%, रबी के लिए 1.5%, बागवानी के लिए 5%",
@@ -199,7 +205,13 @@ export const schemeTranslations = {
     "Farmers purchasing approved machinery.": "स्वीकृत मशीनरी खरीदते किसान।",
     "Ministry of Finance / NABARD": "वित्त मंत्रालय/नाबार्ड",
     "Covers paddy, maize, and sugarcane.": "धान, मक्का और गन्ना को कवर करता है।",
-    "Learn More & Apply": "अधिक जानें और आवेदन करें"
+    "Learn More & Apply": "अधिक जानें और आवेदन करें",
+    "States Covered": "राज्यों को कवर किया गया",
+    "Total Budget": "कुल बजट",
+    "₹1.5L Cr+": "₹1.5L करोड़+",
+    "Active Schemes": "सक्रिय योजनाएँ",
+    "15+ Cr": "15+ करोड़",
+    "Farmers Covered": "किसानों को कवर किया गया"
   },
   "bn": {
     "Saur Sujala Yojana": "সৌর সুজলা যোজনা",
@@ -300,7 +312,13 @@ export const schemeTranslations = {
     "Open Year-Round": "সারা বছর খোলা",
     "Promotes farm mechanization and efficiency.": "খামার যান্ত্রিকীকরণ এবং দক্ষতা প্রচার করে।",
     "Direct financial support for agricultural operations.": "কৃষি কার্যক্রমের জন্য সরাসরি আর্থিক সহায়তা।",
-    "Ministry of Finance / NABARD": "অর্থ মন্ত্রণালয়/নাবার্ড"
+    "Ministry of Finance / NABARD": "অর্থ মন্ত্রণালয়/নাবার্ড",
+    "Total Budget": "মোট বাজেট",
+    "Active Schemes": "সক্রিয় স্কিম",
+    "States Covered": "রাজ্যগুলি আচ্ছাদিত",
+    "₹1.5L Cr+": "₹1.5L Cr+",
+    "Farmers Covered": "চাষীরা আচ্ছাদিত",
+    "15+ Cr": "15+ কোটি"
   },
   "te": {
     "Rajiv Gandhi Kisan Nyay Yojana": "రాజీవ్ గాంధీ కిసాన్ న్యాయ్ యోజన",
@@ -401,7 +419,13 @@ export const schemeTranslations = {
     "Covers paddy, maize, and sugarcane.": "వరి, మొక్కజొన్న మరియు చెరకు వర్తిస్తుంది.",
     "KEY BENEFITS": "కీ ప్రయోజనాలు",
     "Eligible farmers in Uttar Pradesh/Punjab/Rajasthan (varies by state).": "ఉత్తరప్రదేశ్/పంజాబ్/రాజస్థాన్‌లో అర్హులైన రైతులు (రాష్ట్రాల వారీగా మారుతూ ఉంటుంది).",
-    "Open Year-Round": "సంవత్సరం పొడవునా తెరవండి"
+    "Open Year-Round": "సంవత్సరం పొడవునా తెరవండి",
+    "Total Budget": "మొత్తం బడ్జెట్",
+    "States Covered": "రాష్ట్రాలు కవర్ చేయబడ్డాయి",
+    "Active Schemes": "క్రియాశీల పథకాలు",
+    "₹1.5L Cr+": "₹1.5L Cr+",
+    "15+ Cr": "15+ Cr",
+    "Farmers Covered": "రైతులు కవర్ చేశారు"
   },
   "mr": {
     "Mukhyamantri Krishi Ashirwad Yojana": "मुख्यमंत्री कृषी आशीर्वाद योजना",
@@ -502,7 +526,13 @@ export const schemeTranslations = {
     "Eligible farmers in Uttar Pradesh/Punjab/Rajasthan (varies by state).": "उत्तर प्रदेश/पंजाब/राजस्थानमधील पात्र शेतकरी (राज्यानुसार बदलतात).",
     "Waiver of agricultural loans up to ₹1 lakh.": "₹1 लाखापर्यंतचे कृषी कर्ज माफ.",
     "Ministry of Finance / NABARD": "वित्त मंत्रालय / नाबार्ड",
-    "Open Year-Round": "वर्षभर उघडा"
+    "Open Year-Round": "वर्षभर उघडा",
+    "States Covered": "राज्ये समाविष्ट",
+    "Total Budget": "एकूण बजेट",
+    "Active Schemes": "सक्रिय योजना",
+    "Farmers Covered": "शेतकरी कव्हर",
+    "15+ Cr": "१५+ कोटी",
+    "₹1.5L Cr+": "₹1.5L Cr+"
   },
   "ta": {
     "All land-holding farmer families with cultivable land": "பயிரிடத்தக்க நிலம் கொண்ட அனைத்து நிலம் வைத்திருக்கும் விவசாயி குடும்பங்கள்",
@@ -603,7 +633,13 @@ export const schemeTranslations = {
     "Direct financial support for agricultural operations.": "விவசாய நடவடிக்கைகளுக்கு நேரடி நிதி உதவி.",
     "₹5,000 per acre per year (up to 5 acres).": "ஒரு ஏக்கருக்கு ஆண்டுக்கு ₹5,000 (5 ஏக்கர் வரை).",
     "Covers paddy, maize, and sugarcane.": "நெல், சோளம், கரும்பு ஆகியவற்றை உள்ளடக்கியது.",
-    "Input assistance to crop-producing farmers to ensure fair returns.": "நியாயமான வருமானத்தை உறுதி செய்வதற்காக பயிர் உற்பத்தி செய்யும் விவசாயிகளுக்கு உள்ளீட்டு உதவி."
+    "Input assistance to crop-producing farmers to ensure fair returns.": "நியாயமான வருமானத்தை உறுதி செய்வதற்காக பயிர் உற்பத்தி செய்யும் விவசாயிகளுக்கு உள்ளீட்டு உதவி.",
+    "States Covered": "உள்ளடக்கிய மாநிலங்கள்",
+    "Active Schemes": "செயலில் உள்ள திட்டங்கள்",
+    "Farmers Covered": "விவசாயிகள் மூடப்பட்டனர்",
+    "Total Budget": "மொத்த பட்ஜெட்",
+    "₹1.5L Cr+": "₹1.5L Cr+",
+    "15+ Cr": "15+ கோடி"
   },
   "gu": {
     "All land-holding farmer families with cultivable land": "ખેતીલાયક જમીન ધરાવતા તમામ જમીન ધરાવતા ખેડૂત પરિવારો",
@@ -704,7 +740,13 @@ export const schemeTranslations = {
     "Subsidy up to 50% on agricultural machinery and equipment.": "કૃષિ મશીનરી અને સાધનો પર 50% સુધીની સબસિડી.",
     "Open Year-Round": "વર્ષ-રાઉન્ડ ઓપન",
     "Includes tractors, rotavators, and seed drills.": "ટ્રેક્ટર, રોટાવેટર અને સીડ ડ્રીલનો સમાવેશ થાય છે.",
-    "Ministry of Finance / NABARD": "નાણા મંત્રાલય / નાબાર્ડ"
+    "Ministry of Finance / NABARD": "નાણા મંત્રાલય / નાબાર્ડ",
+    "States Covered": "આવરિત રાજ્યો",
+    "Total Budget": "કુલ બજેટ",
+    "15+ Cr": "15+ કરોડ",
+    "₹1.5L Cr+": "₹1.5L Cr+",
+    "Active Schemes": "સક્રિય યોજનાઓ",
+    "Farmers Covered": "ખેડૂતોને આવરી લેવાયા"
   },
   "kn": {
     "Crop insurance at very low premium — 2% for Kharif, 1.5% for Rabi, 5% for horticulture": "ಅತ್ಯಂತ ಕಡಿಮೆ ಪ್ರೀಮಿಯಂನಲ್ಲಿ ಬೆಳೆ ವಿಮೆ - ಖಾರಿಫ್‌ಗೆ 2%, ರಬಿಗೆ 1.5%, ತೋಟಗಾರಿಕೆಗೆ 5%",
@@ -805,7 +847,13 @@ export const schemeTranslations = {
     "Provides relief to debt-ridden farmers.": "ಸಾಲದ ಸುಳಿಯಲ್ಲಿ ಸಿಲುಕಿರುವ ರೈತರಿಗೆ ಪರಿಹಾರ ನೀಡುತ್ತಿದೆ.",
     "Waiver of agricultural loans up to ₹1 lakh.": "₹1 ಲಕ್ಷದವರೆಗಿನ ಕೃಷಿ ಸಾಲ ಮನ್ನಾ.",
     "Subsidized premium rates for farmers.": "ರೈತರಿಗೆ ಸಬ್ಸಿಡಿ ಪ್ರೀಮಿಯಂ ದರಗಳು.",
-    "Farmers purchasing approved machinery.": "ಅನುಮೋದಿತ ಯಂತ್ರೋಪಕರಣಗಳನ್ನು ಖರೀದಿಸುತ್ತಿರುವ ರೈತರು."
+    "Farmers purchasing approved machinery.": "ಅನುಮೋದಿತ ಯಂತ್ರೋಪಕರಣಗಳನ್ನು ಖರೀದಿಸುತ್ತಿರುವ ರೈತರು.",
+    "Active Schemes": "ಸಕ್ರಿಯ ಯೋಜನೆಗಳು",
+    "States Covered": "ರಾಜ್ಯಗಳನ್ನು ಒಳಗೊಂಡಿದೆ",
+    "Total Budget": "ಒಟ್ಟು ಬಜೆಟ್",
+    "15+ Cr": "15+ ಕೋಟಿ",
+    "Farmers Covered": "ರೈತರು ಆವರಿಸಿದ್ದಾರೆ",
+    "₹1.5L Cr+": "₹1.5L Cr+"
   },
   "ml": {
     "Farmers, self-help groups, joint liability groups, and tenant farmers": "കർഷകർ, സ്വയം സഹായ സംഘങ്ങൾ, ജോയിൻ്റ് ലയബിലിറ്റി ഗ്രൂപ്പുകൾ, പാട്ടത്തിനെടുത്ത കർഷകർ",
@@ -906,7 +954,13 @@ export const schemeTranslations = {
     "Encourages crop diversification.": "വിള വൈവിധ്യവൽക്കരണം പ്രോത്സാഹിപ്പിക്കുന്നു.",
     "Improves creditworthiness for future loans.": "ഭാവി വായ്പകൾക്കുള്ള ക്രെഡിറ്റ് യോഗ്യത മെച്ചപ്പെടുത്തുന്നു.",
     "Waiver of agricultural loans up to ₹1 lakh.": "ഒരു ലക്ഷം രൂപ വരെയുള്ള കാർഷിക കടങ്ങൾ എഴുതിത്തള്ളും.",
-    "Subsidized premium rates for farmers.": "കർഷകർക്ക് സബ്‌സിഡി പ്രീമിയം നിരക്കുകൾ."
+    "Subsidized premium rates for farmers.": "കർഷകർക്ക് സബ്‌സിഡി പ്രീമിയം നിരക്കുകൾ.",
+    "States Covered": "കവർ ചെയ്ത സംസ്ഥാനങ്ങൾ",
+    "Active Schemes": "സജീവ സ്കീമുകൾ",
+    "Total Budget": "മൊത്തം ബജറ്റ്",
+    "₹1.5L Cr+": "₹1.5L Cr+",
+    "Farmers Covered": "കർഷകർ മൂടി",
+    "15+ Cr": "15+ കോടി"
   },
   "or": {
     "Full claim amount with no cap on government subsidy": "ସରକାରୀ ସବସିଡି ଉପରେ କ cap ଣସି କ୍ୟାପ୍ ନଥିବା ପୂର୍ଣ୍ଣ ଦାବି ପରିମାଣ |",
@@ -1007,6 +1061,12 @@ export const schemeTranslations = {
     "Eligible farmers in Uttar Pradesh/Punjab/Rajasthan (varies by state).": "ଉତ୍ତରପ୍ରଦେଶ / ପଞ୍ଜାବ / ରାଜସ୍ଥାନର ଯୋଗ୍ୟ କୃଷକମାନେ (ରାଜ୍ୟ ଅନୁସାରେ ଭିନ୍ନ) |",
     "Encourages formal credit and prevents exploitation by moneylenders.": "ଆନୁଷ୍ଠାନିକ credit ଣକୁ ଉତ୍ସାହିତ କରେ ଏବଂ ଟଙ୍କାଧାରୀଙ୍କ ଦ୍ୱାରା ଶୋଷଣକୁ ରୋକିଥାଏ |",
     "Supports tenant farmers and those cultivating forest land.": "ଭିକାରୀ କୃଷକ ଏବଂ ଜଙ୍ଗଲ ଜମି ଚାଷ କରୁଥିବା ଲୋକଙ୍କୁ ସମର୍ଥନ କରେ |",
-    "Insurance cover for cattle and livestock against death or permanent disability.": "ମୃତ୍ୟୁ କିମ୍ବା ସ୍ଥାୟୀ ଅକ୍ଷମତା ବିରୁଦ୍ଧରେ ଗୋରୁ ଏବଂ ପଶୁମାନଙ୍କ ପାଇଁ ବୀମା କଭର |"
+    "Insurance cover for cattle and livestock against death or permanent disability.": "ମୃତ୍ୟୁ କିମ୍ବା ସ୍ଥାୟୀ ଅକ୍ଷମତା ବିରୁଦ୍ଧରେ ଗୋରୁ ଏବଂ ପଶୁମାନଙ୍କ ପାଇଁ ବୀମା କଭର |",
+    "States Covered": "ରାଜ୍ୟଗୁଡିକ ଆଚ୍ଛାଦିତ |",
+    "Farmers Covered": "କୃଷକମାନେ ଆଚ୍ଛାଦିତ |",
+    "Total Budget": "ମୋଟ ବଜେଟ୍",
+    "₹1.5L Cr+": "₹ 1.5L Cr +",
+    "15+ Cr": "15+ କ୍ର",
+    "Active Schemes": "ସକ୍ରିୟ ଯୋଜନାଗୁଡିକ |"
   }
 };

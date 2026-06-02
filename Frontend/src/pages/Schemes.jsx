@@ -792,8 +792,12 @@ const Schemes = ({ t, lang }) => {
                   }}>
                     {s.icon}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: 4 }}>{s.val}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.02em' }}>{s.label}</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: 4 }}>
+                    {schemeTranslations[lang]?.[s.val] || schemeTranslations['en']?.[s.val] || s.val}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.02em' }}>
+                    {schemeTranslations[lang]?.[s.label] || schemeTranslations['en']?.[s.label] || s.label}
+                  </div>
                 </div>
               ))}
             </div>
