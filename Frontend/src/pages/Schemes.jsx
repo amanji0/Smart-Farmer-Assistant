@@ -684,7 +684,7 @@ const SchemeCard = ({ scheme, index, isState }) => (
 /* ═══════════════════════════════════════════════════════════════
    MAIN SCHEMES COMPONENT
    ═══════════════════════════════════════════════════════════════ */
-const Schemes = () => {
+const Schemes = ({ t }) => {
   const [activeTab, setActiveTab] = useState('central');
   const [expandedState, setExpandedState] = useState(null);
 
@@ -695,19 +695,19 @@ const Schemes = () => {
         {/* ── Page Header ── */}
         <div className="animate-fade-in-up" style={{ textAlign: 'center', marginBottom: 48, paddingTop: '5rem' }}>
           <span className="section-label" style={{ letterSpacing: '0.15em' }}>
-            GOVERNMENT INITIATIVES
+            {t?.schemesLabel || 'GOVERNMENT INITIATIVES'}
           </span>
           <h1 className="section-title" style={{
             fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 5vw, 3.2rem)',
             fontWeight: 800, color: 'var(--text-primary)', marginTop: 12, marginBottom: 16, lineHeight: 1.15,
           }}>
-            Farmer Welfare Schemes
+            {t?.schemesTitle || 'Farmer Welfare Schemes'}
           </h1>
           <p className="section-subtitle" style={{
             fontSize: '1.05rem', color: 'var(--text-secondary)',
             maxWidth: 640, margin: '0 auto', lineHeight: 1.7,
           }}>
-            Complete guide to Central & State government schemes — with benefits, eligibility, and direct apply links.
+            {t?.schemesDesc || 'Complete guide to Central & State government schemes — with benefits, eligibility, and direct apply links.'}
           </p>
         </div>
 
@@ -719,8 +719,8 @@ const Schemes = () => {
           maxWidth: 520, margin: '0 auto 48px',
         }}>
           {[
-            { key: 'central', label: '🏛️ Central Govt Schemes', count: centralSchemes.length },
-            { key: 'state', label: '🗺️ State-wise Schemes', count: stateSchemes.length },
+            { key: 'central', label: t?.centralSchemes || '🏛️ Central Govt Schemes', count: centralSchemes.length },
+            { key: 'state', label: t?.stateSchemes || '🗺️ State-wise Schemes', count: stateSchemes.length },
           ].map(tab => (
             <button
               key={tab.key}

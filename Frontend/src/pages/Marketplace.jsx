@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-const Marketplace = ({ user, token, loginWithGoogle }) => {
+const Marketplace = ({ user, token, loginWithGoogle, t }) => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -114,16 +114,16 @@ const Marketplace = ({ user, token, loginWithGoogle }) => {
             <h2 style={{
               fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)',
               marginBottom: '0.75rem', letterSpacing: '-0.025em'
-            }}>Marketplace Access</h2>
+            }}>{t?.mktAccess || 'Marketplace Access'}</h2>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2rem' }}>
-              Please login to access the B2B Marketplace and start trading directly.
+              {t?.mktAccessDesc || 'Please login to access the B2B Marketplace and start trading directly.'}
             </p>
             <button
               onClick={loginWithGoogle}
               className="btn-primary"
               style={{ width: '100%', justifyContent: 'center' }}
             >
-              Login with Google
+              {t?.loginGoogle || 'Login with Google'}
             </button>
           </div>
         </div>
@@ -138,19 +138,19 @@ const Marketplace = ({ user, token, loginWithGoogle }) => {
 
         {/* ── Hero Header ── */}
         <div className="animate-fade-in-up stagger-1" style={{ marginBottom: '3.5rem' }}>
-          <span className="badge-emerald" style={{ marginBottom: '1rem', display: 'inline-block' }}>Direct Trade</span>
+          <span className="badge-emerald" style={{ marginBottom: '1rem', display: 'inline-block' }}>{t?.directTrade || 'Direct Trade'}</span>
           <h1 style={{
             fontSize: 'clamp(2.25rem, 5vw, 3.25rem)', fontWeight: 900,
             color: 'var(--text-primary)', letterSpacing: '-0.04em',
             lineHeight: 1.1, marginBottom: '0.75rem'
-          }}>B2B Marketplace</h1>
+          }}>{t?.mktTitle || 'B2B Marketplace'}</h1>
           <p style={{
             color: 'var(--text-secondary)', fontSize: '1.125rem',
             maxWidth: 560, lineHeight: 1.6
           }}>
-            {user.role === 'farmer'
+            {t?.mktDesc || (user.role === 'farmer'
               ? 'List your crops for direct sale to verified vendors.'
-              : 'Source fresh crops directly from verified farmers.'}
+              : 'Source fresh crops directly from verified farmers.')}
           </p>
         </div>
 

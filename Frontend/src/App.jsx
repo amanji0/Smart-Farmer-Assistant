@@ -1079,8 +1079,8 @@ export default function SmartCropApp() {
 
           </main>
         } />
-        <Route path="/marketplace" element={<Marketplace user={user} token={token} loginWithGoogle={loginWithGoogle} />} />
-        <Route path="/schemes" element={<Schemes />} />
+        <Route path="/marketplace" element={<Marketplace user={user} token={token} loginWithGoogle={loginWithGoogle} t={t} />} />
+        <Route path="/schemes" element={<Schemes t={t} />} />
       </Routes>
 
       {/* Role Selection Modal (Global) */}
