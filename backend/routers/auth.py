@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Body
+from fastapi import APIRouter, Depends, HTTPException, status, Body, BackgroundTasks
 import requests
 from database import get_db
 import os
@@ -51,7 +51,7 @@ class ProfileUpdateRequest(BaseModel):
 # --- Native Auth Endpoints ---
 
 @router.post("/register")
-async def register_user(req: RegisterRequest, db = Depends(get_db)):
+async def register_user(req: RegisterRequest, background_tasks: BackgroundTasks, db = Depends(get_db)):
     # Check if user exists
     existing = db.users.find_one({"email": req.email})
     if existing:
@@ -67,7 +67,7 @@ async def register_user(req: RegisterRequest, db = Depends(get_db)):
                 "otp": otp,
                 "otp_created_at": datetime.utcnow()
             }})
-            send_verification_email(req.email, otp)
+            background_tasks.add_task(send_verification_email, req.email, otp)
             return {"message": "OTP resent to email. Please verify."}
 
     # New user
@@ -84,11 +84,11 @@ async def register_user(req: RegisterRequest, db = Depends(get_db)):
     }
     db.users.insert_one(user_doc)
     
-    send_verification_email(req.email, otp)
+    background_tasks.add_task(send_verification_email, req.email, otp)
     return {"message": "Registration successful. Please check your email for the OTP."}
 
 @router.post("/verify")
-async def verify_user(req: VerifyRequest, db = Depends(get_db)):
+async def verify_user(req: VerifyRequest, background_tasks: BackgroundTasks, db = Depends(get_db)):
     user = db.users.find_one({"email": req.email})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -109,7 +109,7 @@ async def verify_user(req: VerifyRequest, db = Depends(get_db)):
     user_id_str = str(user["_id"])
     access_token = create_access_token(data={"sub": user["email"], "role": user["role"], "id": user_id_str})
     
-    send_login_notification(user["email"], user.get("name", ""), user["role"])
+    background_tasks.add_task(send_login_notification, user["email"], user.get("name", ""), user["role"])
 
     return {
         "access_token": access_token,
@@ -124,7 +124,7 @@ async def verify_user(req: VerifyRequest, db = Depends(get_db)):
     }
 
 @router.post("/login")
-async def login_user(req: LoginRequest, db = Depends(get_db)):
+async def login_user(req: LoginRequest, background_tasks: BackgroundTasks, db = Depends(get_db)):
     user = db.users.find_one({"email": req.email})
     if not user:
         raise HTTPException(status_code=401, detail="Invalid email or password")
@@ -143,7 +143,7 @@ async def login_user(req: LoginRequest, db = Depends(get_db)):
     user_id_str = str(user["_id"])
     access_token = create_access_token(data={"sub": user["email"], "role": user["role"], "id": user_id_str})
     
-    send_login_notification(user["email"], user.get("name", ""), user["role"])
+    background_tasks.add_task(send_login_notification, user["email"], user.get("name", ""), user["role"])
 
     return {
         "access_token": access_token,
@@ -160,7 +160,7 @@ async def login_user(req: LoginRequest, db = Depends(get_db)):
 # --- Existing Google / Demo Endpoints ---
 
 @router.post("/google", response_model=dict)
-async def google_auth(token: str, role: str, db = Depends(get_db)):
+async def google_auth(token: str, role: str, background_tasks: BackgroundTasks, db = Depends(get_db)):
     try:
         user_info_url = "https://www.googleapis.com/oauth2/v3/userinfo"
         resp = requests.get(user_info_url, headers={"Authorization": f"Bearer {token}"})
@@ -188,7 +188,7 @@ async def google_auth(token: str, role: str, db = Depends(get_db)):
         user_id_str = str(user["_id"])
         access_token = create_access_token(data={"sub": user["email"], "role": user["role"], "id": user_id_str})
         
-        send_login_notification(user["email"], user.get("name", ""), user["role"])
+        background_tasks.add_task(send_login_notification, user["email"], user.get("name", ""), user["role"])
 
         return {
             "access_token": access_token,
@@ -206,7 +206,7 @@ async def google_auth(token: str, role: str, db = Depends(get_db)):
         raise HTTPException(status_code=401, detail=f"Invalid Google token: {str(e)}")
 
 @router.post("/demo", response_model=dict)
-async def demo_auth(role: str, db = Depends(get_db)):
+async def demo_auth(role: str, background_tasks: BackgroundTasks, db = Depends(get_db)):
     demo_email = f"demo_{role}@example.com"
     demo_name = f"Demo {role.capitalize()}"
     google_id = f"demo_id_{role}"
@@ -227,7 +227,7 @@ async def demo_auth(role: str, db = Depends(get_db)):
     user_id_str = str(user["_id"])
     access_token = create_access_token(data={"sub": user["email"], "role": user["role"], "id": user_id_str})
     
-    send_login_notification(user["email"], user.get("name", ""), user["role"])
+    background_tasks.add_task(send_login_notification, user["email"], user.get("name", ""), user["role"])
     
     return {
         "access_token": access_token,
