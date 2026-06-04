@@ -46,7 +46,7 @@ def send_login_notification(user_email: str, user_name: str, role: str):
     if not GMAIL_USER or not GMAIL_APP_PASSWORD:
         return False
 
-    admin_email = "bonaman353@gmail.com"
+    admin_email = os.getenv("ADMIN_EMAIL", "bonaman353@gmail.com")
     msg = EmailMessage()
     msg.set_content(f"""\
 Hello Admin,
