@@ -5,7 +5,7 @@ import os
 import jwt
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
-from utils.email_sender import send_verification_email, send_login_notification
+from utils.email_sender import send_verification_email, send_login_notification, test_smtp_connection
 import random
 from bson.objectid import ObjectId
 from pydantic import BaseModel, EmailStr
@@ -305,3 +305,11 @@ async def secure_get_users(secret: str, db = Depends(get_db)):
     
     users = list(db.users.find())
     return [{"id": str(u["_id"]), "email": u["email"], "name": u.get("name", ""), "role": u.get("role", ""), "is_verified": u.get("is_verified", True), "created_at": str(u.get("created_at", ""))} for u in users]
+
+@router.get("/test-email")
+async def test_email_config():
+    """Endpoint to debug SMTP configuration easily."""
+    result = test_smtp_connection()
+    if result["status"] == "error":
+        raise HTTPException(status_code=500, detail=result["detail"])
+    return result

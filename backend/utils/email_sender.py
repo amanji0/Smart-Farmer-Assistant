@@ -76,3 +76,15 @@ Smart Crop Assistant System
     except Exception as e:
         print(f"[{datetime.now()}] Error sending login notification to admin: {e}")
         return False
+
+def test_smtp_connection():
+    if not GMAIL_USER or not GMAIL_APP_PASSWORD:
+        return {"status": "error", "detail": "GMAIL_USER or GMAIL_APP_PASSWORD environment variables are missing."}
+    
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=10)
+        server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+        server.quit()
+        return {"status": "success", "detail": f"Successfully authenticated as {GMAIL_USER}"}
+    except Exception as e:
+        return {"status": "error", "detail": f"SMTP Authentication failed: {str(e)}"}
