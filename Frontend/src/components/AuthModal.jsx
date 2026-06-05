@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { X, Mail, Lock, User, CheckCircle } from 'lucide-react';
+import { X, Mail, Lock, User, CheckCircle, Eye, EyeOff } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
@@ -8,6 +8,7 @@ export default function AuthModal({ onClose, onLoginSuccess }) {
   const [mode, setMode] = useState('login'); // login, register, verify
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [role, setRole] = useState('farmer');
   const [otp, setOtp] = useState('');
@@ -21,6 +22,13 @@ export default function AuthModal({ onClose, onLoginSuccess }) {
     setLoading(true);
     setError('');
     setMsg('');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
 
     try {
       if (mode === 'login') {
@@ -100,9 +108,15 @@ export default function AuthModal({ onClose, onLoginSuccess }) {
                 <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>Password</label>
                 <div style={{ position: 'relative' }}>
                   <Lock size={18} style={{ position: 'absolute', left: '12px', top: '11px', color: 'var(--text-muted)' }} />
-                  <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
-                    style={{ width: '100%', padding: '10px 10px 10px 38px', borderRadius: '10px', border: '1px solid var(--border-subtle)', background: 'var(--bg-tertiary)', color: 'var(--text-primary)', fontSize: '0.9rem' }}
+                  <input type={showPassword ? "text" : "password"} required value={password} onChange={e => setPassword(e.target.value)}
+                    style={{ width: '100%', padding: '10px 40px 10px 38px', borderRadius: '10px', border: '1px solid var(--border-subtle)', background: 'var(--bg-tertiary)', color: 'var(--text-primary)', fontSize: '0.9rem' }}
                     placeholder="••••••••" />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} style={{
+                    position: 'absolute', right: '12px', top: '11px', background: 'none', border: 'none',
+                    color: 'var(--text-muted)', cursor: 'pointer', padding: 0, display: 'flex'
+                  }}>
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
 
