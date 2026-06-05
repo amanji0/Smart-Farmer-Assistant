@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send, Tractor, User, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Tractor, Bot, User, Loader2 } from 'lucide-react';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, text: "Howdy partner! I'm yer friendly Farm Assistant. What can I help y'all with out in the fields today?", sender: 'bot' }
+    { id: 1, text: "Hi there! I'm your SmartCrop Assistant. How can I help you today?", sender: 'bot' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -27,25 +27,25 @@ export default function Chatbot() {
     setInput('');
     setIsTyping(true);
 
-    // Farmer-themed Rule-based engine
+    // Rule-based engine
     setTimeout(() => {
-      let botResponse = "Well shoot, I reckon I didn't quite catch that over the sound of the tractor. Could ya rephrase? I can help ya with crops, sick plants, weather, or yer account.";
+      let botResponse = "I'm not sure I understand. Could you please rephrase that? I can help you with crop recommendations, disease detection, weather, or account settings.";
       const lowerInput = userMessage.text.toLowerCase();
 
       if (lowerInput.includes('delete') && (lowerInput.includes('account') || lowerInput.includes('profile'))) {
-        botResponse = "Well I'll be! If you're lookin' to pack up and leave, click your Profile icon up yonder. Head to the 'Advanced' tab, and you'll find the 'Delete Account' button down in the Danger Zone.";
+        botResponse = "To delete your account, click on your Profile icon in the top right corner. Then select the 'Advanced' tab. You will find the 'Delete Account' option in the Danger Zone at the bottom.";
       } else if (lowerInput.includes('crop') || lowerInput.includes('recommendation')) {
-        botResponse = "Lookin' for a good harvest? Head on down to the 'Features' section and click 'Crop Recommendation'. Tell me your city, and I'll reckon the best crop for your soil and weather!";
+        botResponse = "I can help with crop recommendations! Just scroll down to the 'Features' section and click on 'Crop Recommendation'. Enter your city and our AI will suggest the best crops based on live weather data.";
       } else if (lowerInput.includes('disease') || lowerInput.includes('sick') || lowerInput.includes('cure')) {
-        botResponse = "Got a sick plant? Don't fret! Snap a clear picture of that ailing leaf and upload it to our 'Disease Detection' tool. I'll take a gander and tell ya exactly how to nurse it back to health.";
+        botResponse = "If your plant looks sick, use our 'Disease Detection' tool. Take a clear photo of the affected leaf, upload it to the tool, and our AI will diagnose the issue and provide a treatment plan.";
       } else if (lowerInput.includes('weather') || lowerInput.includes('rain') || lowerInput.includes('temperature')) {
-        botResponse = "Wonderin' if you should water the fields? Check the 'Weather Alerts' feature for a trusty 5-day forecast, straight from the clouds to your screen.";
-      } else if (lowerInput.includes('hello') || lowerInput.includes('hi ') || lowerInput === 'hi' || lowerInput.includes('howdy')) {
-        botResponse = "Howdy there! Ready to get your hands dirty? How can I lend a hand on the farm today?";
+        botResponse = "You can check the local 5-day weather forecast by using our 'Weather Alerts' feature. It uses real-time satellite data to keep you informed.";
+      } else if (lowerInput.includes('hello') || lowerInput.includes('hi ') || lowerInput === 'hi') {
+        botResponse = "Hello! How can I assist you with your farming today?";
       } else if (lowerInput.includes('password') || lowerInput.includes('login')) {
-        botResponse = "Need help unlockin' the barn door? Click the 'Login / Sign Up' button up top. We use a secure OTP email code instead of passwords to keep the coyotes out!";
+        botResponse = "If you need help logging in, click the 'Login / Sign Up' button in the top menu. We use secure OTP email verification instead of passwords to keep your account safe!";
       } else if (lowerInput.includes('support') || lowerInput.includes('help') || lowerInput.includes('contact')) {
-        botResponse = "Need to holler at the farm hands? Just send a pigeon—er, an email—to support@smartcrop.com. We'll get back to ya before the rooster crows!";
+        botResponse = "If you need human assistance, you can email our support team directly at support@smartcrop.com. They usually respond within 24 hours.";
       }
 
       setMessages(prev => [...prev, { id: Date.now(), text: botResponse, sender: 'bot' }]);
@@ -78,7 +78,7 @@ export default function Chatbot() {
           transform: isOpen ? 'scale(0)' : 'scale(1)',
         }}
       >
-        <MessageCircle size={28} strokeWidth={1.5} />
+        <Tractor size={28} strokeWidth={1.5} />
       </button>
 
       {/* Chat Window */}
@@ -120,9 +120,9 @@ export default function Chatbot() {
               <Tractor size={18} />
             </div>
             <div>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>Farm Assistant</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>SmartCrop AI</h3>
               <p style={{ fontSize: '0.75rem', color: '#10b981', margin: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} /> In the field
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} /> Online
               </p>
             </div>
           </div>
@@ -196,7 +196,7 @@ export default function Chatbot() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Holler somethin'..."
+              placeholder="Ask me anything..."
               style={{
                 flex: 1,
                 padding: '10px 16px',
