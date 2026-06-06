@@ -78,7 +78,7 @@ export default function Chatbot() {
           transform: isOpen ? 'scale(0)' : 'scale(1)',
         }}
       >
-        <Tractor size={28} strokeWidth={1.5} />
+        <img src="/farmer-icon.png" alt="Chat" style={{ width: '46px', height: '46px', borderRadius: '50%', objectFit: 'cover' }} />
       </button>
 
       {/* Chat Window */}
@@ -116,8 +116,8 @@ export default function Chatbot() {
           justifyContent: 'space-between'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-              <Tractor size={18} />
+            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+              <img src="/farmer-icon.png" alt="Bot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div>
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>SmartCrop AI</h3>
@@ -150,10 +150,10 @@ export default function Chatbot() {
               <div style={{
                 width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
                 background: msg.sender === 'user' ? 'var(--bg-tertiary)' : 'rgba(52, 211, 153, 0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
                 color: msg.sender === 'user' ? 'var(--text-secondary)' : '#10b981'
               }}>
-                {msg.sender === 'user' ? <User size={14} /> : <Tractor size={14} />}
+                {msg.sender === 'user' ? <User size={14} /> : <img src="/farmer-icon.png" alt="Bot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
               </div>
               <div style={{
                 background: msg.sender === 'user' ? 'var(--color-primary)' : 'var(--bg-tertiary)',
@@ -174,8 +174,8 @@ export default function Chatbot() {
           
           {isTyping && (
             <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(52, 211, 153, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981' }}>
-                <Tractor size={14} />
+              <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <img src="/farmer-icon.png" alt="Bot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ background: 'var(--bg-tertiary)', padding: '10px 14px', borderRadius: '16px', borderBottomLeftRadius: '4px', display: 'flex', gap: '4px' }}>
                 <Loader2 size={16} className="animate-spin" color="var(--text-secondary)" />
