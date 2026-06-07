@@ -620,7 +620,7 @@ export default function SmartCropApp() {
           <img src="/crops/corn.png" alt="Corn" />
         </div>
 
-        <div className="section-container" style={{ paddingTop: '160px', paddingBottom: '120px', position: 'relative', zIndex: 1 }}>
+        <div className="section-container hero-padding">
           {/* Centered hero content — Apple style */}
           <div style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto' }}>
             <div className="animate-fade-in-up">
@@ -666,10 +666,7 @@ export default function SmartCropApp() {
             </div>
 
             {/* Stats row */}
-            <div className="animate-fade-in-up stagger-4" style={{
-              display: 'flex', gap: '48px', justifyContent: 'center', marginTop: '80px',
-              paddingTop: '40px', borderTop: '1px solid var(--border-subtle)',
-            }}>
+            <div className="hero-stats-row animate-fade-in-up stagger-4">
               {[
                 { val: '99%', label: 'AI Accuracy' },
                 { val: '22+', label: 'Crop Types' },
@@ -697,7 +694,7 @@ export default function SmartCropApp() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '20px' }}>
             {features.map((f, i) => (
               <button
                 key={f.id}
@@ -744,7 +741,7 @@ export default function SmartCropApp() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', position: 'relative' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '24px', position: 'relative' }}>
             {[
               { step: '01', title: t.step1title || 'Input Your Data', desc: t.step1desc || 'Enter your city, upload a leaf photo, or select your crop type.', icon: <FileEdit size={28} strokeWidth={1.5} color="var(--color-primary)" /> },
               { step: '02', title: t.step2title || 'AI Analyzes', desc: t.step2desc || 'Our machine learning models process your data in real-time.', icon: <Bot size={28} strokeWidth={1.5} color="var(--color-primary)" /> },

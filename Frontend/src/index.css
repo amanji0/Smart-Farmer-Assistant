@@ -1817,3 +1817,65 @@ html:not(.dark) .result-card {
 .crop-3d-card:hover::before {
   transform: rotate(45deg) translateX(100%);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVENESS & PADDING
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero-padding {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stats-row {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero-padding {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+  .hero-stats-row {
+    gap: 24px;
+    margin-top: 40px;
+    padding-top: 24px;
+  }
+  .section-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .section {
+    padding: 80px 16px;
+  }
+  .modal-panel {
+    width: 95% !important;
+    max-width: 100% !important;
+    padding: 20px !important;
+    margin: 10px;
+  }
+  .feature-card {
+    padding: 24px;
+  }
+  .step-card {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-padding {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+  .section-title {
+    font-size: 2rem !important;
+  }
+}
