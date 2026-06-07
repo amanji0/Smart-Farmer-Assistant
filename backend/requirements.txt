@@ -14,7 +14,7 @@ google-auth
 PyJWT
 pydantic-settings
 passlib
-bcrypt==3.2.2
+bcrypt
 email-validator
 tflite-runtime
 Pillow
