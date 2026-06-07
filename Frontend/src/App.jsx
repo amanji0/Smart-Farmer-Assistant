@@ -370,7 +370,7 @@ export default function SmartCropApp() {
 
   const stats = [
     { val: '99%', label: t.stat1 || 'Accuracy', icon: <Target size={28} strokeWidth={1.5} />, sub: t.stat1sub || 'AI Model Precision' },
-    { val: '54K+', label: t.stat2 || 'Images', icon: <Image size={28} strokeWidth={1.5} />, sub: t.stat2sub || 'Training Dataset' },
+    { val: '141K+', label: t.stat2 || 'Images', icon: <Image size={28} strokeWidth={1.5} />, sub: t.stat2sub || 'Training Dataset' },
     { val: '22', label: t.stat3 || 'Crops', icon: <Leaf size={28} strokeWidth={1.5} />, sub: t.stat3sub || 'Supported Varieties' },
     { val: '38', label: t.stat4 || 'Diseases', icon: <Microscope size={28} strokeWidth={1.5} />, sub: t.stat4sub || 'Detectable Conditions' },
   ];
@@ -674,7 +674,7 @@ export default function SmartCropApp() {
                 { val: '99%', label: 'AI Accuracy' },
                 { val: '22+', label: 'Crop Types' },
                 { val: '38', label: 'Diseases Detected' },
-                { val: '54K+', label: 'Images Analyzed' },
+                { val: '141K+', label: 'Images Analyzed' },
               ].map((s, i) => (
                 <div key={i}>
                   <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.75rem', color: 'var(--color-primary)' }}>{s.val}</div>
