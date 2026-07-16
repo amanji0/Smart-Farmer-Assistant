@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     heroTitle1: "Smart Farmer",
-    heroTitle2: "Disease Detection",
+    heroTitle2: "Assistant",
     heroTitle3: "System",
     heroSubtitle: "Empowering farmers with simple AI tools to grow better crops, cure diseases, and sell produce.",
     heroBadge: "FARMING MADE SIMPLE",
@@ -88,7 +88,7 @@ export const translations = {
   },
   hi: {
     heroTitle1: "स्मार्ट किसान",
-    heroTitle2: "रोग पहचान",
+    heroTitle2: "सहायक",
     heroTitle3: "प्रणाली",
     heroSubtitle: "किसानों को बेहतर फसल उगाने, बीमारियों को ठीक करने और उपज बेचने के लिए आसान एआई टूल।",
     heroBadge: "खेती हुई आसान",
@@ -167,7 +167,7 @@ export const translations = {
   },
   bn: {
     heroTitle1: "স্মার্ট কৃষক",
-    heroTitle2: "রোগ নির্ণয়",
+    heroTitle2: "সহকারী",
     heroTitle3: "সিস্টেম",
     heroSubtitle: "কৃষকদের সহজে ফসল ফলাতে, রোগ সারাতে এবং ফসল বিক্রি করতে সাহায্য করার সরঞ্জাম।",
     heroBadge: "কৃষিকাজ এখন সহজ",
@@ -246,7 +246,7 @@ export const translations = {
   },
   te: {
     heroTitle1: "స్మార్ట్ రైతు",
-    heroTitle2: "వ్యాధి గుర్తింపు",
+    heroTitle2: "సహాయకుడు",
     heroTitle3: "వ్యవస్థ",
     heroSubtitle: "మెరుగైన పంటలు పండించడానికి, వ్యాధులను నయం చేయడానికి మరియు ఉత్పత్తులను విక్రయించడానికి రైతులను శక్తివంతం చేయడం.",
     heroBadge: "వ్యవసాయం సులభం చేయబడింది",
@@ -325,7 +325,7 @@ export const translations = {
   },
   mr: {
     heroTitle1: "स्मार्ट शेतकरी",
-    heroTitle2: "रोग ओळख",
+    heroTitle2: "सहाय्यक",
     heroTitle3: "प्रणाली",
     heroSubtitle: "शेतकऱ्यांना चांगले पीक घेण्यासाठी, आजार बरे करण्यासाठी आणि उत्पादन विकण्यासाठी सोपे साधने.",
     heroBadge: "शेती सोपी केली",
@@ -404,7 +404,7 @@ export const translations = {
   },
   ta: {
     heroTitle1: "ஸ்மார்ட் விவசாயி",
-    heroTitle2: "நோய் கண்டறிதல்",
+    heroTitle2: "உதவியாளர்",
     heroTitle3: "அமைப்பு",
     heroSubtitle: "சிறந்த பயிர்களை வளர்க்கவும், நோய்களை குணப்படுத்தவும் எளிய AI கருவிகள்.",
     heroBadge: "விவசாயம் எளிமையாக்கப்பட்டது",
@@ -483,7 +483,7 @@ export const translations = {
   },
   gu: {
     heroTitle1: "સ્માર્ટ ખેડૂત",
-    heroTitle2: "રોગ શોધ",
+    heroTitle2: "સહાયક",
     heroTitle3: "સિસ્ટમ",
     heroSubtitle: "ખેડૂતોને વધુ સારા પાક ઉગાડવા, રોગો મટાડવા અને પેદાશો વેચવા માટે સરળ સાધનો.",
     heroBadge: "ખેતી સરળ બનાવી",
@@ -562,7 +562,7 @@ export const translations = {
   },
   kn: {
     heroTitle1: "ಸ್ಮಾರ್ಟ್ ರೈತ",
-    heroTitle2: "ರೋಗ ಪತ್ತೆ",
+    heroTitle2: "ಸಹಾಯಕ",
     heroTitle3: "ವ್ಯವಸ್ಥೆ",
     heroSubtitle: "ಉತ್ತಮ ಬೆಳೆಗಳನ್ನು ಬೆಳೆಯಲು ಮತ್ತು ರೋಗಗಳನ್ನು ಗುಣಪಡಿಸಲು ರೈತರಿಗೆ ಸರಳ ಪರಿಕರಗಳು.",
     heroBadge: "ಕೃಷಿ ಸರಳಗೊಳಿಸಲಾಗಿದೆ",
@@ -641,7 +641,7 @@ export const translations = {
   },
   ml: {
     heroTitle1: "സ്മാർട്ട് കർഷകൻ",
-    heroTitle2: "രോഗം കണ്ടെത്തൽ",
+    heroTitle2: "സഹായി",
     heroTitle3: "സിസ്റ്റം",
     heroSubtitle: "മികച്ച വിളകൾ വളർത്താനും രോഗങ്ങൾ സുഖപ്പെടുത്താനും കർഷകരെ സഹായിക്കുന്ന ലളിതമായ ഉപകരണങ്ങൾ.",
     heroBadge: "കൃഷി എളുപ്പമാക്കി",
@@ -720,7 +720,7 @@ export const translations = {
   },
   or: {
     heroTitle1: "ସ୍ମାର୍ଟ କୃଷକ",
-    heroTitle2: "ରୋଗ ଚିହ୍ନଟ",
+    heroTitle2: "ସହାୟକ",
     heroTitle3: "ପ୍ରଣାଳୀ",
     heroSubtitle: "ଭଲ ଫସଲ ବଢ଼ାଇବା ଏବଂ ରୋଗ ଭଲ କରିବା ପାଇଁ କୃଷକମାନଙ୍କ ପାଇଁ ସହଜ ଉପକରଣ |",
     heroBadge: "କୃଷି ହେଲା ସହଜ",
@@ -799,7 +799,7 @@ export const translations = {
   },
   pa: {
     heroTitle1: "ਸਮਾਰਟ ਕਿਸਾਨ",
-    heroTitle2: "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
+    heroTitle2: "ਸਹਾਇਕ",
     heroTitle3: "ਸਿਸਟਮ",
     heroSubtitle: "ਕਿਸਾਨਾਂ ਨੂੰ ਵਧੀਆ ਫਸਲਾਂ ਉਗਾਉਣ, ਬਿਮਾਰੀਆਂ ਦਾ ਇਲਾਜ ਕਰਨ ਅਤੇ ਉਪਜ ਵੇਚਣ ਲਈ ਆਸਾਨ ਟੂਲ।",
     heroBadge: "ਖੇਤੀ ਹੋਈ ਆਸਾਨ",
@@ -865,7 +865,7 @@ export const translations = {
   },
   ur: {
     heroTitle1: "سمارٹ کسان",
-    heroTitle2: "بیماری کی تشخیص",
+    heroTitle2: "معاون",
     heroTitle3: "نظام",
     heroSubtitle: "کسانوں کو بہتر فصلیں اگانے اور بیماریوں کا علاج کرنے کے لیے آسان ٹولز فراہم کرنا۔",
     heroBadge: "کھیتی باڑی اب آسان",

@@ -4,7 +4,7 @@ import { MessageCircle, X, Send, Tractor, Bot, User, Loader2 } from 'lucide-reac
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, text: "Hi there! I'm your SmartCrop Assistant. How can I help you today?", sender: 'bot' }
+    { id: 1, text: "Hi there! I'm your Smart Farmer Assistant. How can I help you today?", sender: 'bot' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -45,7 +45,7 @@ export default function Chatbot() {
       } else if (lowerInput.includes('password') || lowerInput.includes('login')) {
         botResponse = "If you need help logging in, click the 'Login / Sign Up' button in the top menu. We use secure OTP email verification instead of passwords to keep your account safe!";
       } else if (lowerInput.includes('support') || lowerInput.includes('help') || lowerInput.includes('contact')) {
-        botResponse = "If you need human assistance, you can email our support team directly at support@smartcrop.com. They usually respond within 24 hours.";
+        botResponse = "If you need human assistance, you can email our support team directly at support@smartfarmer.com. They usually respond within 24 hours.";
       }
 
       setMessages(prev => [...prev, { id: Date.now(), text: botResponse, sender: 'bot' }]);
@@ -120,7 +120,7 @@ export default function Chatbot() {
               <img src="/farmer-icon.png" alt="Bot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>SmartCrop AI</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>Smart Farmer AI</h3>
               <p style={{ fontSize: '0.75rem', color: '#10b981', margin: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} /> Online
               </p>

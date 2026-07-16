@@ -157,7 +157,7 @@ export default function ProfileModal({ user, token, onClose, onLogout }) {
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '12px' }}>
                 Need assistance with your crops, account, or the marketplace? Our team is here to help you 24/7.
               </p>
-              <a href="mailto:support@smartcrop.com" style={{ display: 'inline-block', padding: '8px 16px', background: 'var(--bg-tertiary)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)', borderRadius: '8px', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>
+              <a href="mailto:support@smartfarmer.com" style={{ display: 'inline-block', padding: '8px 16px', background: 'var(--bg-tertiary)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)', borderRadius: '8px', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>
                 Contact Support
               </a>
             </div>

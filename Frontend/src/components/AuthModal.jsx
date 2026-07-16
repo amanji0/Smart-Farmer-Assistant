@@ -72,7 +72,7 @@ export default function AuthModal({ onClose, onLoginSuccess }) {
           {mode === 'login' ? 'Welcome Back' : mode === 'register' ? 'Create Account' : 'Verify Email'}
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginBottom: '24px' }}>
-          {mode === 'login' ? 'Enter your credentials to access your account.' : mode === 'register' ? 'Join SmartCrop as a farmer or vendor.' : `Enter the 6-digit code sent to ${email}`}
+          {mode === 'login' ? 'Enter your credentials to access your account.' : mode === 'register' ? 'Join Smart Farmer as a farmer or vendor.' : `Enter the 6-digit code sent to ${email}`}
         </p>
 
         {error && <div style={{ padding: '12px', borderRadius: '8px', background: 'rgba(239,68,68,0.1)', color: '#ef4444', fontSize: '0.875rem', marginBottom: '16px', border: '1px solid rgba(239,68,68,0.2)' }}>{error}</div>}

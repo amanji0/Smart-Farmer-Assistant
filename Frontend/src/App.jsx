@@ -422,7 +422,7 @@ export default function SmartCropApp() {
               fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.95rem',
               color: 'var(--text-primary)', letterSpacing: '-0.01em',
             }}>
-              SmartCrop
+              Smart Farmer Assistant
             </span>
           </Link>
 
@@ -641,8 +641,7 @@ export default function SmartCropApp() {
               color: 'var(--text-primary)',
             }}>
               {t.heroTitle1 || 'Smart Farmer'}<br />
-              <span className="gradient-text">{t.heroTitle2 || 'Disease Detection'}</span><br />
-              {t.heroTitle3 || 'System'}
+              <span className="gradient-text">{t.heroTitle2 || 'Assistant'}</span>
             </h1>
 
             <p className="animate-fade-in-up stagger-2" style={{

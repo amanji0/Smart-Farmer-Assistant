@@ -76,7 +76,7 @@ const Marketplace = ({ user, token, loginWithGoogle, t }) => {
         key: "rzp_test_YOUR_RAZORPAY_KEY", // Replace with real key in prod
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "SmartCrop Marketplace",
+        name: "Smart Farmer Marketplace",
         description: `Buying ${qtyToBuy}kg of ${listing.crop_name}`,
         order_id: orderData.order_id,
         handler: async function (response) {
