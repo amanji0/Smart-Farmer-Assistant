@@ -638,7 +638,7 @@ export default function SmartCropApp() {
               marginBottom: '24px',
               color: 'var(--text-primary)',
             }}>
-              {t.heroTitle1 || 'Smart Crop'}<br />
+              {t.heroTitle1 || 'Smart Farmer'}<br />
               <span className="gradient-text">{t.heroTitle2 || 'Disease Detection'}</span><br />
               {t.heroTitle3 || 'System'}
             </h1>
@@ -863,7 +863,7 @@ export default function SmartCropApp() {
               }}>🌿</div>
               <div>
                 <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem' }}>
-                  Smart Crop Disease Detection System
+                  Smart Farmer Assistant
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                   {t.footerTagline || 'Empowering farmers with AI technology.'}
@@ -883,7 +883,7 @@ export default function SmartCropApp() {
             </div>
           </div>
           <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>© 2026 Smart Crop Disease Detection System. All rights reserved.</p>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>© 2026 Smart Farmer Assistant. All rights reserved.</p>
             <div style={{ display: 'flex', gap: '24px' }}>
               <a href="#" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Privacy</a>
               <a href="#" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Terms</a>

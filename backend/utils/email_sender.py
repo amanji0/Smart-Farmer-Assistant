@@ -18,12 +18,12 @@ def send_verification_email(to_email: str, otp: str):
             "api-key": BREVO_API_KEY,
             "content-type": "application/json"
         }
-        sender_email = GMAIL_USER if GMAIL_USER else "noreply@smartcrop.com"
+        sender_email = GMAIL_USER if GMAIL_USER else "noreply@smartfarmer.com"
         payload = {
-            "sender": {"name": "Smart Crop Assistant", "email": sender_email},
+            "sender": {"name": "Smart Farmer Assistant", "email": sender_email},
             "to": [{"email": to_email}],
-            "subject": "Smart Crop Assistant - Email Verification",
-            "htmlContent": f"<html><body><p>Hello,</p><p>Your verification code for Smart Crop Assistant is: <strong>{otp}</strong></p><p>Please enter this code in the application to verify your account.</p><p>Thanks,<br>Smart Crop Assistant Team</p></body></html>"
+            "subject": "Smart Farmer Assistant - Email Verification",
+            "htmlContent": f"<html><body><p>Hello,</p><p>Your verification code for Smart Farmer Assistant is: <strong>{otp}</strong></p><p>Please enter this code in the application to verify your account.</p><p>Thanks,<br>Smart Farmer Assistant Team</p></body></html>"
         }
         try:
             response = requests.post(url, json=payload, headers=headers, timeout=10)
@@ -46,16 +46,16 @@ def send_verification_email(to_email: str, otp: str):
     msg.set_content(f"""\
 Hello,
 
-Your verification code for Smart Crop Assistant is: {otp}
+Your verification code for Smart Farmer Assistant is: {otp}
 
 Please enter this code in the application to verify your account.
 
 Thanks,
-Smart Crop Assistant Team
+Smart Farmer Assistant Team
 """)
 
-    msg['Subject'] = "Smart Crop Assistant - Email Verification"
-    msg['From'] = f"Smart Crop Assistant <{GMAIL_USER}>"
+    msg['Subject'] = "Smart Farmer Assistant - Email Verification"
+    msg['From'] = f"Smart Farmer Assistant <{GMAIL_USER}>"
     msg['To'] = to_email
 
     try:
@@ -79,9 +79,9 @@ def send_login_notification(user_email: str, user_name: str, role: str):
             "api-key": BREVO_API_KEY,
             "content-type": "application/json"
         }
-        sender_email = GMAIL_USER if GMAIL_USER else "noreply@smartcrop.com"
+        sender_email = GMAIL_USER if GMAIL_USER else "noreply@smartfarmer.com"
         payload = {
-            "sender": {"name": "Smart Crop Alert", "email": sender_email},
+            "sender": {"name": "Smart Farmer Alert", "email": sender_email},
             "to": [{"email": admin_email}],
             "subject": f"New Login Alert: {user_name} ({role})",
             "htmlContent": f"<html><body><p>Hello Admin,</p><p>A user has just logged in.</p><p><strong>Name:</strong> {user_name}<br><strong>Email:</strong> {user_email}<br><strong>Role:</strong> {role}<br><strong>Time:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p></body></html>"
@@ -99,7 +99,7 @@ def send_login_notification(user_email: str, user_name: str, role: str):
     msg.set_content(f"""\
 Hello Admin,
 
-A user has just logged in to Smart Crop Assistant.
+A user has just logged in to Smart Farmer Assistant.
 
 User Details:
 Name: {user_name}
@@ -108,11 +108,11 @@ Role: {role}
 Time: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 Best,
-Smart Crop Assistant System
+Smart Farmer Assistant System
 """)
 
     msg['Subject'] = f"New Login Alert: {user_name} ({role})"
-    msg['From'] = f"Smart Crop Assistant <{GMAIL_USER}>"
+    msg['From'] = f"Smart Farmer Assistant <{GMAIL_USER}>"
     msg['To'] = admin_email
 
     try:

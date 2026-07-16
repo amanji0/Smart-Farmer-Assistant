@@ -9,7 +9,7 @@ from routers import auth, marketplace
 from utils.disease_detector import detector
 
 app = FastAPI(
-    title="Smart Crop Disease Detection System API",
+    title="Smart Farmer Assistant API",
     description="AI-powered agriculture API for crop recommendations and disease detection",
     version="1.0.0",
 )
@@ -115,7 +115,7 @@ def geocode_city(city: str) -> tuple:
 async def root():
     return {
         "status": "running",
-        "service": "Smart Crop Disease Detection System API",
+        "service": "Smart Farmer Assistant API",
         "version": "1.0.0",
         "models_loaded": crop_model is not None,
         "endpoints": ["/", "/health", "/recommend", "/disease-predict"],

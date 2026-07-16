@@ -1,6 +1,6 @@
 export const translations = {
   en: {
-    heroTitle1: "Smart Crop",
+    heroTitle1: "Smart Farmer",
     heroTitle2: "Disease Detection",
     heroTitle3: "System",
     heroSubtitle: "Empowering farmers with simple AI tools to grow better crops, cure diseases, and sell produce.",
@@ -87,7 +87,7 @@ export const translations = {
     footerTagline: "Helping farmers grow more and earn more.",
   },
   hi: {
-    heroTitle1: "स्मार्ट फसल",
+    heroTitle1: "स्मार्ट किसान",
     heroTitle2: "रोग पहचान",
     heroTitle3: "प्रणाली",
     heroSubtitle: "किसानों को बेहतर फसल उगाने, बीमारियों को ठीक करने और उपज बेचने के लिए आसान एआई टूल।",
@@ -166,7 +166,7 @@ export const translations = {
     stateSchemes: "🗺️ राज्यवार योजनाएं",
   },
   bn: {
-    heroTitle1: "স্মার্ট ফসল",
+    heroTitle1: "স্মার্ট কৃষক",
     heroTitle2: "রোগ নির্ণয়",
     heroTitle3: "সিস্টেম",
     heroSubtitle: "কৃষকদের সহজে ফসল ফলাতে, রোগ সারাতে এবং ফসল বিক্রি করতে সাহায্য করার সরঞ্জাম।",
@@ -245,7 +245,7 @@ export const translations = {
     schemesDesc: "কেন্দ্রীয় ও রাজ্য সরকারের স্কিমগুলির সম্পূর্ণ নির্দেশিকা — সুবিধা, যোগ্যতা এবং সরাসরি আবেদনের লিঙ্ক সহ।",
   },
   te: {
-    heroTitle1: "స్మార్ట్ క్రాప్",
+    heroTitle1: "స్మార్ట్ రైతు",
     heroTitle2: "వ్యాధి గుర్తింపు",
     heroTitle3: "వ్యవస్థ",
     heroSubtitle: "మెరుగైన పంటలు పండించడానికి, వ్యాధులను నయం చేయడానికి మరియు ఉత్పత్తులను విక్రయించడానికి రైతులను శక్తివంతం చేయడం.",
@@ -324,7 +324,7 @@ export const translations = {
     stateSchemes: "🗺️ రాష్ట్రాల వారీగా పథకాలు",
   },
   mr: {
-    heroTitle1: "स्मार्ट पीक",
+    heroTitle1: "स्मार्ट शेतकरी",
     heroTitle2: "रोग ओळख",
     heroTitle3: "प्रणाली",
     heroSubtitle: "शेतकऱ्यांना चांगले पीक घेण्यासाठी, आजार बरे करण्यासाठी आणि उत्पादन विकण्यासाठी सोपे साधने.",
@@ -403,7 +403,7 @@ export const translations = {
     schemesDesc: "केंद्र आणि राज्य सरकारच्या योजनांसाठी संपूर्ण मार्गदर्शक - लाभ, पात्रता आणि थेट अर्ज लिंकसह.",
   },
   ta: {
-    heroTitle1: "ஸ்மார்ட் பயிர்",
+    heroTitle1: "ஸ்மார்ட் விவசாயி",
     heroTitle2: "நோய் கண்டறிதல்",
     heroTitle3: "அமைப்பு",
     heroSubtitle: "சிறந்த பயிர்களை வளர்க்கவும், நோய்களை குணப்படுத்தவும் எளிய AI கருவிகள்.",
@@ -482,7 +482,7 @@ export const translations = {
     mktAccess: "சந்தை அணுகல்",
   },
   gu: {
-    heroTitle1: "સ્માર્ટ પાક",
+    heroTitle1: "સ્માર્ટ ખેડૂત",
     heroTitle2: "રોગ શોધ",
     heroTitle3: "સિસ્ટમ",
     heroSubtitle: "ખેડૂતોને વધુ સારા પાક ઉગાડવા, રોગો મટાડવા અને પેદાશો વેચવા માટે સરળ સાધનો.",
@@ -561,7 +561,7 @@ export const translations = {
     schemesTitle: "ખેડૂત કલ્યાણ યોજનાઓ",
   },
   kn: {
-    heroTitle1: "ಸ್ಮಾರ್ಟ್ ಬೆಳೆ",
+    heroTitle1: "ಸ್ಮಾರ್ಟ್ ರೈತ",
     heroTitle2: "ರೋಗ ಪತ್ತೆ",
     heroTitle3: "ವ್ಯವಸ್ಥೆ",
     heroSubtitle: "ಉತ್ತಮ ಬೆಳೆಗಳನ್ನು ಬೆಳೆಯಲು ಮತ್ತು ರೋಗಗಳನ್ನು ಗುಣಪಡಿಸಲು ರೈತರಿಗೆ ಸರಳ ಪರಿಕರಗಳು.",
@@ -640,7 +640,7 @@ export const translations = {
     schemesTitle: "ರೈತ ಕಲ್ಯಾಣ ಯೋಜನೆಗಳು",
   },
   ml: {
-    heroTitle1: "സ്മാർട്ട് ക്രോപ്പ്",
+    heroTitle1: "സ്മാർട്ട് കർഷകൻ",
     heroTitle2: "രോഗം കണ്ടെത്തൽ",
     heroTitle3: "സിസ്റ്റം",
     heroSubtitle: "മികച്ച വിളകൾ വളർത്താനും രോഗങ്ങൾ സുഖപ്പെടുത്താനും കർഷകരെ സഹായിക്കുന്ന ലളിതമായ ഉപകരണങ്ങൾ.",
@@ -719,7 +719,7 @@ export const translations = {
     mktAccessDesc: "B2B മാർക്കറ്റ്‌പ്ലെയ്‌സ് ആക്‌സസ് ചെയ്യുന്നതിന് ദയവായി ലോഗിൻ ചെയ്‌ത് നേരിട്ട് വ്യാപാരം ആരംഭിക്കുക.",
   },
   or: {
-    heroTitle1: "ସ୍ମାର୍ଟ ଫସଲ",
+    heroTitle1: "ସ୍ମାର୍ଟ କୃଷକ",
     heroTitle2: "ରୋଗ ଚିହ୍ନଟ",
     heroTitle3: "ପ୍ରଣାଳୀ",
     heroSubtitle: "ଭଲ ଫସଲ ବଢ଼ାଇବା ଏବଂ ରୋଗ ଭଲ କରିବା ପାଇଁ କୃଷକମାନଙ୍କ ପାଇଁ ସହଜ ଉପକରଣ |",
@@ -798,7 +798,7 @@ export const translations = {
     centralSchemes: "🏛️ କେନ୍ଦ୍ରୀୟ ସରକାରୀ ଯୋଜନା",
   },
   pa: {
-    heroTitle1: "ਸਮਾਰਟ ਫਸਲ",
+    heroTitle1: "ਸਮਾਰਟ ਕਿਸਾਨ",
     heroTitle2: "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
     heroTitle3: "ਸਿਸਟਮ",
     heroSubtitle: "ਕਿਸਾਨਾਂ ਨੂੰ ਵਧੀਆ ਫਸਲਾਂ ਉਗਾਉਣ, ਬਿਮਾਰੀਆਂ ਦਾ ਇਲਾਜ ਕਰਨ ਅਤੇ ਉਪਜ ਵੇਚਣ ਲਈ ਆਸਾਨ ਟੂਲ।",
@@ -864,7 +864,7 @@ export const translations = {
     footerTagline: "ਕਿਸਾਨਾਂ ਦੀ ਵੱਧ ਉਗਾਉਣ ਅਤੇ ਵੱਧ ਕਮਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਨਾ।",
   },
   ur: {
-    heroTitle1: "سمارٹ فصل",
+    heroTitle1: "سمارٹ کسان",
     heroTitle2: "بیماری کی تشخیص",
     heroTitle3: "نظام",
     heroSubtitle: "کسانوں کو بہتر فصلیں اگانے اور بیماریوں کا علاج کرنے کے لیے آسان ٹولز فراہم کرنا۔",

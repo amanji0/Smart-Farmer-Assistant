@@ -2,7 +2,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&pause=1000&color=22C55E&center=true&vCenter=true&width=600&lines=AI-Powered+Agricultural+Assistant+for+Farmers" alt="Typing SVG" />
 
-# 🌱 Smart Crop Disease Detection System
+# 🌱 Smart Farmer Assistant
 
 *An intelligent web application empowering farmers with AI-driven crop recommendations, plant disease detection, direct B2B trading, and government scheme guidance.*
 
@@ -43,7 +43,7 @@
 
 ## 🌍 Overview
 
-**Smart Crop Disease Detection System** is a full-stack AI-powered web application built to help farmers make data-driven agricultural decisions, access financial support, and trade their produce directly with buyers.
+**Smart Farmer Assistant** is a full-stack AI-powered web application built to help farmers make data-driven agricultural decisions, access financial support, and trade their produce directly with buyers.
 
 The system combines **real-time environmental data**, **machine learning models**, and **native localized content** to deliver four core services:
 
@@ -166,7 +166,7 @@ The interface natively supports **10 Indian Regional Languages** — making it c
 ### Base URL
 ```
 Development:  http://localhost:8000
-Production:   https://smart-crop-api.onrender.com
+Production:   https://smart-farmer-api.onrender.com
 ```
 
 ### Endpoints
@@ -247,7 +247,7 @@ Body: { image: <file>, plant_type: "Tomato" }
 ## 🗂️ Project Structure
 
 ```
-smart-crop-assistant/
+smart-farmer-assistant/
 │
 ├── 📁 Frontend/                    # React.js Application
 │   ├── src/
@@ -295,8 +295,8 @@ node --version      # 18+
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/amanji0/Smart-Crop-Disease-Detection-System.git
-cd smart-crop-assistant
+git clone https://github.com/amanji0/Smart-Farmer-Assistant.git
+cd smart-farmer-assistant
 ```
 
 ### 2. Backend Setup
@@ -377,7 +377,7 @@ Phase 6  ░░░░░░░░░░░░░░░░░░░░  📋 Adva
 
 <div align="center">
 
-**🌱 Smart Crop Disease Detection System**
+**🌱 Smart Farmer Assistant**
 
 *Empowering Farmers with Artificial Intelligence & Direct Trade*
 

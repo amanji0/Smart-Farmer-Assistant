@@ -1,4 +1,4 @@
-# 📊 Smart Crop Assistant — Progress Log
+# 📊 Smart Farmer Assistant — Progress Log
 
 > **Team Leader:** Ashraf AlAsil (ID: 4241391)  
 > **Last Updated:** March 6, 2026  
@@ -14,7 +14,7 @@
 **Date:** March 6, 2026  
 **Done by:** Ashraf AlAsil
 
-- ✅ Created repo: `smart-crop-assistant` (Public)
+- ✅ Created repo: `smart-farmer-assistant` (Public)
 - ✅ Created 6 branches: `main`, `dev`, `feature/backend`, `feature/frontend`, `feature/crop-model`, `feature/disease-model`
 - ✅ Protected `main` branch (Pull Request required to merge)
 - ✅ Invited all 9 team members
@@ -49,7 +49,7 @@
 ### AI-01 — Dataset Exploration (EDA) ✅
 **Date:** March 6, 2026  
 **Done by:** Ashraf AlAsil  
-**Notebook:** `smart-crop-ai/notebooks/crop_ai_week1.ipynb`
+**Notebook:** `smart-farmer-ai/notebooks/crop_ai_week1.ipynb`
 
 **Dataset:** Crop Recommendation Dataset (Kaggle)
 
@@ -81,7 +81,7 @@
 ### AI-02 — Data Preprocessing ✅
 **Date:** March 6, 2026  
 **Done by:** Ashraf AlAsil  
-**Files saved in** `smart-crop-ai/models/`
+**Files saved in** `smart-farmer-ai/models/`
 
 - ✅ LabelEncoder → 22 crop names converted to numbers
 - ✅ StandardScaler → all 7 features scaled (mean=0)
@@ -96,7 +96,7 @@
 ### AI-03 — Random Forest Model Training ✅
 **Date:** March 6, 2026  
 **Done by:** Ashraf AlAsil  
-**File:** `smart-crop-ai/models/crop_model.pkl`
+**File:** `smart-farmer-ai/models/crop_model.pkl`
 
 **Experiments:**
 | n_estimators | Accuracy |
@@ -114,7 +114,7 @@
 | Train samples | 1,760 |
 | Test samples | 440 |
 
-**Confusion Matrix:** saved in `smart-crop-ai/docs/confusion_matrix.png`  
+**Confusion Matrix:** saved in `smart-farmer-ai/docs/confusion_matrix.png`  
 Result: Near-perfect diagonal — model predicts almost all crops correctly.
 
 ---
@@ -135,8 +135,8 @@ Result: Near-perfect diagonal — model predicts almost all crops correctly.
 ## 📁 File Structure (Current)
 
 ```
-smart-crop-assistant/
-├── 📁 smart-crop-ai/
+smart-farmer-assistant/
+├── 📁 smart-farmer-ai/
 │   ├── 📁 models/
 │   │   ├── crop_model.pkl        ← Random Forest (99.55% accuracy)
 │   │   ├── scaler.pkl            ← StandardScaler
@@ -163,11 +163,11 @@ smart-crop-assistant/
 import pickle
 
 # Load
-with open('smart-crop-ai/models/crop_model.pkl', 'rb') as f:
+with open('smart-farmer-ai/models/crop_model.pkl', 'rb') as f:
     model = pickle.load(f)
-with open('smart-crop-ai/models/scaler.pkl', 'rb') as f:
+with open('smart-farmer-ai/models/scaler.pkl', 'rb') as f:
     scaler = pickle.load(f)
-with open('smart-crop-ai/models/label_encoder.pkl', 'rb') as f:
+with open('smart-farmer-ai/models/label_encoder.pkl', 'rb') as f:
     le = pickle.load(f)
 
 # Predict

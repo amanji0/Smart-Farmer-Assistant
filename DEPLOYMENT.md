@@ -1,6 +1,6 @@
 # 🚀 Deployment Guide
 
-This guide will walk you through deploying the **Smart Crop Disease Detection System** to GitHub and Vercel.
+This guide will walk you through deploying the **Smart Farmer Assistant** to GitHub and Vercel.
 
 ---
 
@@ -11,18 +11,18 @@ If you haven't already, initialize a git repository in the root of your project:
 ```bash
 git init
 git add .
-git commit -m "Initialize project: Smart Crop Disease Detection System"
+git commit -m "Initialize project: Smart Farmer Assistant"
 ```
 
 ### Step 2: Create a New Repo on GitHub
 1. Go to [github.com/new](https://github.com/new).
-2. Name your repository (e.g., `smart-crop-system`).
+2. Name your repository (e.g., `smart-farmer-assistant`).
 3. Click "Create repository".
 
 ### Step 3: Push to GitHub
 Copy the commands from GitHub to link your local repo and push:
 ```bash
-git remote add origin https://github.com/YOUR_USERNAME/smart-crop-system.git
+git remote add origin https://github.com/YOUR_USERNAME/smart-farmer-assistant.git
 git branch -M main
 git push -u origin main
 ```

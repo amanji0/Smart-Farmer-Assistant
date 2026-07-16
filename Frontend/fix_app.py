@@ -1,6 +1,6 @@
 import sys
 
-path = '/Users/amanji/Documents/Lotus/Project plant/smart-crop-assistant/Frontend/src/App.jsx'
+path = '/Users/amanji/Documents/Lotus/Project plant/smart-farmer-assistant/Frontend/src/App.jsx'
 
 with open(path, 'r', encoding='utf-8') as f:
     content = f.read()

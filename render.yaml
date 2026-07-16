@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: smart-crop-api
+    name: smart-farmer-api
     runtime: python
     rootDir: backend
     buildCommand: pip install --no-cache-dir -r requirements.txt
@@ -20,7 +20,7 @@ services:
     healthCheckPath: /health
 
   - type: web
-    name: smart-crop-frontend
+    name: smart-farmer-frontend
     env: static
     buildCommand: "cd Frontend && npm install && npm run build"
     staticPublishPath: "./Frontend/dist"
@@ -28,5 +28,5 @@ services:
       - key: VITE_API_URL
         fromService:
           type: web
-          name: smart-crop-api
+          name: smart-farmer-api
           envVarKey: RENDER_EXTERNAL_URL
