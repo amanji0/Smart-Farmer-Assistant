@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { X, ChevronRight, Github, Twitter, Linkedin, UserCircle, ArrowRight, Menu, X as XIcon, Sun, Moon, Leaf, ScanEye, Sprout, CloudSun, Smartphone, ShoppingBag, Award, HeartHandshake, MapPin, Calendar, Target, Image, Microscope, Wheat, Carrot, Apple, Grape, SunMedium, CloudRain, Droplets, Flower2, Snowflake, Pill, ShieldCheck, Hourglass, Wind, Lightbulb, FlaskConical, Loader2, Store, FileEdit, Bot, CheckCircle } from 'lucide-react';
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
-import * as tf from '@tensorflow/tfjs';
+// import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import Marketplace from './pages/Marketplace';
 import Schemes from './pages/Schemes';
@@ -93,15 +93,17 @@ export default function SmartCropApp() {
     }
   };
 
+  /*
   const handleDemoLogin = async (role) => {
     try {
       const res = await axios.post(`${API_URL}/auth/demo?role=${role}`);
       setUser(res.data.user);
       setToken(res.data.access_token);
-    } catch (err) {
+    } catch {
       alert('Demo login failed');
     }
   };
+  */
 
   const handleLogout = () => {
     googleLogout();

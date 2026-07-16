@@ -38,7 +38,7 @@ const Marketplace = ({ user, token, loginWithGoogle, t }) => {
       alert('Crop listed successfully!');
       setNewCrop({ name: '', qty: '', price: '', contact: '' });
       fetchListings();
-    } catch (err) {
+    } catch {
       alert('Error posting crop');
     }
   };
@@ -91,7 +91,7 @@ const Marketplace = ({ user, token, loginWithGoogle, t }) => {
             });
             alert('Payment Successful!');
             fetchListings();
-          } catch (verifyErr) {
+          } catch {
             alert('Payment verification failed.');
           }
         },
